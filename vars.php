@@ -6,7 +6,7 @@
 function setupConfigVariables()
 {
 	$GLOBALS['_MAX']['CONF'] = parseIniFile();
-	}
+}
 
 /**
  * A function to initialize $_SERVER variables which could be missing

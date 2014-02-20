@@ -8,7 +8,7 @@ function setupConstants()
     define('MAD_PRODUCT_URL',       'www.madserve.org');
     define('MAD_ANDROID_SDK_LOCATION',  'sdk/android_latest.zip');
     define('MAD_IOS_SDK_LOCATION',  'sdk/ios_latest.zip');
-	
+
 	// settings
     define('MAD_PUBL_ACTIVE_CRITERIA_SECONDS', 3600);
     define('MAD_USER_SESSION_TIMEOUT', 3600);
@@ -17,10 +17,10 @@ function setupConstants()
 	define('MAD_TRCHECK_INTERVAL_PRODUCTION', 3600);
 	define('MAD_MFCHECK_INTERVAL_DASHBOARD', 86400);
 	define('MAD_ACTION_EXEC_INTERVAL_DASHBOARD', 3000);
-	
+
 	// maintenance mode - stop's ad serving
     define('MAD_MAINTENANCE', 0);
-	
+
 	// other settings
 	define('MAD_ADSERVING_PROTOCOL', 'http://');
 	define('MAD_CLICK_HANDLER', 'md.click.php');

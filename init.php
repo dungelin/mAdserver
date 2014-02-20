@@ -60,16 +60,16 @@ function init()
 
     // Increase the PHP memory_limit value to the mAdserve minimum required value, if necessary
     MAD_increaseMemoryLimit(MAD_getMinimumRequiredMemory());
-	
+
 	if (MAD_INSTALLATION_STATUS == MAD_INSTALLATION_STATUS_INSTALLED)
         {
             if ($mad_install_active==1){
                 echo "mAdserve has already been installed."; exit;	
             }
-	
+
             if (!MAD_connect_maindb()){
                 echo "Unable to connect to mAdserve main database. Please check the variables supplied in /conf/main.config.php and verify that MySQL is running."; exit; }
-	
+
             if ($GLOBALS['_MAX']['CONF']['reportingdatabase']['useseparatereportingdatabase']){
                 if (!MAD_connect_repdb()){
                     echo "Unable to connect to separated mAdserve reporting database. Please check the variables supplied in /conf/main.config.php and verify that MySQL is running."; exit; }
@@ -80,7 +80,7 @@ function init()
         global $repdb;
         $repdb = $maindb;
     }
-	
+
 }
 
 // Run the init() function
