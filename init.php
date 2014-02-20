@@ -35,18 +35,15 @@ function init()
     error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 
     // If not being called from the installation script...
-    if ( (!isset($GLOBALS['_MAX']['CONF']['madserve']['installed'])) || (!$GLOBALS['_MAX']['CONF']['madserve']['installed']) )
-        {
+    if ( (!isset($GLOBALS['_MAX']['CONF']['madserve']['installed'])) || (!$GLOBALS['_MAX']['CONF']['madserve']['installed']) ) {
             define('MAD_INSTALLATION_STATUS',    MAD_INSTALLATION_STATUS_NOTINSTALLED);
-        }
-    else if ($GLOBALS['_MAX']['CONF']['madserve']['installed'] && file_exists(MAD_PATH.'/conf/UPGRADE'))
-        {
+    }
+    else if ($GLOBALS['_MAX']['CONF']['madserve']['installed'] && file_exists(MAD_PATH.'/conf/UPGRADE')) {
             define('MAD_INSTALLATION_STATUS',    MAD_INSTALLATION_STATUS_UPGRADING);
-        }
-    else if ($GLOBALS['_MAX']['CONF']['madserve']['installed'] && file_exists(MAD_PATH.'/conf/INSTALLED'))
-        {
+    }
+    else if ($GLOBALS['_MAX']['CONF']['madserve']['installed'] && file_exists(MAD_PATH.'/conf/INSTALLED')) {
             define('MAD_INSTALLATION_STATUS',    MAD_INSTALLATION_STATUS_INSTALLED);
-        }
+    }
 
     // CHECK IF SCRIPT IS INSTALLED; OTHERWISE REDIRECT TO INSTALLER
     if (MAD_INSTALLATION_STATUS!=MAD_INSTALLATION_STATUS_INSTALLED && $mad_install_active!=1){
@@ -61,20 +58,20 @@ function init()
     // Increase the PHP memory_limit value to the mAdserve minimum required value, if necessary
     MAD_increaseMemoryLimit(MAD_getMinimumRequiredMemory());
 
-	if (MAD_INSTALLATION_STATUS == MAD_INSTALLATION_STATUS_INSTALLED)
-        {
-            if ($mad_install_active==1){
-                echo "mAdserve has already been installed."; exit;	
-            }
+	if (MAD_INSTALLATION_STATUS == MAD_INSTALLATION_STATUS_INSTALLED) {
+        if ($mad_install_active==1){
+            echo "mAdserve has already been installed."; exit;	
+        }
 
-            if (!MAD_connect_maindb()){
-                echo "Unable to connect to mAdserve main database. Please check the variables supplied in /conf/main.config.php and verify that MySQL is running."; exit; }
+        if (!MAD_connect_maindb()){
+            echo "Unable to connect to mAdserve main database. Please check the variables supplied in /conf/main.config.php and verify that MySQL is running."; exit; }
 
-            if ($GLOBALS['_MAX']['CONF']['reportingdatabase']['useseparatereportingdatabase']){
-                if (!MAD_connect_repdb()){
-                    echo "Unable to connect to separated mAdserve reporting database. Please check the variables supplied in /conf/main.config.php and verify that MySQL is running."; exit; }
+        if ($GLOBALS['_MAX']['CONF']['reportingdatabase']['useseparatereportingdatabase']){
+            if (!MAD_connect_repdb()){
+                echo "Unable to connect to separated mAdserve reporting database. Please check the variables supplied in /conf/main.config.php and verify that MySQL is running."; exit;
             }
         }
+    }
 
     if (!$GLOBALS['_MAX']['CONF']['reportingdatabase']['useseparatereportingdatabase']){
         global $repdb;

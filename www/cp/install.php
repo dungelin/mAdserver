@@ -46,9 +46,9 @@ if ($mad_install['step']==3){
 
 
 if ($mad_install['step']==4){
-	
+
     if (!verify_db_config($_POST)){
-        global $errormessage;	
+        global $errormessage;
         global $editdata;
         $mad_install['step']=3;
         $data=stripslashes($_POST['basic_config']);
@@ -56,14 +56,14 @@ if ($mad_install['step']==4){
     else {
         if (!write_config(MAD_PATH . '/conf/INSTALLTEMP_DBCONFIG', serialize($_POST))){
             echo "Fatal Error. Unable to write into /conf/ directory. Please check directory permissions and start over.";
-            exit;	
+            exit;
         }
     }
-	
+
 }
 
 if ($mad_install['step']==5){
-	
+
     if (!check_mf($_POST)){
         global $errormessage;	
         global $editdata;
@@ -72,7 +72,7 @@ if ($mad_install['step']==5){
     else {
 
     }
-	
+
 }
 
 
@@ -81,151 +81,136 @@ if ($mad_install['step']==5){
 require_once MAD_PATH . '/www/cp/templates/header_i.tpl.php';
 
 ?>
-<div id="content">		
-		
+<div id="content">
+
     <div id="contentHeader">
     <h1>mAdserve Installation Wizard - Step <?php echo $mad_install['step']; ?></h1>
-</div> <!-- #contentHeader -->	
-		
+</div> <!-- #contentHeader -->
     <div class="container">
-			
-				
+
     <div class="grid-24">
-            
+
 <?php if($mad_install['step']==1){ ?>
-            
-            
-						
 <?php if(!check_server()){?>
                           <div class="notify notify-info">
-						
                           <a href="javascript:;" class="close">&times;</a>
                           <h3>mAdserve Server Check Failed</h3>
-						
+
                           <p>You are only one step away from running your very own instance of mAdserve, world's most powerful mobile ad server. mAdserve has performed some checks on your server and there are a couple of thing's you'll need to do before mAdserve can be installed properly.</p>
 					</div> <!-- .notify -->
                     <?php } else { ?>
                     <div class="notify notify-success">
-						
 						<a href="javascript:;" class="close">&times;</a>
                     <h3>mAdserve Server Check Successful</h3>
-						
 						<p>Congratulations! You are only one step away from running your very own instance of mAdserve, world's most powerful mobile ad server. The Server check has been successful. To continue with installation, please click the button below.</p>
                           </div> <!-- .notify -->
 <?php } ?>
-			
 <?php if (!check_writeable(MAD_PATH . '/conf/')){ ?>
-                                                  <div class="widget">			
-						
+                                                  <div class="widget">
                                                   <div class="widget-header">
                                                   <span class="icon-x-alt"></span>
                                                   <h3>Configuration Directory not writeable: <?php echo MAD_PATH; ?>/conf/</h3>
                                                   </div>
-						
+
                                                   <div class="widget-content">
                                                   <p>In order to continue with installation, please make sure that the directory <strong><?php echo MAD_PATH; ?>/conf/</strong> is writeable. (eg. CHMOD 777)</p>
                                                   </div>
-						
-                                                  </div>	
-<?php } ?>		
-                    
+                                                  </div>
+<?php } ?>
+
 <?php if (!check_writeable(MAD_PATH . '/data/creative/')){ ?>
-                                                           <div class="widget">			
-						
+                                                           <div class="widget">
                                                            <div class="widget-header">
                                                            <span class="icon-x-alt"></span>
                                                            <h3>Creative Directory not writeable: <?php echo MAD_PATH; ?>/data/creative/</h3>
                                                            </div>
-						
                                                            <div class="widget-content">
                                                            <p>This is the directory where mAdserve will store creatives for ad-serving. In order to continue with installation, please make sure that the directory <strong><?php echo MAD_PATH; ?>/data/creative/</strong> is writeable. (eg. CHMOD 777)</p>
                                                            </div>
-						
+
                                                            </div>	
 <?php } ?>
-                    
+
 <?php if (!php_cache_compatibility_check()){ ?>
                                              <div class="widget">			
-						
+
                                              <div class="widget-header">
                                              <span class="icon-x-alt"></span>
                                              <h3>Recommended: PHP Version 5.3+</h3>
                                              </div>
-						
+
                                              <div class="widget-content">
                                              <p>mAdserve has detected that your PHP version is lower than 5.3. If you would like to enable caching to speed up your mAdserve ad server, you'll need to have PHP 5.3 or greater installed.</p>
 						</div>
-						
+
 					</div>
                     <?php } ?>
-                    
+
                     <?php if (!check_writeable(MAD_PATH . '/data/cache/')){ ?>
 					<div class="widget">			
-						
+
 						<div class="widget-header">
 							<span class="icon-x-alt"></span>
 							<h3>Optional: Caching Directory not writeable: <?php echo MAD_PATH; ?>/data/cache/</h3>
 						</div>
-						
+
 						<div class="widget-content">
 							<p>If you'd like to enable File-Based caching to speed up your mAdserve ad server, please make sure that the caching directory <strong><?php echo MAD_PATH; ?>/data/cache/</strong> is writeable. (eg. CHMOD 777)</p>
                                              </div>
-						
+
                                              </div>	
 <?php } ?>		
-                    
+
 <?php if (!check_xml()){ ?>
                          <div class="widget">			
-						
+
                          <div class="widget-header">
                          <span class="icon-x-alt"></span>
                          <h3>Required: SimpleXML PHP Extension</h3>
                          </div>
-						
+
                          <div class="widget-content">
                          <p>It seems that the SimpleXML Extension is not loaded in your PHP Installation. mAdserve requires SimpleXML, and you can find instructions on how to install it <a href="http://php.net/manual/en/book.simplexml.php" target="_blank">here.</a></p>
                          </div> 
                          </div>
 <?php } ?>		
-                    
+
 <?php if (!check_mbstring()){ ?>
                               <div class="widget">			
-						
+
                               <div class="widget-header">
                               <span class="icon-x-alt"></span>
                               <h3>Required: mbstring PHP Extension</h3>
                               </div>
-						
+
                               <div class="widget-content">
                               <p>mAdserve requires the PHP mbstring extension to be installed for geo targeting. You can find instructions on how to install it <a href="http://php.net/manual/en/book.mbstring.php" target="_blank">here.</a></p>
                               </div> 
                               </div>
-<?php } ?>		
-            
-                    
-                                   <form method="get" id="installer" name="installer" class="form uniformForm">
-                                   <input type="hidden" name="step" value="2" />				
-					
-				
+<?php } ?>
 
-                                   <div class="actions">						
+                                   <form method="get" id="installer" name="installer" class="form uniformForm">
+                                   <input type="hidden" name="step" value="2" />
+
+
+                                   <div class="actions">
 <?php if(check_server()){?><button type="submit" class="btn btn-quaternary btn-large">>> Continue to Server Configuration</button>&nbsp;&nbsp;<?php }?><button type="button" onclick="javascript:location.reload(true)" class="btn btn-quaternary btn-large">Refresh</button>
                                    </div> <!-- .actions -->
-                                
+
 <?php } ?>
-                                
+
 <?php if ($mad_install['step']==2){ ?>
-                                
+
 <?php if (isset($errormessage)){ ?>
         <div class="box plain"><div class="notify notify-error"><h3>Error</h3><p><?php echo $errormessage; ?></p></div> <!-- .notify --></div>
 <?php } ?>
 
-                                
+
 <form method="post" action="install.php" id="installer" name="installer" class="form uniformForm">
-<input type="hidden" name="step" value="3" />				
-                                
+<input type="hidden" name="step" value="3" />
+
 <div class="widget">
-						
+
 <div class="widget-header">
 <span class="icon-article"></span>
 <h3>General Server Configuration</h3>

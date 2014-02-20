@@ -32,7 +32,7 @@ function setupConstants()
 	define('MAD_ENABLE_CACHE', false);
 	define('MAD_DEFAULT_CACHE', 'File'); // Possible Values: File (File Cache: data/cache/ needs to be writeable, otherwise script will crash), APC, Memcache, Memcached, Redis, WinCache, XCache, ZendCache, ZendSHM, eAccelerator
 	define('MAD_FILE_CACHE_DIR', 'data/cache/');
-	
+
 	// time zone settings
 	define('MAD_TIMEZONE_OVERRIDE', true); // Override Server Time Zone
 	define('MAD_DEFAULT_TIMEZONE', 'Europe/Berlin'); // Time Zone to use. e.g. 'America/Los_Angeles' / Full List of Time Zones supported: http://www.php.net/manual/en/timezones.php
@@ -88,7 +88,7 @@ function setupConstants()
                 define('PATH_SEPARATOR', ':');
             }
         }
-      
+
     }
 }
 ?>
