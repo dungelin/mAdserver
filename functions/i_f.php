@@ -320,8 +320,8 @@ function finalize_install($data){
   `campaign_creationdate` varchar(100) NOT NULL,
   `campaign_networkid` varchar(100) NOT NULL,
   `campaign_priority` varchar(100) NOT NULL,
-  `campaign_rate_type` varchar(100) NOT NULL,
-  `campaign_rate` varchar(100) NOT NULL,
+  `campaign_rate_type` varchar(100) NULL,
+  `campaign_rate` varchar(100) NULL,
   `target_iphone` varchar(1) NOT NULL,
   `target_ipod` varchar(1) NOT NULL,
   `target_ipad` varchar(1) NOT NULL,
@@ -486,7 +486,7 @@ function finalize_install($data){
   `inv_description` varchar(100) NOT NULL,
   `inv_address` varchar(100) NOT NULL,
   `inv_defaultchannel` varchar(100) NOT NULL,
-  `md_lastrequest` varchar(100) NOT NULL,
+  `md_lastrequest` varchar(100) NULL,
   PRIMARY KEY  (`inv_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;", $maindb);
     mysql_query("CREATE TABLE IF NOT EXISTS `md_publication_types` (
@@ -5059,7 +5059,7 @@ function finalize_install($data){
   `zone_height` varchar(100) NOT NULL,
   `zone_refresh` varchar(100) NOT NULL,
   `zone_channel` varchar(100) NOT NULL,
-  `zone_lastrequest` varchar(100) NOT NULL,
+  `zone_lastrequest` varchar(100) NULL,
   `zone_description` longtext NOT NULL,
   `mobfox_backfill_active` varchar(100) NOT NULL,
   `mobfox_min_cpc_active` varchar(100) NOT NULL,
