@@ -4774,47 +4774,47 @@ function execute_pending_actions(){
 
     $action_res=mysql_query("SELECT entry_id, action_id, action_detail FROM md_pending_actions ORDER BY entry_id ASC", $maindb);
     while($action_detail=mysql_fetch_array($action_res)){
-	
+
         switch($action_detail['action_id']){
         case 'mf_add_publication':
             if (mf_add_publication_layer($action_detail['action_detail'], 0)){
                 delete_pending_action($action_detail['entry_id']);
             }
-            break;	
+            break;
         }
 
-    }	
+    }
 
     update_configvar('last_pendingactions_exec', time());
 
 }
 
 function execute(){
-	
+
     if (getconfig_var('last_trafficrequest_update')==''){
-	
+
 //path to directory to scan
         $directory = MAD_PATH. "/modules/network_modules/";
- 
+
 //get all files in specified directory
         $files = glob($directory . "*");
- 
+
 //print each file name
         foreach($files as $file)
             {
                 //check to see if the file is a folder/directory
                 if(is_dir($file))
                     {
-	 
+
                         $network_name = str_replace(MAD_PATH. "/modules/network_modules/", '', $file);
                         install_network($network_name);
 
                     }
- 
+
             }
-	
+
     }
-	
+
     $time_since_last_tr=time()-getconfig_var('last_trafficrequest_update');
     if ($time_since_last_tr>=MAD_TRCHECK_INTERVAL_DASHBOARD or !is_numeric(getconfig_var('last_trafficrequest_update'))){
         update_traffic_requests();	
@@ -5557,7 +5557,6 @@ function delete_creativeserver($id){
     mysql_query("DELETE from md_ad_units where adv_type='1' AND creativeserver_id='$id'", $maindb);
 
     return true;
-	
 }
 
 function campaign_limit_update(){
@@ -5577,7 +5576,6 @@ function campaign_limit_update(){
     update_configvar('last_limit_update', time());
 
     add_syslog('campaign_limit_update', '');
-	
 }
 
 function add_syslog($type, $detail){

@@ -129,7 +129,7 @@ function ad_request($data){
 
     build_query();
 
-    if ($campaign_query_result=launch_campaign_query("select md_campaigns.campaign_id, md_campaigns.campaign_priority, md_campaigns.campaign_type, md_campaigns.campaign_networkid from md_campaigns LEFT JOIN md_campaign_targeting c1 ON md_campaigns.campaign_id = c1.campaign_id LEFT JOIN md_campaign_targeting c2 ON md_campaigns.campaign_id = c2.campaign_id LEFT JOIN md_campaign_targeting c3 ON md_campaigns.campaign_id = c3.campaign_id LEFT JOIN md_ad_units ON md_campaigns.campaign_id = md_ad_units.campaign_id LEFT JOIN md_campaign_limit ON md_campaigns.campaign_id = md_campaign_limit.campaign_id where md_campaigns.campaign_status=1 group by md_campaigns.campaign_id")/*launch_campaign_query($request_settings['campaign_query'])*/){
+    if ($campaign_query_result=launch_campaign_query($request_settings['campaign_query'])){
         if (!process_campaignquery_result($campaign_query_result)) {
             launch_backfill();
         }
@@ -164,7 +164,6 @@ function display_ad(){
 //echo "Displaying ad..."; global $display_ad; print_r($display_ad); global $request_settings; print_r($request_settings); global $zone_detail; print_r($zone_detail);  exit;
 
     exit;
-	
 }
 
 function reporting_db_update($publication_id, $zone_id, $campaign_id, $creative_id, $network_id, $add_request, $add_request_sec, $add_impression, $add_click){
@@ -206,12 +205,11 @@ function reporting_db_update($publication_id, $zone_id, $campaign_id, $creative_
     }
     else {
 
-        if ($exec=mysql_query($select_query, $repdb)) 
-            { 
+        if ($exec=mysql_query($select_query, $repdb)) {
 //yay
-                $repcard_detail = mysql_fetch_array($exec);
-                set_cache($select_query, $repcard_detail, 1500);
-            } 
+            $repcard_detail = mysql_fetch_array($exec);
+            set_cache($select_query, $repcard_detail, 1500);
+        } 
         else 
             {
                 return false;
@@ -227,7 +225,6 @@ function reporting_db_update($publication_id, $zone_id, $campaign_id, $creative_
 VALUES ('1', '".$current_date."', '".$current_day."', '".$current_month."', '".$current_year."', '".$publication_id."', '".$zone_id."', '".$campaign_id."', '".$creative_id."', '".$network_id."', '".$add_request."', '".$add_request_sec."', '".$add_impression."', '".$add_click."')", $repdb);	
     }
 
-
 }
 
 function track_request($impression){
@@ -235,7 +232,9 @@ function track_request($impression){
     global $zone_detail;
     global $display_ad;
 
-    if (!isset($request_settings['active_campaign_type'])){$request_settings['active_campaign_type']='';}
+    if (!isset($request_settings['active_campaign_type'])) {
+        $request_settings['active_campaign_type']='';
+    }
 
     switch ($request_settings['active_campaign_type']){
     case 'normal':
@@ -256,9 +255,9 @@ function track_request($impression){
     }
 
     if ($impression==1){
-/*Deduct Impression from Limit Card*/
+        /*Deduct Impression from Limit Card*/
         switch ($request_settings['active_campaign_type']){
-	
+
         case 'normal':
             deduct_impression($display_ad['campaign_id']);
             break;
@@ -266,11 +265,9 @@ function track_request($impression){
         case 'network':
             deduct_impression($request_settings['active_campaign']);
             break;
-
         }
 
     }
-	
 }
 
 function deduct_impression($campaign_id){
@@ -283,7 +280,7 @@ function convert_interstitial_name($input){
 
     case 'interstitial':
         return 'interstitial';
-        break;	
+        break;
 
     case 'video':
         return 'video';
@@ -295,17 +292,16 @@ function convert_interstitial_name($input){
 
     case 'video-interstitial':
         return 'video-to-interstitial';
-        break;	
-	
+        break;
     }
 }
 
 function print_ad(){
-    global $display_ad;	
+    global $display_ad;
     global $request_settings;
 
     if ($display_ad['main_type']=='display'){
-	
+
         switch ($request_settings['response_type']){
 
         case 'xml':
@@ -349,10 +345,7 @@ function print_ad(){
   }*/
             echo 'var '.$_GET['jsvar'].' = [{"url" : "'.$display_ad['final_click_url'].'","content" : "'.addslashes($display_ad['final_markup']).'", "track" : ""}];';
             break;
-	
-	
         }
-	
     }
     else if ($display_ad['main_type']=='interstitial'){
         echo '<ad type="'.convert_interstitial_name($display_ad['type']).'" animation="'.$display_ad['animation'].'">';
@@ -370,11 +363,11 @@ function print_ad(){
             echo '<bottombar custombackgroundurl="'.$display_ad['interstitial-navigation-bottombar-custombg'].'" show="'.$display_ad['interstitial-navigation-bottombar-show'].'" backbutton="'.$display_ad['interstitial-navigation-bottombar-backbutton'].'" forwardbutton="'.$display_ad['interstitial-navigation-bottombar-forwardbutton'].'" reloadbutton="'.$display_ad['interstitial-navigation-bottombar-reloadbutton'].'" externalbutton="'.$display_ad['interstitial-navigation-bottombar-externalbutton'].'" timer="'.$display_ad['interstitial-navigation-bottombar-timer'].'">';
             echo '</bottombar>';
             echo '</navigation>';
-            echo '</interstitial>';	
+            echo '</interstitial>';
         }
-	
+
         if ($display_ad['type']=='video' or $display_ad['type']=='video-interstitial' or $display_ad['type']=='interstitial-video'){
-	
+
             echo '<video orientation="'.$display_ad['video-orientation'].'" expiration="'.$display_ad['video-expiration'].'">';
             echo '<creative display="'.$display_ad['video-creative-display'].'" delivery="'.$display_ad['video-creative-delivery'].'" type="'.$display_ad['video-creative-type'].'" bitrate='.$display_ad['video-creative-bitrate'].'"" width="'.$display_ad['video-creative-width'].'" height="'.$display_ad['video-creative-height'].'"><![CDATA['.$display_ad['video-creative-url'].']]></creative>';
             echo '<duration>'.$display_ad['video-duration'].'</duration>';
@@ -400,18 +393,13 @@ function print_ad(){
                 echo '</htmloverlay>';
             }
             echo '</video>';
-
-		
         }
-	
         echo "</ad>";
-	
     }
-	
 }
 
 function prepare_ctr(){
-    global $display_ad;	
+    global $display_ad;
     global $request_settings;
     global $zone_detail;
 //$base_ctr="".MAD_ADSERVING_PROTOCOL . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF'])."/".MAD_CLICK_HANDLER."?zone_id=".$zone_detail['entry_id']."&h=".$request_settings['request_hash']."";
@@ -445,16 +433,16 @@ function get_destination_url(){
     if (isset($display_ad['click_url'])){
         return $display_ad['click_url'];
     } else {
-        return '';	
+        return '';
     }
 }
 
 function prepare_markup(){
-    global $display_ad;	
+    global $display_ad;
     global $request_settings;
-	
+
     if ($display_ad['main_type']=='display'){
-	
+
         switch ($display_ad['type']){
         case 'hosted':
         case 'image-url':
@@ -464,30 +452,29 @@ function prepare_markup(){
             else {
                 $final_markup='<body style="text-align:center;margin:0;padding:0;"><div align="center"><a id="mAdserveAdLink" href="'.$display_ad['final_click_url'].'" target="_self"><img id="mAdserveAdImage" src="'.$display_ad['image_url'].'" border="0"/></a></div></body>';
             }
-            break;	
-
+            break;
 
         case 'markup':
             $final_markup=generate_final_markup();
-            break;	
+            break;
 
         case 'mraid-markup':
             $final_markup=$display_ad['html_markup'];
-            break;	
+            break;
         }
-	
+
         if (isset($display_ad['trackingpixel']) && !empty($display_ad['trackingpixel']) && $display_ad['trackingpixel']!=''){
             $final_markup=$final_markup . generate_trackingpixel($display_ad['trackingpixel']);
         }
-	
+
         $display_ad['final_markup']=$final_markup;
 
     }
-	
+
 }
 
 function generate_final_markup(){
-    global $display_ad;	
+    global $display_ad;
     global $request_settings;
 
     if (isset($display_ad['click_url']) && !empty($display_ad['click_url'])){
@@ -638,14 +625,13 @@ function select_adunit_query($campaign_id){
     set_cache($query, $val, 100);
 
     return $val;
-	
 }
 
 function select_ad_unit($campaign_id){
     global $request_settings;
 
     if (!$ad_unit_array = select_adunit_query($campaign_id)){
-        return false;	
+        return false;
     }
 
     shuffle($ad_unit_array);
@@ -656,10 +642,10 @@ function select_ad_unit($campaign_id){
     }
 
     if (build_ad(1, $final_ad)){
-        return true;	
+        return true;
     }
 
-    return false;	
+    return false;
 }
 
 function get_creativeserver($id){
@@ -711,7 +697,7 @@ function build_ad($type, $content){
         $display_ad['available']=1;
         $display_ad['ad_id']=$content['adv_id'];
         $display_ad['campaign_id']=$content['campaign_id'];
-	
+
         switch ($zone_detail['zone_type']){
         case 'banner':
             $display_ad['main_type']='display';
@@ -893,7 +879,7 @@ function generate_trackingpixel($url){
 }
 
 function get_ad_unit($id){
-	
+
     $query="SELECT adv_id, campaign_id, unit_hash, adv_type, adv_click_url, adv_click_opentype, adv_chtml, adv_mraid, adv_bannerurl, adv_impression_tracking_url, adv_clickthrough_type, adv_creative_extension, creativeserver_id, adv_height, adv_width FROM md_ad_units WHERE adv_id='".$id."'";
 
     $ad_detail=simple_query_maindb($query, true, 250);
@@ -904,37 +890,36 @@ function get_ad_unit($id){
     else {
         return $ad_detail;
     }
-	
+
 }
 
 function process_campaignquery_result($result){
     global $zone_detail;
-    foreach($result as $key=>$campaign_detail) 
-        { 
+    foreach($result as $key=>$campaign_detail) {
 //echo "[";  echo "id: "; echo $campaign_detail['campaign_id']; echo " prio: "; echo $campaign_detail['priority']; echo " type: "; echo $campaign_detail['type']; echo " networkid: "; echo $campaign_detail['network_id']; echo "]";
 //break;
 
-            if ($campaign_detail['type']=='network'){
-                reporting_db_update($zone_detail['publication_id'], $zone_detail['entry_id'], $campaign_detail['campaign_id'], '', $campaign_detail['network_id'], 0, 1, 0, 0); 
-                if (network_ad_request($campaign_detail['network_id'], 0)){
-                    global $request_settings;
-                    $request_settings['active_campaign_type']='network';
-                    $request_settings['active_campaign']=$campaign_detail['campaign_id'];
-                    $request_settings['network_id']=$campaign_detail['network_id'];
-                    return true;
-                    break;	
-                }
+        if ($campaign_detail['type']=='network'){
+            reporting_db_update($zone_detail['publication_id'], $zone_detail['entry_id'], $campaign_detail['campaign_id'], '', $campaign_detail['network_id'], 0, 1, 0, 0); 
+            if (network_ad_request($campaign_detail['network_id'], 0)){
+                global $request_settings;
+                $request_settings['active_campaign_type']='network';
+                $request_settings['active_campaign']=$campaign_detail['campaign_id'];
+                $request_settings['network_id']=$campaign_detail['network_id'];
+                return true;
+                break;	
             }
-            else {
-                if (select_ad_unit($campaign_detail['campaign_id'])){
-                    global $request_settings;
-                    $request_settings['active_campaign_type']='normal';
-                    $request_settings['active_campaign']=$campaign_detail['campaign_id'];
-                    return true;
-                    break;
-                }
+        }
+        else {
+            if (select_ad_unit($campaign_detail['campaign_id'])){
+                global $request_settings;
+                $request_settings['active_campaign_type']='normal';
+                $request_settings['active_campaign']=$campaign_detail['campaign_id'];
+                return true;
+                break;
             }
-        } 
+        }
+    } 
 	return false;
 }
 
@@ -1029,7 +1014,7 @@ function launch_campaign_query($q){
     }
 
     if (count($campaignarray)<1){
-        return false;	
+        return false;
     }
 
     foreach ($campaignarray as $key => $row) {
@@ -1062,17 +1047,12 @@ function launch_campaign_query($q){
     }
 
     return $final_ads;
-
-
-
-
-	
 }
 
 function noad(){
     global $request_settings;
     print_error(0, '', $request_settings['sdk'], 1);
-    return false;		
+    return false;
 }
 
 function build_query(){
@@ -1080,13 +1060,13 @@ function build_query(){
     global $zone_detail;
 
     if (isset($request_settings['geo_country']) && !empty($request_settings['geo_country']) && isset($request_settings['geo_region']) && !empty($request_settings['geo_region'])){
-        $query_part['geo']=" OR (c1.targeting_type='geo' AND (c1.targeting_code='".$request_settings['geo_country']."' OR c1.targeting_code='".$request_settings['geo_country']."_".$request_settings['geo_region']."')))";	
+        $query_part['geo']=" OR (c1.targeting_type='geo' AND (c1.targeting_code='".$request_settings['geo_country']."' OR c1.targeting_code='".$request_settings['geo_country']."_".$request_settings['geo_region']."')))";
     }
     else if (isset($request_settings['geo_country']) && !empty($request_settings['geo_country'])){
-        $query_part['geo']=" OR (c1.targeting_type='geo' AND c1.targeting_code='".$request_settings['geo_country']."'))";		
+        $query_part['geo']=" OR (c1.targeting_type='geo' AND c1.targeting_code='".$request_settings['geo_country']."'))";
     }
     else {
-        $query_part['geo']=')';	
+        $query_part['geo']=')';
     }
 
     if (isset($request_settings['channel']) && is_numeric($request_settings['channel'])){
@@ -1101,7 +1081,7 @@ function build_query(){
     $query_part['misc']="AND md_campaigns.campaign_status=1 AND md_campaigns.campaign_start<='".date("Y-m-d")."' AND md_campaigns.campaign_end>'".date("Y-m-d")."'";
 
     switch ($request_settings['main_device']){
-	
+
     case 'IPHONE':
         $query_part['device']='AND (md_campaigns.device_target=1 OR md_campaigns.target_iphone=1)';
         break;
@@ -1165,18 +1145,17 @@ function build_query(){
         }
         break;
     }
+/*Debug
+  $query_part['limit']="AND (md_campaign_limit.total_amount_left='' OR md_campaign_limit.total_amount_left>=1)";
 
-    $query_part['limit']="AND (md_campaign_limit.total_amount_left='' OR md_campaign_limit.total_amount_left>=1)";
-
-    if (MAD_IGNORE_DAILYLIMIT_NOCRON && !check_cron_active()){
-        $query_part['limit']="AND ((md_campaign_limit.total_amount_left='' OR md_campaign_limit.total_amount_left>=1) OR (md_campaign_limit.cap_type=1))";
-    }
-
+  if (MAD_IGNORE_DAILYLIMIT_NOCRON && !check_cron_active()){
+  $query_part['limit']="AND ((md_campaign_limit.total_amount_left='' OR md_campaign_limit.total_amount_left>=1) OR (md_campaign_limit.cap_type=1))";
+  }
+*/
     $request_settings['campaign_query']="select md_campaigns.campaign_id, md_campaigns.campaign_priority, md_campaigns.campaign_type, md_campaigns.campaign_networkid from md_campaigns LEFT JOIN md_campaign_targeting c1 ON md_campaigns.campaign_id = c1.campaign_id LEFT JOIN md_campaign_targeting c2 ON md_campaigns.campaign_id = c2.campaign_id LEFT JOIN md_campaign_targeting c3 ON md_campaigns.campaign_id = c3.campaign_id LEFT JOIN md_ad_units ON md_campaigns.campaign_id = md_ad_units.campaign_id LEFT JOIN md_campaign_limit ON md_campaigns.campaign_id = md_campaign_limit.campaign_id where (md_campaigns.country_target=1".$query_part['geo']." ".$query_part['channel']." ".$query_part['placement']." ".$query_part['misc']." ".$query_part['device']." ".$query_part['osversion']." ".$query_part['adunit']." ".$query_part['limit']." group by md_campaigns.campaign_id";
 
 
-    return true;	
-	
+    return true;
 }
 
 function check_cron_active(){
@@ -1221,7 +1200,7 @@ function get_last_cron_exec(){
 
 function set_geo($ip_address){
     global $request_settings;
-	
+
     $key='GEODATA_'.$ip_address.'';
 
     $cache_result=get_cache($key);
@@ -1252,13 +1231,13 @@ function set_geo($ip_address){
 
         if (!$gi = geoip_open(MAD_MAXMIND_DATAFILE_LOCATION,GEOIP_STANDARD)){
             print_error(1, 'Could not open GEOIP Database supplied in constants.php File. Please make sure that the file is present and that the directory has the necessary rights applied.', $request_settings['sdk'], 1);
-            return false;	
+            return false;
         }
 
         if (!$record = geoip_record_by_addr($gi,$ip_address)){
             $request_settings['geo_country']='';
             $request_settings['geo_region']='';
-            return false;	
+            return false;
         }
 
         $geo_data=array();
@@ -1275,13 +1254,12 @@ function set_geo($ip_address){
         if (!$record = geoip_record_by_name($ip_address)){
             $request_settings['geo_country']='';
             $request_settings['geo_region']='';
-            return false;	
+            return false;
         }
         $geo_data['geo_country']=$record['country_code'];
         $geo_data['geo_region']=$record['region'];
 
-        break;	
-	
+        break;
     }
 
     $request_settings['geo_country']=$geo_data['geo_country'];
@@ -1290,7 +1268,6 @@ function set_geo($ip_address){
     set_cache($key, $geo_data, 1000);
 
     return true;
-	
 }
 
 function set_device($user_agent){
@@ -1309,7 +1286,7 @@ function set_device($user_agent){
     }
 
     error_reporting(0);
-	
+
     require_once 'modules/devicedetection/Mobile_Detect.php';
     $detect = new Mobile_Detect($user_agent);
 
@@ -1317,7 +1294,7 @@ function set_device($user_agent){
         $temp['device_os']=get_device_osversion(1, $user_agent);
         $temp['main_device']='IPHONE';
     }
-	
+
     else if ($detect->isIpad()) {
         $temp['device_os']=get_device_osversion(1, $user_agent);
         $temp['main_device']='IPAD';
@@ -1342,7 +1319,7 @@ function set_device($user_agent){
 
         if (!MAD_SERVE_NOMOBILE){
             print_error(1, 'This ad-server does not serve ads to non-mobile devices.', $request_settings['sdk'], 1);
-            return false;	
+            return false;
         }
 
     }
@@ -1403,7 +1380,7 @@ function getchannel(){
 
 }
 
-function get_publication_channel($publication_id){	
+function get_publication_channel($publication_id){
     global $request_settings;
     global $errormessage;
 
@@ -1422,7 +1399,7 @@ function get_publication_channel($publication_id){
 }
 
 function update_last_request(){
-    global $zone_detail; 
+    global $zone_detail;
 
     $lastreq_dif=0;
     $timestamp=time();
@@ -1495,10 +1472,10 @@ function set_cache($query, $content, $time){
     require 'functions/cache.init.php';
 
     if ($cache->set($query, $content, $ttl = $time)){
-        return true;	
+        return true;
     }
 
-    return false;	
+    return false;
 }
 
 function simple_query_maindb($query, $cache, $sec){
@@ -1513,24 +1490,18 @@ function simple_query_maindb($query, $cache, $sec){
 
     }
 
-    if ($exec=mysql_query($query, $maindb)) 
-        { 
-//yay
-            $result = mysql_fetch_array($exec); // DEFINE ARRAY OF USER DETAILS 
-            if ($cache){
-                set_cache($query, $result, $sec);
-            }
-            return $result;
-        } 
-    else 
-        {
-            return false;
+    if ($exec=mysql_query($query, $maindb)) {
+        //yay
+        $result = mysql_fetch_array($exec); // DEFINE ARRAY OF USER DETAILS 
+        if ($cache){
+            set_cache($query, $result, $sec);
         }
-	
+        return $result;
+    }
+    else {
+        return false;
+    }
 }
-	
-
-
 
 function get_placement($data){
     global $request_settings;
@@ -1594,10 +1565,10 @@ function print_error($type, $message, $sdk_type, $e){
 
 function validate_md5($hash){
     if(!empty($hash) && preg_match('/^[a-f0-9]{32}$/', $hash)){
-        return true;	
+        return true;
     }
     else {
-        return false;	
+        return false;
     }
 }
 
@@ -1631,7 +1602,7 @@ function check_input($data){
 }
 
 function get_mobfox_id(){
-	
+
     $query="select entry_id from md_networks where network_identifier='MOBFOX'";
 
     if ($network_detail=simple_query_maindb($query, true, 2000)){
@@ -1641,15 +1612,14 @@ function get_mobfox_id(){
     }
 
     else {
-        return false;	
+        return false;
     }
 
-	
 }
 
 function prepare_ua($data){
     global $request_settings;
-	
+
     if (isset($data["h[User-Agent]"]) && !empty($data["h[User-Agent]"])){
         $request_settings['user_agent']=urldecode($data["h[User-Agent]"]);
     }
@@ -1716,16 +1686,13 @@ function prepare_ip($data){
 /*is_valid_ip*/
 
         ;
-	
     }
-	
 }
 
 function prepare_r_hash(){
     global $request_settings;
 
     $request_settings["request_hash"]=md5(uniqid(microtime()));
-	
 }
 
 function prepare_response(){
@@ -1736,10 +1703,8 @@ function prepare_response(){
     case 'xml':
         header ("Content-Type: text/xml");
         echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
-        break;	
-	
+        break;
     }
-	
 }
 
 

@@ -4920,7 +4920,7 @@ function finalize_install($data){
     mysql_query("CREATE TABLE IF NOT EXISTS `md_reporting` (
   `entry_id` int(11) NOT NULL auto_increment,
   `type` varchar(100) NOT NULL,
-  `time_stamp` varchar(100) NOT NULL,
+  `time_stamp` varchar(100) NULL,
   `date` date NOT NULL,
   `day` varchar(100) NOT NULL,
   `month` varchar(100) NOT NULL,
@@ -4934,7 +4934,7 @@ function finalize_install($data){
   `total_requests_sec` varchar(100) NOT NULL,
   `total_impressions` varchar(100) NOT NULL,
   `total_clicks` varchar(100) NOT NULL,
-  `total_cost` varchar(100) NOT NULL,
+  `total_cost` varchar(100) NULL,
   PRIMARY KEY  (`entry_id`),
   UNIQUE KEY `reporting_select` (`publication_id`(6),`zone_id`(6),`campaign_id`(6),`creative_id`(6),`network_id`(6),`date`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;", $maindb);
