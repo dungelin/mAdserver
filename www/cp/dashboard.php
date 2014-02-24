@@ -19,87 +19,65 @@ require_once MAD_PATH . '/www/cp/admin_functions.php';
 require_once MAD_PATH . '/www/cp/templates/header.tpl.php';
 
 ?>
-<div id="content">		
-		
+<div id="content">
+
 		<div id="contentHeader">
 			<h1>Dashboard</h1>
-		</div> <!-- #contentHeader -->	
-		
+		</div> <!-- #contentHeader -->
+
 		<div class="container">
-			
-			
+
 			<div class="grid-17">
-            
+
             <?php show_notifications(); ?>
-				
+
 				<div class="widget widget-plain">
-					
+
 					<div class="widget-content">
-				
+
 					  <h2 class="dashboard_title">
 							Today - Server Statistics
-							<span>All Metrics are displayed in Real Time</span></h2>				
+							<span>All Metrics are displayed in Real Time</span></h2>
 						<?php
-						$reportingdata_main=get_reporting_data("publisher", $today_day, $today_month, $today_year, '');
+						    $reportingdata_main = get_reporting_data("publisher", $today_day, $today_month, $today_year, '');
 						?>
 						<div class="dashboard_report first activeState">
 							<div class="pad">
 								<span class="value"><?php echo number_format($reportingdata_main['total_requests']); ?></span> Ad Requests
 							</div> <!-- .pad -->
 						</div>
-						
+
 						<div class="dashboard_report defaultState">
 							<div class="pad">
 								<span class="value"><?php echo number_format($reportingdata_main['total_impressions']); ?></span> Impressions
 							</div> <!-- .pad -->
 						</div>
-						
+
 						<div class="dashboard_report defaultState">
 							<div class="pad">
 								<span class="value"><?php echo number_format($reportingdata_main['total_clicks']); ?></span> Clicks
 							</div> <!-- .pad -->
 						</div>
-						
+
 						<div class="dashboard_report defaultState last">
 							<div class="pad">
 								<span class="value"><?php echo $reportingdata_main['ctr']; ?>%</span> CTR
 							</div> <!-- .pad -->
 						</div>
-						
+
 					</div> <!-- .widget-content -->
-					
+
 				</div> <!-- .widget -->
-				
-				
-				
-				
-				
-				
-				
-				
+
 				<?php graph_report_widget("dashboard", "publisher-all", "lastsevendays"); ?>
-				
-				
+
 				<?php quick_publication_report(); ?>
-					
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-			</div> <!-- .grid -->			
-			
-			
-			
+
+			</div> <!-- .grid -->
+
 			<div class="grid-7">
-				
-				
-				<?php if (get_setup_percentage()<100){ ?>
+
+				<?php if (get_setup_percentage() < 100){ ?>
 				<div id="gettingStarted" class="box">
 					<h3>mAdserve - Getting Started</h3>
 
@@ -117,8 +95,8 @@ require_once MAD_PATH . '/www/cp/templates/header.tpl.php';
 					</ul>
 				</div>
                 <?php } ?>
-				
-                <?php if (getconfig_var('update_check')==1){
+
+                <?php if (getconfig_var('update_check') == 1){
 					$box_url='http://network.madserve.org/newsbox.php?dv='.urlencode(getconfig_var('db_install_version')).'&cv='.urlencode(MAD_VERSION).''; if (getconfig_var('allow_statistical_info')==1){
 					$data_yesterday=get_reporting_data("publisher", date('d', mktime(0, 0, 0, date("m") , date("d")-1 , date("Y"))), date('m', mktime(0, 0, 0, date("m") , date("d")-1 , date("Y"))), date('Y', mktime(0, 0, 0, date("m") , date("d")-1 , date("Y"))), '');
 					$box_url=$box_url . '&u='.urlencode(getconfig_var('installation_id')).'&d='.urlencode(date('dmy', time()-86400)).'&re='.urlencode($data_yesterday['total_requests']).'&im='.urlencode($data_yesterday['total_impressions']).'&cl='.urlencode($data_yesterday['total_clicks']).'';} ?>
@@ -136,48 +114,41 @@ require_once MAD_PATH . '/www/cp/templates/header.tpl.php';
 		<a href="../../<?php echo MAD_IOS_SDK_LOCATION; ?>" class="btn btn-primary btn-large dashboard_add">Download iOS SDK</a>
 					<a href="../../<?php echo MAD_ANDROID_SDK_LOCATION; ?>" class="btn btn-quaternary btn-large dashboard_add">Download Android SDK</a>
 				<!-- .box -->
-				
-				
+
 				<!--<div class="box plain">
-					
+
 					<a href="javascript:;" class="btn btn-primary btn-large dashboard_add">Add A Session</a>
 					<a href="javascript:;" class="btn btn-tertiary btn-large dashboard_add">Add A Client</a>
 					<a href="javascript:;" class="btn btn-quaternary btn-large dashboard_add">Send Invoices</a>
-					
+
 				</div> -->
-				
-				
-				
+
 				<!--<div class="box">
 					<h3>Progress Bars</h3>
-					
+
 					<div class="progress-bar primary">
 						<div class="bar" style="width: 65%;">65%</div>
 					</div>
-					
+
 					<div class="progress-bar secondary">
 						<div class="bar" style="width: 42%;">42%</div>
 					</div>
-					
+
 					<div class="progress-bar tertiary thin">
 						<div class="bar" style="width: 83%;">83%</div>
 					</div>
-					
+
 					<div class="progress-bar quaternary thin">
 						<div class="bar" style="width: 93%;">93%</div>
 					</div>
 				</div> -->
-				
-				
-				
-				
+
 			</div> <!-- .grid -->
-			
+
 		</div> <!-- .container -->
-		
+
 	</div> <!-- #content -->
-	
 
 <?php
-require_once MAD_PATH . '/www/cp/templates/footer.tpl.php';
+    require_once MAD_PATH . '/www/cp/templates/footer.tpl.php';
 ?>

@@ -14,10 +14,6 @@
 					</div> <!-- .notify -->
                         <?php } ?>
 
-						
-                            
-                          
-                            
                             <div class="field-group">
 			
 								<div class="field">
@@ -27,18 +23,7 @@
 									<label for="inv_type">Select Publication</label>
 								</div>
 							</div> <!-- .field-group -->
-                            
-                         
-                           
-                             
-                             
-                            
-                          
-                            
-			
-							
-							
-						
+
 						</div> <!-- .widget-content -->
-						
+
 					</div> <!-- .widget -->

@@ -221,10 +221,10 @@ function get_setup_percentage(){
 function check_cron_active(){
     $last_cron=getconfig_var('last_cron_job');
     if (!is_numeric($last_cron)){
-        return false;	
+        return false;
     }
 
-    $dif=time()-$last_cron;
+    $dif = time() - $last_cron;
 
     if ($dif>86500){
         return false;
@@ -233,7 +233,7 @@ function check_cron_active(){
 }
 
 function show_notifications(){
-	
+
     if (!extension_loaded("SimpleXML")){
         echo '<div class="box plain">';
         echo '<div class="notify">';
@@ -271,10 +271,9 @@ function sanitize($data){
 //this will escape quotes in the input.
 
 // Usage across all PHP versions
-    if (get_magic_quotes_gpc()) 
-        {
+    if (get_magic_quotes_gpc()) {
             $data = stripslashes($data);
-        }
+    }
 
     $data = mysql_real_escape_string($data, $maindb);
     return $data;
@@ -520,48 +519,56 @@ function get_syslog($output_type, $limitcl){
 			</div> <!-- .qnc_content -->
 			</a>';
         }
-		if ($output_type=='full'){
+		if ($output_type=='full') {
             echo '<tr class="gradeA">
 								<td>#'.$log_detail['entry_id'].'</td>
 								<td>'.$log_info['log_desc'].'</td>
 								<td class="center">'.$log_date.'</td>
 							</tr>';
 		}
-	
+
     }
 
 }
+
 function get_userlist($display, $group){
-    global $maindb;	
+    global $maindb;
 
     if (is_numeric($group)){
-        $groupquery="where account_type='$group'";	
+        $groupquery = "where account_type='$group'";
     }
     else {
-        $groupquery='';	
+        $groupquery = '';
     }
 
-    $usrres=mysql_query("SELECT * FROM md_uaccounts $groupquery ORDER BY user_id DESC", $maindb);
-    while($usr_detail=mysql_fetch_array($usrres)){
-	
-        $usrgroupres=mysql_query("select * from md_user_groups where entry_id='$usr_detail[account_type]'", $maindb);
-        $user_group_detail=mysql_fetch_array($usrgroupres);
+    $usrres = mysql_query("SELECT * FROM md_uaccounts $groupquery ORDER BY user_id DESC", $maindb);
+    while($usr_detail = mysql_fetch_array($usrres)){
 
-        if ($usr_detail['account_status']==1){$user_act='Active';} else {$user_act='Inactive';}
+        $usrgroupres = mysql_query("select * from md_user_groups where entry_id='$usr_detail[account_type]'", $maindb);
+        $user_group_detail = mysql_fetch_array($usrgroupres);
 
-        if ($user_group_detail['entry_id']<1){$user_group_detail['group_name']='<em>No Group</em>'; $user_group_detail['entry_id']=0; }
+        if ($usr_detail['account_status'] == 1) {
+            $user_act='Active';
+        } else {
+            $user_act='Inactive';
+        }
+
+        if ($user_group_detail['entry_id'] < 1) {
+            $user_group_detail['group_name'] = '<em>No Group</em>';
+            $user_group_detail['entry_id'] = 0;
+        }
 
         echo '<tr class="gradeA">
-								<td>#'.$usr_detail['user_id'].'</td>
-								<td>'.$usr_detail['first_name'].' '.$usr_detail['last_name'].'</td>
-								<td class="center">'.$usr_detail['email_address'].' </td>
-								<td class="center">'.$user_group_detail['group_name'].' </td>
-								<td class="center">'.$user_act.'</td>
-								<td class="center"><span class="ticket ticket-info"><a href="edit_user.php?id='.$usr_detail['user_id'].'" style="color:#FFF; text-decoration:none;">Edit User</a></span>';
-        if ($user_group_detail['entry_id']<1){
+			      <td>#'.$usr_detail['user_id'].'</td>
+				  <td>'.$usr_detail['first_name'].' '.$usr_detail['last_name'].'</td>
+				  <td class="center">'.$usr_detail['email_address'].' </td>
+				  <td class="center">'.$user_group_detail['group_name'].' </td>
+				  <td class="center">'.$user_act.'</td>
+				  <td class="center"><span class="ticket ticket-info"><a href="edit_user.php?id='.$usr_detail['user_id'].'" style="color:#FFF; text-decoration:none;">Edit User</a></span>';
+        if ($user_group_detail['entry_id'] < 1) {
             echo '&nbsp;<span class="ticket ticket-warning"><a href="permission_management.php?type=user&id='.$usr_detail['user_id'].'" style="color:#FFF; text-decoration:none;">Edit Rights</a>';
         }
-        else if ($user_group_detail['entry_id']>2) {
+        else if ($user_group_detail['entry_id'] > 2) {
             echo '&nbsp;<span class="ticket ticket-warning"><a href="permission_management.php?type=group&id='.$user_group_detail['entry_id'].'" style="color:#FFF; text-decoration:none;">Edit Group Rights</a>';	
         }
         echo '</span>&nbsp;<span id="userdel'.$usr_detail['user_id'].'" class="ticket ticket-important"><a style="color:#FFF; text-decoration:none;" href="#">Delete User</a></span></td>
@@ -631,24 +638,22 @@ function get_creativeservers(){
         }
         if ($server_detail['entry_id']>1){
 
-								
             echo '<span class="ticket ticket-warning"><a href="edit_creative_server.php?id='.$server_detail['entry_id'].'" style="color:#FFF; text-decoration:none;">Edit Server</a></span>&nbsp;<span id="serverdel'.$server_detail['entry_id'].'" class="ticket ticket-important"><a style="color:#FFF; text-decoration:none;" href="#">Delete</a></span>';
         }
         echo '</td>';
-								
-								
+
         echo '</tr>	';
     }
 }
 
 
 function get_publications(){
-    global $maindb;	
+    global $maindb;
     $current_timestamp=time();
 
     $usrres=mysql_query("select * from md_publications ORDER BY inv_id DESC", $maindb);
     while($publication_detail=mysql_fetch_array($usrres)){
-	
+
         $getpubtyperes=mysql_query("select * from md_publication_types where entry_id='$publication_detail[inv_type]'", $maindb);
         $pub_type_detail=mysql_fetch_array($getpubtyperes);
 
@@ -668,8 +673,7 @@ function get_publications(){
 								<td class="center">'.$publication_status.'</td>
 								<td class="center">'.$total_placements.'</td>';
         echo '<td class="center"><span class="ticket ticket-info"><a href="edit_publication.php?id='.$publication_detail['inv_id'].'" style="color:#FFF; text-decoration:none;">Edit Publication</a></span>&nbsp;<span class="ticket ticket-warning"><a href="view_placements.php?id='.$publication_detail['inv_id'].'" style="color:#FFF; text-decoration:none;">View Placements</a></span>&nbsp;<span id="pubdel'.$publication_detail['inv_id'].'" class="ticket ticket-important"><a style="color:#FFF; text-decoration:none;" href="#">Delete</a></span></td>';
-	
-								
+
         echo '</tr>	';
     }
 }
@@ -1259,7 +1263,7 @@ function get_pubtype_dropdown($selected){
 }
 
 function get_network_dropdown($selected){
-    global $maindb;	
+    global $maindb;
 
     echo "<option value=''>- Select Ad Network -</option>";
 
@@ -1330,8 +1334,7 @@ function get_publication_dropdown_report($selected){
 }
 
 function get_priority_dropdown($selected){
-    global $maindb;	
-
+    global $maindb;
 
     $usrres=mysql_query("select * from md_campaign_priorities ORDER BY priority_id ASC", $maindb);
     while($priority_detail=mysql_fetch_array($usrres)){
@@ -1341,7 +1344,6 @@ function get_priority_dropdown($selected){
         }
         echo '<option '.$selected_html.' value="'.$priority_detail['priority_id'].'">'.$priority_detail['priority_name'].'</option>';
     }
-
 
 }
 
@@ -1363,7 +1365,7 @@ function get_placement_integration_dropdown($zoneid, $publicationid){
         while($zone_detail=mysql_fetch_array($usrres)){
             $selected_html='';
             if (is_numeric($zoneid) && $zoneid==$zone_detail['entry_id']){
-                $selected_html='selected="selected"';	
+                $selected_html='selected="selected"';
             }
             echo '<option '.$selected_html.' value="'.$zone_detail['entry_id'].'">'.$zone_detail['zone_name'].'</option>';
         }
@@ -1374,55 +1376,53 @@ function get_placement_integration_dropdown($zoneid, $publicationid){
 
 function do_edit($type, $data, $detail){
 	global $maindb;
-	
-	if ($type=='runninglimit'){
-        if (!isset($detail) or !is_numeric($detail)){
+
+	if ($type == 'runninglimit') {
+        if (!isset($detail) or !is_numeric($detail)) {
             global $errormessage;
             $errormessage='Invalid Campaign ID.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
-	
+
         if (!isset($data['new_limit']) or !is_numeric($data['new_limit'])){
             global $errormessage;
             $errormessage='Invalid Limit entered.';
             global $editdata;
             $editdata=$data;
-            return false;		
+            return false;
         }
 
         mysql_query("UPDATE md_campaign_limit set total_amount_left='$data[new_limit]' where campaign_id='$detail'", $maindb);
         return true;
 
 	}
-	
-	if ($type=='adunit'){
-		
+
+	if ($type == 'adunit') {
+
 		global $maindb;
-		
+
 		$current_unit_detail=get_adunit_detail($detail);
-		
-		
+
 		if (empty($data['adv_name']) or (!is_numeric($data['custom_creative_width']) or !is_numeric($data['custom_creative_height']))){
             global $errormessage;
             $errormessage='Please fill out all required fields.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
-        if ($data['creative_type']==3){
+        if ($data['creative_type']==3) {
 
             if (empty($data['html_body'])){
                 global $errormessage;
                 $errormessage='Please enter a HTML body for your ad.';
                 global $editdata;
                 $editdata=$data;
-                return false;	
+                return false;
             }
 
-	
         }
 
         if ($data['creative_type']==2){
@@ -1432,21 +1432,19 @@ function do_edit($type, $data, $detail){
                 $errormessage='Please enter a Creative URL and Click URL for your ad.';
                 global $editdata;
                 $editdata=$data;
-                return false;	
+                return false;
             }
 
-
-	
         }
 
-        if ($data['creative_type']==1){
+        if ($data['creative_type'] == 1) {
 
             if (empty($data['click_url'])){
                 global $errormessage;
                 $errormessage='Please enter a Click URL for your ad.';
                 global $editdata;
                 $editdata=$data;
-                return false;	
+                return false;
             }
 
             if(!file_exists($_FILES['creative_file']['tmp_name']) || !is_uploaded_file($_FILES['creative_file']['tmp_name'])) {
@@ -1457,22 +1455,22 @@ function do_edit($type, $data, $detail){
                     $errormessage='Please upload a creative for your ad.';
                     global $editdata;
                     $editdata=$data;
-                    return false;	
+                    return false;
                 }
 
             }
             else {
-                $no_creative=0;	
+                $no_creative=0;
             }
-	
+
         }
 
 
 // IF CREATIVE TYPE =1, ATTEMPT TO UPLOAD CREATIVE
         if ($data['creative_type']==1 && $no_creative!=1){
-	
+
             $creative_server=getconfig_var('default_creative_server');
-	
+
 // Generate Creative Hash
             $uniqid = uniqid(time());
             $creative_hash=md5($uniqid);
@@ -1482,7 +1480,7 @@ function do_edit($type, $data, $detail){
 
 // Case: Remote Creative Server (FTP)
             if (getconfig_var('default_creative_server')>1){
-	
+
                 list($width, $height, $type, $attr)= getimagesize($_FILES['creative_file']['tmp_name']);
 
                 if ($height!=$data['custom_creative_height'] or $width!=$data['custom_creative_width'] or empty($file_extension)){
@@ -1492,7 +1490,7 @@ function do_edit($type, $data, $detail){
                     $editdata=$data;
                     return false;
                 }
-	
+
                 $creative_server_detail = get_creativeserver_detail(getconfig_var('default_creative_server'));
 
                 if ($creative_server_detail['entry_id']<1){
@@ -1527,7 +1525,7 @@ function do_edit($type, $data, $detail){
 
 // Case: Local Creative Server
             if (getconfig_var('default_creative_server')==1){
-	
+
 
                 include MAD_PATH . '/modules/upload/class.upload.php';
 
@@ -1537,7 +1535,7 @@ function do_edit($type, $data, $detail){
                 $handle->file_new_name_body = $creative_hash;
 
                 if ($handle->uploaded) {
-	 	 
+
                     $image_width = $handle->image_src_x;
                     $image_height = $handle->image_src_y;
 
@@ -1548,13 +1546,12 @@ function do_edit($type, $data, $detail){
                         $editdata=$data;
                         return false;
                     }
-	
 
                     $handle->Process(MAD_PATH . MAD_CREATIVE_DIR);
 
 
                     if ($handle->processed) {
-// OK 
+// OK
                     }
                     else {
                         global $errormessage;
@@ -1563,7 +1560,7 @@ function do_edit($type, $data, $detail){
                         $editdata=$data;
                         return false;
                     }
- 
+
                 } else {
                     // Not OK
 
@@ -1572,15 +1569,15 @@ function do_edit($type, $data, $detail){
                     global $editdata;
                     $editdata=$data;
                     return false;
-	 
+
                 }
- 
+
             }
-            // End Case: Local Creative Sercer 
- 
+            // End Case: Local Creative Sercer
+
 
             mysql_query("UPDATE md_ad_units set unit_hash='$creative_hash', adv_creative_extension='$file_extension', creativeserver_id='$creative_server' where adv_id='$detail'", $maindb);
- 
+
         }
 
 
@@ -1604,12 +1601,10 @@ function do_edit($type, $data, $detail){
 
         return true;
 
-		
-		
 	}
-	
+
 	if ($type=='campaign'){
-		
+
         if (!isset($data['as_values_1'])){$data['as_values_1']='';}
         if (!isset($data['placement_select'])){$data['placement_select']='';}
         if (!isset($data['channel_select'])){$data['channel_select']='';}
@@ -1618,29 +1613,28 @@ function do_edit($type, $data, $detail){
         if (!isset($data['target_ipad'])){$data['target_ipad']='';}
         if (!isset($data['target_android'])){$data['target_android']='';}
         if (!isset($data['target_other'])){$data['target_other']='';}
-		
+
         $countries_active=0;
         $separate_countries=explode(',', $data['as_values_1']);
         foreach($separate_countries as $my_tag) {
             if (!empty($my_tag)){
-                $countries_active=1;	
-            } }
+                $countries_active=1;
+            }
+        }
 
-			
-			
         if (!is_numeric($data['campaign_priority']) or empty($data['campaign_name'])){
             global $errormessage;
             $errormessage='Please fill out all required fields.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
         if ($data['geo_targeting']==2 && $countries_active!=1){
             global $errormessage;
             $errormessage='Please select at least one country you want to target.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         if ($data['publication_targeting']==2 && count($data['placement_select'])<1){
@@ -1648,7 +1642,7 @@ function do_edit($type, $data, $detail){
             $errormessage='Please select at least one placement you want to target.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         if ($data['channel_targeting']==2 && count($data['channel_select'])<1){
@@ -1656,7 +1650,7 @@ function do_edit($type, $data, $detail){
             $errormessage='Please select at least one channel you want to target.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         if ($data['device_targeting']==2 && ($data['target_iphone']!=1 && $data['target_ipod']!=1 && $data['target_ipad']!=1 && $data['target_android']!=1 && $data['target_other']!=1)){
@@ -1664,7 +1658,7 @@ function do_edit($type, $data, $detail){
             $errormessage='Please select at least one device type you want to target.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         if ($data['campaign_type']=='network' && (!is_numeric($data['campaign_networkid']))){
@@ -1672,7 +1666,7 @@ function do_edit($type, $data, $detail){
             $errormessage='Please select an ad network to send your campaign traffic to.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         if (!empty($data['total_amount']) && !is_numeric($data['total_amount'])){
@@ -1680,17 +1674,15 @@ function do_edit($type, $data, $detail){
             $errormessage='Your daily cap needs to be a numeric value.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
-
-
 
         if ($data['start_date_type']==2 && empty($data['startdate_value'])){
             global $errormessage;
             $errormessage='Please choose a start date for your campaign.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         if ($data['end_date_type']==2 && empty($data['enddate_value'])){
@@ -1698,9 +1690,8 @@ function do_edit($type, $data, $detail){
             $errormessage='Please choose an end date for your campaign.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
-
 
         if ($data['start_date_type']==2){
             $start_date=explode('/',$data['startdate_value']);
@@ -1757,8 +1748,6 @@ function do_edit($type, $data, $detail){
             $end_date_array['month']=$end_date[0];
             $end_date_array['unix']=strtotime("$end_date_array[year]-$end_date_array[month]-$end_date_array[day]");	
         }
-
-
 
         $data['startdate_value']=''.$start_date_array['year'].'-'.$start_date_array['month'].'-'.$start_date_array['day'].'';
         $data['enddate_value']=''.$end_date_array['year'].'-'.$end_date_array['month'].'-'.$end_date_array['day'].'';
@@ -1837,11 +1826,11 @@ function do_edit($type, $data, $detail){
 
 
     }
-	
-	if ($type=='user'){
-		
+
+	if ($type == 'user'){
+
         global $user_detail;
-		
+
         if (!check_permission('add_administrator', $user_detail['user_id']) && $data['account_type']!=2){
             global $errormessage;
             $errormessage='You are not permitted to a group other than the Advertiser group.';
@@ -1849,7 +1838,6 @@ function do_edit($type, $data, $detail){
             $editdata=$data;
             return false;
         }
-	
 
         if (empty($data['first_name']) or empty($data['last_name']) or empty($data['email_address'])){
             global $errormessage;
@@ -1895,14 +1883,14 @@ function do_edit($type, $data, $detail){
         return true;
 
 	}
-	
+
 	if ($type=='group'){
         if (empty($data['group_name'])){
             global $errormessage;
             $errormessage='Please enter a group name.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         $data['group_name']=sanitize($data['group_name']);
@@ -1910,16 +1898,16 @@ function do_edit($type, $data, $detail){
         mysql_query("UPDATE md_user_groups set group_name='$data[group_name]' where entry_id='$detail'", $maindb);
 
         return true;
-	
+
 	}
-	
+
 	if ($type=='channel'){
         if (empty($data['channel_name'])){
             global $errormessage;
             $errormessage='Please enter a channel name.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         $data['channel_name']=sanitize($data['channel_name']);
@@ -1928,38 +1916,33 @@ function do_edit($type, $data, $detail){
         mysql_query("UPDATE md_channels set channel_name='$data[channel_name]' where channel_id='$detail'", $maindb);
 
         return true;
-	
+
 	}
-	
+
     if ($type=='network'){
-			
+
         if (!isset($data['network_auto_approve'])){$data['network_auto_approve']='';}
         if (!isset($data['network_aa_min'])){$data['network_aa_min']='';}
         if (!isset($data['network_aa_min_cpc'])){$data['network_aa_min_cpc']='';}
         if (!isset($data['network_aa_min_cpm'])){$data['network_aa_min_cpm']='';}
-			
+
         $data['network_auto_approve']=sanitize($data['network_auto_approve']);
         $data['network_aa_min']=sanitize($data['network_aa_min']);
         $data['network_aa_min_cpc']=sanitize($data['network_aa_min_cpc']);
         $data['network_aa_min_cpm']=sanitize($data['network_aa_min_cpm']);
 
-
-
-
-	
         mysql_query("UPDATE md_networks set network_auto_approve='$data[network_auto_approve]', network_aa_min='$data[network_aa_min]', network_aa_min_cpc='$data[network_aa_min_cpc]', network_aa_min_cpm='$data[network_aa_min_cpm]' where entry_id='$detail'", $maindb);
 
         return true;
-	
 	}
-	
+
 	if ($type=='creative_server'){
         if (empty($data['server_name']) or empty($data['remote_host']) or empty($data['remote_user']) or empty($data['remote_password']) or empty($data['remote_directory']) or empty($data['server_default_url'])){
             global $errormessage;
             $errormessage='Please fill out all required fields.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         $data['server_type']=sanitize($data['server_type']);
@@ -1974,20 +1957,20 @@ function do_edit($type, $data, $detail){
         mysql_query("UPDATE md_creative_servers set server_name='$data[server_name]', remote_host='$data[remote_host]', remote_user='$data[remote_user]', remote_password='$data[remote_password]', server_type='$data[server_type]', remote_directory='$data[remote_directory]', server_default_url='$data[server_default_url]' where entry_id='$detail'", $maindb);
 
         return true;
-	
+
 	}
-	
+
     if ($type=='placement'){
-			
+
         if (!isset($data['mobfox_min_cpc_active'])){$data['mobfox_min_cpc_active']='';}
         if (!isset($data['mobfox_backfill_active'])){$data['mobfox_backfill_active']='';}
-			
+
         if (!is_numeric($data['zone_refresh']) or empty($data['zone_name']) or ($data['zone_type']=='banner' && (!is_numeric($data['custom_zone_width']) or !is_numeric($data['custom_zone_height']))) or  empty($data['zone_type'])){
             global $errormessage;
             $errormessage='Please fill out all required fields.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
 
@@ -1996,7 +1979,7 @@ function do_edit($type, $data, $detail){
             $errormessage='Invalid minimum CPC/CPM values entered.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         $zone_detail=get_zone_detail($detail);
@@ -2007,7 +1990,7 @@ function do_edit($type, $data, $detail){
             $errormessage='Full Page Interstitials are supported only inside iOS and Android applications.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         $data['zone_name']=sanitize($data['zone_name']);
@@ -2029,18 +2012,16 @@ function do_edit($type, $data, $detail){
         mysql_query("UPDATE md_zones set zone_name='$data[zone_name]', zone_type='$data[zone_type]', zone_width='$data[custom_zone_width]', zone_height='$data[custom_zone_height]', zone_refresh='$data[zone_refresh]', zone_channel='$data[zone_channel]', zone_description='$data[zone_description]', mobfox_backfill_active='$data[mobfox_backfill_active]', mobfox_min_cpc_active='$data[mobfox_min_cpc_active]', min_cpc='$data[min_cpc]', min_cpm='$data[min_cpm]', backfill_alt_1='$data[backfill_alt_1]', backfill_alt_2='$data[backfill_alt_2]', backfill_alt_3='$data[backfill_alt_3]' where entry_id='$detail'", $maindb);
 
         return true;
-
-
     }
-	
+
 	if ($type=='publication'){
-		
+
         if (empty($data['inv_name']) or !is_numeric($data['inv_type']) or empty($data['inv_address']) or !is_numeric($data['inv_defaultchannel'])){
             global $errormessage;
             $errormessage='Please fill out all required fields.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         $data['inv_type']=sanitize($data['inv_type']);
@@ -2053,11 +2034,8 @@ function do_edit($type, $data, $detail){
         mysql_query("UPDATE md_publications set inv_type='$data[inv_type]', inv_name='$data[inv_name]', inv_description='$data[inv_description]', inv_address='$data[inv_address]', inv_defaultchannel='$data[inv_defaultchannel]' where inv_id='$detail'", $maindb);
 
         return true;
-
-		
-		
 	}
-	
+
 }
 
 function edit_permissions($type, $data, $id){
@@ -2096,23 +2074,25 @@ function check_if_user_has_rightset($id){
         return true;
     }
     else {
-        return false;	
-    }	
-	
+        return false;
+    }
+
 }
 
 function create_rightset($type, $id, $data){
-	
-    global $maindb;
-	
-    if ($type=='group'){$data['group_id']=$id;} else if ($type=='user'){
-	
-        if (check_if_user_has_rightset($id)){
-            return false;	
-        }
-	
 
-        $data['user_id']=$id;}
+    global $maindb;
+
+    if ($type=='group') {
+        $data['group_id']=$id;
+    } else if ($type=='user') {
+
+        if (check_if_user_has_rightset($id)){
+            return false;
+        }
+
+        $data['user_id']=$id;
+    }
 
     if (!isset($data['group_id'])){$data['group_id']='';}
     if (!isset($data['user_id'])){$data['user_id']='';}
@@ -2153,7 +2133,6 @@ function create_rightset($type, $id, $data){
 VALUES ('$data[user_id]', '$data[group_id]', '$data[view_own_campaigns]', '$data[view_all_campaigns]', '$data[create_campaigns]', '$data[view_publications]', '$data[modify_publications]', '$data[view_advertisers]', '$data[modify_advertisers]', '$data[ad_networks]', '$data[campaign_reporting]', '$data[own_campaign_reporting]', '$data[publication_reporting]', '$data[network_reporting]', '$data[configuration]', '$data[traffic_requests]')", $maindb);
 
     return true;
-
 }
 
 function username_exists($email){
@@ -2165,23 +2144,23 @@ function username_exists($email){
         return true;
     }
     else {
-        return false;	
+        return false;
     }
 }
 
 function do_create($type, $data, $detail){
     global $user_detail;
-    $time_now=time();
+    $time_now = time();
 
     if ($type=='user'){
         $data['email_address']=strtolower($data['email_address']);
-	
-        if (!check_permission('add_administrator', $user_detail['user_id']) && $data['account_type']!=2){
+
+        if (!check_permission('add_administrator', $user_detail['user_id']) && $data['account_type'] != 2){
             global $errormessage;
             $errormessage='You are not permitted to add users that are not in the Advertiser group.';
             return false;
         }
-	
+
         if (empty($data['first_name']) or empty($data['last_name']) or empty($data['email_address']) or empty($data['new_password']) or empty($data['new_password_2'])){
             global $errormessage;
             $errormessage='Please fill out all required fields.';
@@ -2190,7 +2169,7 @@ function do_create($type, $data, $detail){
             return false;
         }
 
-        if ($data['new_password_2']!=$data['new_password']){
+        if ($data['new_password_2'] != $data['new_password']){
             global $errormessage;
             $errormessage='The passwords you entered do not match.';
             global $editdata;
@@ -2206,21 +2185,21 @@ function do_create($type, $data, $detail){
             return false;
         }
 
-        $data['password_md5']=md5($data['new_password']);
-        $creation_date=time();
+        $data['password_md5'] = md5($data['new_password']);
+        $creation_date = time();
 
-        $data['first_name']=sanitize($data['first_name']);
-        $data['last_name']=sanitize($data['last_name']);
-        $data['company_name']=sanitize($data['company_name']);
-        $data['phone_number']=sanitize($data['phone_number']);
-        $data['fax_number']=sanitize($data['fax_number']);
-        $data['company_address']=sanitize($data['company_address']);
-        $data['company_city']=sanitize($data['company_city']);
-        $data['company_state']=sanitize($data['company_state']);
-        $data['company_zip']=sanitize($data['company_zip']);
-        $data['company_country']=sanitize($data['company_country']);
-        $data['tax_id']=sanitize($data['tax_id']);
-        $data['account_type']=sanitize($data['account_type']);
+        $data['first_name'] = sanitize($data['first_name']);
+        $data['last_name'] = sanitize($data['last_name']);
+        $data['company_name'] = sanitize($data['company_name']);
+        $data['phone_number'] = sanitize($data['phone_number']);
+        $data['fax_number'] = sanitize($data['fax_number']);
+        $data['company_address'] = sanitize($data['company_address']);
+        $data['company_city'] = sanitize($data['company_city']);
+        $data['company_state'] = sanitize($data['company_state']);
+        $data['company_zip'] = sanitize($data['company_zip']);
+        $data['company_country'] = sanitize($data['company_country']);
+        $data['tax_id'] = sanitize($data['tax_id']);
+        $data['account_type'] = sanitize($data['account_type']);
 
         global $maindb;
         mysql_query("INSERT INTO md_uaccounts (email_address, pass_word, account_status, account_type, company_name, first_name, last_name, phone_number, fax_number, company_address, company_city, company_state, company_zip, company_country, tax_id, creation_date)
@@ -2228,12 +2207,9 @@ VALUES ('$data[email_address]', '$data[password_md5]', '1', '$data[account_type]
         global $created_user_id;
         $created_user_id=mysql_insert_id($maindb);
 
-
         create_rightset('user', $created_user_id, $data);
 
-
         return true;
-	
     }
 
     if ($type=='group'){
@@ -2276,7 +2252,7 @@ VALUES ('1', '$data[channel_name]')", $maindb);
     }
 
     if ($type=='creativeserver'){
-	
+
         if (empty($data['server_name']) or empty($data['remote_host']) or empty($data['remote_user']) or empty($data['remote_password']) or empty($data['remote_directory']) or empty($data['server_default_url'])){
             global $errormessage;
             $errormessage='Please fill out all required fields.';
@@ -2301,13 +2277,13 @@ VALUES ('$data[server_type]', '$data[server_name]', '$data[remote_host]', '$data
     }
 
     if ($type=='ad_unit'){
-	
+
         if (empty($data['adv_name']) or ($data['creative_format']==10 && (!is_numeric($data['custom_creative_width']) or !is_numeric($data['custom_creative_height'])))){
             global $errormessage;
             $errormessage='Please fill out all required fields.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         if (!is_numeric($data['creative_format'])){
@@ -2328,7 +2304,6 @@ VALUES ('$data[server_type]', '$data[server_name]', '$data[remote_host]', '$data
                 return false;	
             }
 
-	
         }
 
         if ($data['creative_type']==2){
@@ -2341,8 +2316,6 @@ VALUES ('$data[server_type]', '$data[server_name]', '$data[remote_host]', '$data
                 return false;	
             }
 
-
-	
         }
 
         if ($data['creative_type']==1){
@@ -2516,13 +2489,9 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
 // END: Insert Ad Unit into DB
 
         return true;
-
-	
     }
-		
-    if ($type=='campaign'){
-			
-		
+
+    if ($type=='campaign') {
         if (!isset($data['as_values_1'])){$data['as_values_1']='';}
         if (!isset($data['placement_select'])){$data['placement_select']='';}
         if (!isset($data['channel_select'])){$data['channel_select']='';}
@@ -2531,61 +2500,60 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
         if (!isset($data['target_ipad'])){$data['target_ipad']='';}
         if (!isset($data['target_android'])){$data['target_android']='';}
         if (!isset($data['target_other'])){$data['target_other']='';}
-			
+
         $countries_active=0;
         $separate_countries=explode(',', $data['as_values_1']);
         foreach($separate_countries as $my_tag) {
             if (!empty($my_tag)){
-                $countries_active=1;	
-            } }
+                $countries_active=1;
+            }
+        }
 
-			
-			
         if (!is_numeric($data['campaign_priority']) or empty($data['campaign_name'])){
             global $errormessage;
             $errormessage='Please fill out all required fields.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
-        if ($data['geo_targeting']==2 && $countries_active!=1){
+        if ($data['geo_targeting'] == 2 && $countries_active != 1){
             global $errormessage;
             $errormessage='Please select at least one country you want to target.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
-        if ($data['publication_targeting']==2 && count($data['placement_select'])<1){
+        if ($data['publication_targeting'] == 2 && count($data['placement_select']) < 1){
             global $errormessage;
             $errormessage='Please select at least one placement you want to target.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
-        if ($data['channel_targeting']==2 && count($data['channel_select'])<1){
+        if ($data['channel_targeting'] == 2 && count($data['channel_select']) < 1){
             global $errormessage;
             $errormessage='Please select at least one channel you want to target.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
-        if ($data['device_targeting']==2 && ($data['target_iphone']!=1 && $data['target_ipod']!=1 && $data['target_ipad']!=1 && $data['target_android']!=1 && $data['target_other']!=1)){
+        if ($data['device_targeting'] == 2 && ($data['target_iphone']!=1 && $data['target_ipod']!=1 && $data['target_ipad']!=1 && $data['target_android']!=1 && $data['target_other']!=1)){
             global $errormessage;
             $errormessage='Please select at least one device type you want to target.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
-        if ($data['campaign_type']=='network' && (!is_numeric($data['campaign_networkid']))){
+        if ($data['campaign_type'] == 'network' && (!is_numeric($data['campaign_networkid']))){
             global $errormessage;
             $errormessage='Please select an ad network to send your campaign traffic to.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         if (!empty($data['total_amount']) && !is_numeric($data['total_amount'])){
@@ -2593,17 +2561,17 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
             $errormessage='Your daily cap needs to be a numeric value.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
-        if ($data['campaign_type']!='network'){
-	
+        if ($data['campaign_type'] != 'network'){
+
             if (empty($data['adv_name']) or ($data['creative_format']==10 && (!is_numeric($data['custom_creative_width']) or !is_numeric($data['custom_creative_height'])))){
                 global $errormessage;
                 $errormessage='Please fill out all required fields.';
                 global $editdata;
                 $editdata=$data;
-                return false;	
+                return false;
             }
 
             if (!is_numeric($data['creative_format'])){
@@ -2611,7 +2579,7 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
                 $errormessage='Please choose a creative size for your ad.';
                 global $editdata;
                 $editdata=$data;
-                return false;	
+                return false;
             }
 
             if ($data['creative_type']==3){
@@ -2621,10 +2589,9 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
                     $errormessage='Please enter a HTML body for your ad.';
                     global $editdata;
                     $editdata=$data;
-                    return false;	
+                    return false;
                 }
 
-	
             }
 
             if ($data['creative_type']==2){
@@ -2634,11 +2601,9 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
                     $errormessage='Please enter a Creative URL and Click URL for your ad.';
                     global $editdata;
                     $editdata=$data;
-                    return false;	
+                    return false;
                 }
 
-
-	
             }
 
             if ($data['creative_type']==1){
@@ -2648,7 +2613,7 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
                     $errormessage='Please enter a Click URL for your ad.';
                     global $editdata;
                     $editdata=$data;
-                    return false;	
+                    return false;
                 }
 
                 if(!file_exists($_FILES['creative_file']['tmp_name']) || !is_uploaded_file($_FILES['creative_file']['tmp_name'])) {
@@ -2656,27 +2621,26 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
                     $errormessage='Please upload a creative for your ad unit.';
                     global $editdata;
                     $editdata=$data;
-                    return false;	
+                    return false;
                 }
-	
+
             }
 
-            if ($data['start_date_type']==2 && empty($data['startdate_value'])){
+            if ($data['start_date_type'] == 2 && empty($data['startdate_value'])){
                 global $errormessage;
                 $errormessage='Please choose a start date for your campaign.';
                 global $editdata;
                 $editdata=$data;
-                return false;	
+                return false;
             }
 
-            if ($data['end_date_type']==2 && empty($data['enddate_value'])){
+            if ($data['end_date_type'] == 2 && empty($data['enddate_value'])){
                 global $errormessage;
                 $errormessage='Please choose an end date for your campaign.';
                 global $editdata;
                 $editdata=$data;
-                return false;	
+                return false;
             }
-
 
             if ($data['start_date_type']==2){
                 $start_date=explode('/',$data['startdate_value']);
@@ -2694,12 +2658,12 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
                 $end_date_array['unix']=strtotime("$end_date_array[year]-$end_date_array[month]-$end_date_array[day]");	
             }
 
-            if ($data['end_date_type']==2 && $end_date_array['unix']<time()){
+            if ($data['end_date_type']==2 && $end_date_array['unix'] < time()){
                 global $errormessage;
                 $errormessage='The end date you entered is in the past. Please choose an end date in the future.';
                 global $editdata;
                 $editdata=$data;
-                return false;	
+                return false;
             }
 
 // Define Image Sizes
@@ -2713,8 +2677,8 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
 
 
 // IF CREATIVE TYPE =1, ATTEMPT TO UPLOAD CREATIVE
-            if ($data['creative_type']==1){
-	
+            if ($data['creative_type']==1) {
+
 // Generate Creative Hash
                 $uniqid = uniqid(time());
                 $creative_hash=md5($uniqid);
@@ -2723,8 +2687,8 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
 
 
 // Case: Remote Creative Server (FTP)
-                if (getconfig_var('default_creative_server')>1){
-	
+                if (getconfig_var('default_creative_server') > 1){
+
                     list($width, $height, $type, $attr)= getimagesize($_FILES['creative_file']['tmp_name']);
 
                     if ($height!=$data['custom_creative_height'] or $width!=$data['custom_creative_width'] or empty($file_extension)){
@@ -2734,10 +2698,10 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
                         $editdata=$data;
                         return false;
                     }
-	
+
                     $creative_server_detail = get_creativeserver_detail(getconfig_var('default_creative_server'));
 
-                    if ($creative_server_detail['entry_id']<1){
+                    if ($creative_server_detail['entry_id'] < 1) {
                         global $errormessage;
                         $errormessage='The default creative server does not seem to exist. Please change your creative server in your mAdserve control panel under Configuration>Creative Servers';
                         global $editdata;
@@ -2768,8 +2732,7 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
 // End Case: Remote Creative Server (FTP)
 
 // Case: Local Creative Server
-                if (getconfig_var('default_creative_server')==1){
-	
+                if (getconfig_var('default_creative_server') == 1) {
 
                     include MAD_PATH . '/modules/upload/class.upload.php';
 
@@ -2779,7 +2742,7 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
                     $handle->file_new_name_body = $creative_hash;
 
                     if ($handle->uploaded) {
-	 	 
+
                         $image_width = $handle->image_src_x;
                         $image_height = $handle->image_src_y;
 
@@ -2790,7 +2753,6 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
                             $editdata=$data;
                             return false;
                         }
-	
 
                         $handle->Process(MAD_PATH . MAD_CREATIVE_DIR);
 
@@ -2814,19 +2776,16 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
                         global $editdata;
                         $editdata=$data;
                         return false;
-	 
                     }
- 
+
                 }
                 // End Case: Local Creative Sercer 
             }
 
-
-
 // END CREATIVE UPLOAD
         }
 
-        $creation_timestamp=time();
+        $creation_timestamp = time();
 
 /* Date Stuff */
         if ($data['start_date_type']==1){
@@ -2897,11 +2856,22 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
         $data['device_targeting']=sanitize($data['device_targeting']);
 
 // Insert Campaign into DB
-        mysql_query("INSERT INTO md_campaigns (campaign_owner, campaign_status, campaign_type, campaign_name, campaign_desc, campaign_start, campaign_end, campaign_creationdate, campaign_networkid, campaign_priority, target_iphone, target_ipod, target_ipad, target_android, target_other, ios_version_min, ios_version_max, android_version_min, android_version_max, country_target, publication_target, channel_target, device_target)
-VALUES ('$user_detail[user_id]', '1', '$data[campaign_type]', '$data[campaign_name]', '$data[campaign_desc]', '$data[startdate_value]', '$data[enddate_value]', '$creation_timestamp', '$data[campaign_networkid]', '$data[campaign_priority]', '$data[target_iphone]', '$data[target_ipod]', '$data[target_ipad]', '$data[target_android]', '$data[target_other]', '$data[ios_version_min]', '$data[ios_version_max]', '$data[android_version_min]', '$data[android_version_max]', '$data[geo_targeting]', '$data[publication_targeting]', $data[channel_targeting], '$data[device_targeting]')", $maindb);
+        mysql_query("INSERT INTO md_campaigns (campaign_owner, campaign_status, campaign_type,
+                                               campaign_name, campaign_desc, campaign_start,
+                                               campaign_end, campaign_creationdate, campaign_networkid,
+                                               campaign_priority, target_iphone, target_ipod, target_ipad, target_android,
+                                               target_other, ios_version_min, ios_version_max, android_version_min,
+                                               android_version_max, country_target, publication_target, channel_target, device_target)
+                   VALUES ('$user_detail[user_id]', '1', '$data[campaign_type]',
+                           '$data[campaign_name]', '$data[campaign_desc]', '$data[startdate_value]',
+                           '$data[enddate_value]', '$creation_timestamp', '$data[campaign_networkid]',
+                           '$data[campaign_priority]', '$data[target_iphone]', '$data[target_ipod]', '$data[target_ipad]', '$data[target_android]',
+                           '$data[target_other]', '$data[ios_version_min]', '$data[ios_version_max]', '$data[android_version_min]',
+                           '$data[android_version_max]', '$data[geo_targeting]', '$data[publication_targeting]', $data[channel_targeting], '$data[device_targeting]')", $maindb);
+
         global $created_campaign_id;
         $created_campaign_id=mysql_insert_id($maindb);
-// END: Insert Campaign into DB 
+// END: Insert Campaign into DB
 
         if ($data['campaign_type']!='network'){
             if ($data['creative_type']==1){
@@ -2939,7 +2909,8 @@ VALUES ('$created_campaign_id', '$creative_hash', '$data[creative_type]', '1', '
                 if (!empty($country_tag)){
 // Add Country
                     add_campaign_targeting($created_campaign_id, 'geo', $country_tag);
-                } }
+                }
+            }
         }
 //End Country
 
@@ -2972,10 +2943,8 @@ VALUES ('$created_campaign_id', '$data[cap_type]', '$data[total_amount]', '$data
 // END: Add Campaign Limit
 
         return true;
-
-
     }
-	
+
 	if ($type=='placement'){
         global $maindb;
         if (!isset($data['mobfox_min_cpc_active'])){$data['mobfox_min_cpc_active']=0; }
@@ -2983,15 +2952,14 @@ VALUES ('$created_campaign_id', '$data[cap_type]', '$data[total_amount]', '$data
         if (!isset($data['zone_height'])){$data['zone_height']=''; }
         if (!isset($data['zone_width'])){$data['zone_width']=''; }
 
-		
 		if (!is_numeric($detail)){
             global $errormessage;
             $errormessage='Please select a Publication to add this zone to.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
 		}
-		
+
         if (!is_numeric($data['zone_refresh']) or empty($data['zone_name']) or ($data['zone_size']=='10' && (!is_numeric($data['custom_zone_width']) or !is_numeric($data['custom_zone_height']))) or  empty($data['zone_type']) or ($data['zone_type']=='banner' && !is_numeric($data['zone_size']))){
             global $errormessage;
             $errormessage='Please fill out all required fields.';
@@ -3006,7 +2974,7 @@ VALUES ('$created_campaign_id', '$data[cap_type]', '$data[total_amount]', '$data
             $errormessage='Invalid minimum CPC/CPM values entered.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         $publication_detail=get_publication_detail($detail);
@@ -3016,7 +2984,7 @@ VALUES ('$created_campaign_id', '$data[cap_type]', '$data[total_amount]', '$data
             $errormessage='Full Page Interstitials are supported only inside iOS and Android applications.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         $uniqid = uniqid($data['zone_name']);
@@ -3046,13 +3014,12 @@ VALUES ('$created_campaign_id', '$data[cap_type]', '$data[total_amount]', '$data
 VALUES ('$detail', '$new_placement_hash', '$data[zone_name]', '$data[zone_type]', '$data[zone_width]', '$data[zone_height]', '$data[zone_refresh]', '$data[zone_channel]', '$data[zone_description]', '$data[mobfox_backfill_active]', '$data[mobfox_min_cpc_active]', '$data[min_cpc]', '$data[min_cpm]', '$data[backfill_alt_1]', '$data[backfill_alt_2]', '$data[backfill_alt_3]')", $maindb);
         global $created_zone_id;
         $created_zone_id=mysql_insert_id($maindb);
-
-        mf_add_publication_layer($created_zone_id, 1);
+        #comment not call mf remote
+        //mf_add_publication_layer($created_zone_id, 1);
 
         return true;
-		
 	}
-	
+
     if ($type=='publication'){
         global $maindb;
         if (!isset($data['mobfox_min_cpc_active'])){$data['mobfox_min_cpc_active']=0; }
@@ -3065,7 +3032,7 @@ VALUES ('$detail', '$new_placement_hash', '$data[zone_name]', '$data[zone_type]'
             $errormessage='Please fill out all required fields.';
             global $editdata;
             $editdata=$data;
-            return false;	
+            return false;
         }
 
         if ($data['mobfox_min_cpc_active']==1 && (!is_numeric($data['min_cpc']) or !is_numeric($data['min_cpm']) or $data['min_cpm']>5 or $data['min_cpc']>0.20)){
@@ -3091,7 +3058,7 @@ VALUES ('$detail', '$new_placement_hash', '$data[zone_name]', '$data[zone_type]'
         $data['inv_defaultchannel']=sanitize($data['inv_defaultchannel']);
 
         mysql_query("INSERT INTO md_publications (inv_status, inv_type, inv_name, inv_description, inv_address, inv_defaultchannel, creator_id)
-VALUES (1, '$data[inv_type]', '$data[inv_name]', '$data[inv_description]', '$data[inv_address]', '$data[inv_defaultchannel]', '$user_detail[user_id]')", $maindb);
+                    VALUES (1, '$data[inv_type]', '$data[inv_name]', '$data[inv_description]', '$data[inv_address]', '$data[inv_defaultchannel]', '$user_detail[user_id]')", $maindb);
         $new_publication_id=mysql_insert_id($maindb);
 
         if (do_create('placement', $data, $new_publication_id)){
@@ -3099,7 +3066,7 @@ VALUES (1, '$data[inv_type]', '$data[inv_name]', '$data[inv_description]', '$dat
         }
 
     }
-	
+
 }
 
 function get_code_snippets($type, $zoneid){
@@ -3377,12 +3344,12 @@ function list_channels_campaign($selected){
 }
 
 function get_adnetworks($origin){
-    global $maindb;	
+    global $maindb;
     $current_timestamp=time();
 
     $usrres=mysql_query("select * from md_networks ORDER BY network_name ASC", $maindb);
     while($network_detail=mysql_fetch_array($usrres)){
-	
+
         if ($network_detail['interstitial_support']==1){$interstitial_support_icon='icon-check';} else {$interstitial_support_icon='icon-x';} 
         if ($network_detail['banner_support']==1){$banner_support_icon='icon-check';} else {$banner_support_icon='icon-x';} 
 
@@ -3402,13 +3369,9 @@ function get_adnetworks($origin){
 								<td class="center"><div align=center><a href="#" onclick="$.modal ({title: \''.$network_detail['network_name'].'\', html: \'<div style=width:500px;;>'.trim(str_replace(",", "\,", addslashes($network_detail['info_content']))).'</div>\'});">View Info</a></div></td>';
         echo '<td class="center"><div align=center><a target="_blank" href="'.$network_detail['signup_url'].'">Signup</a></div></td>';
         echo '<td class="center"><span class="ticket ticket-info"><a href="network_id_setup.php?id='.$network_detail['entry_id'].'" style="color:#FFF; text-decoration:none;">Setup Publisher IDs</a></span>&nbsp;<span class="ticket ticket-warning"><a href="network_settings.php?id='.$network_detail['entry_id'].'" style="color:#FFF; text-decoration:none;">Settings</a></span>&nbsp;</td>';
-	
-								
         echo '</tr>	';
-
-
     }
-	
+
 }
 
 function add_campaign_targeting($campaign_id, $targeting_type, $targeting_content){
@@ -3490,69 +3453,65 @@ function get_adnetwork_modules(){
 
 //path to directory to scan
     $directory = MAD_PATH. "/modules/network_modules/";
- 
+
 //get all files in specified directory
     $files = glob($directory . "*");
- 
+
 //print each file name
-    foreach($files as $file)
-        {
-            //check to see if the file is a folder/directory
-            if(is_dir($file))
-                {
-	 
-                    $network_name = str_replace(MAD_PATH. "/modules/network_modules/", '', $file);
-	
-                    if (file_exists(MAD_PATH. "/modules/network_modules/". $network_name . "/config.xml")){
-                        $xml_status='OK';
-                    }
-                    else {
-                        $xml_status='Not found';	
-                    }
+    foreach($files as $file) {
+        //check to see if the file is a folder/directory
+        if(is_dir($file)) {
 
-                    if (file_exists(MAD_PATH. "/modules/network_modules/". $network_name . "/request.php")){
-                        $handler_status='OK';
-                    }
-                    else {
-                        $handler_status='Not found';	
-                    }
+            $network_name = str_replace(MAD_PATH. "/modules/network_modules/", '', $file);
 
-                    $network_installed=0;
+            if (file_exists(MAD_PATH. "/modules/network_modules/". $network_name . "/config.xml")){
+                $xml_status='OK';
+            }
+            else {
+                $xml_status='Not found';	
+            }
 
-                    if (check_network_installed($network_name)){
-                        $network_installed=1;
-                        $network_status='Installed';
+            if (file_exists(MAD_PATH. "/modules/network_modules/". $network_name . "/request.php")){
+                $handler_status='OK';
+            }
+            else {
+                $handler_status='Not found';	
+            }
 
-                        if ($handler_status!='OK'){
-                            $network_status='Not Active';
-                        }
+            $network_installed=0;
 
-                    }
-                    else {
-                        $network_status='Not Installed';
-                    }
+            if (check_network_installed($network_name)){
+                $network_installed=1;
+                $network_status='Installed';
 
-	 
-                    echo '<tr class="gradeA">';
-                    echo '<td class="center">/'.$network_name.'</td>';
-                    echo '<td class="center"><div align="center">'.$xml_status.'</div></td>';
-                    echo '<td class="center"><div align="center">'.$handler_status.'</div></td>';
-                    echo '<td class="center"><div align="center">'.$network_status.'</div></td>';
-                    if ($network_installed!=1 && $handler_status=='OK' && $xml_status=='OK'){
-                        echo '<td class="center"><span class="ticket ticket-info"><a href="network_modules.php?action=install&networkid='.$network_name.'" style="color:#FFF; text-decoration:none;">Install Network</a></span></td>';
-                    }
-                    else if ($network_installed==1) {
-                        echo '<td class="center"><span id="networkdel'.$network_name.'" class="ticket ticket-important"><a style="color:#FFF; text-decoration:none;" href="#">Un-Install</a></span></td>';
-                    }
-                    else {
-                        echo '<td class="center"></td>';
-                    }
-                    echo '</tr>';
+                if ($handler_status!='OK'){
+                    $network_status='Not Active';
                 }
+
+            }
+            else {
+                $network_status='Not Installed';
+            }
+
+
+            echo '<tr class="gradeA">';
+            echo '<td class="center">/'.$network_name.'</td>';
+            echo '<td class="center"><div align="center">'.$xml_status.'</div></td>';
+            echo '<td class="center"><div align="center">'.$handler_status.'</div></td>';
+            echo '<td class="center"><div align="center">'.$network_status.'</div></td>';
+            if ($network_installed!=1 && $handler_status=='OK' && $xml_status=='OK'){
+                echo '<td class="center"><span class="ticket ticket-info"><a href="network_modules.php?action=install&networkid='.$network_name.'" style="color:#FFF; text-decoration:none;">Install Network</a></span></td>';
+            }
+            else if ($network_installed==1) {
+                echo '<td class="center"><span id="networkdel'.$network_name.'" class="ticket ticket-important"><a style="color:#FFF; text-decoration:none;" href="#">Un-Install</a></span></td>';
+            }
+            else {
+                echo '<td class="center"></td>';
+            }
+            echo '</tr>';
         }
+    }
 
-
-	
 }
 
 function install_network($networkid){
@@ -3627,7 +3586,6 @@ VALUES ('$network_name', '$network_identifier', '".$network_config->pub_ids->pub
   echo $publisher_id_title;
   }*/
 
-	
 }
 
 function uninstall_network($networkid){
@@ -4676,7 +4634,7 @@ function mf_prelogin_check(){
 }
 
 function mf_add_publication_layer($zone_id, $addqueue){
-	
+
     if (!mf_add_publication_call($zone_id)){
         if ($addqueue==1){
             add_pending_action('mf_add_publication', $zone_id);
@@ -4684,14 +4642,13 @@ function mf_add_publication_layer($zone_id, $addqueue){
         return false;
     }
     else {
-        return true;	
+        return true;
     }
-	
+
 }
 
 function add_pending_action($action_type, $action_content){
-	
-	
+
     global $maindb;
 
     mysql_query("INSERT INTO md_pending_actions (action_id, action_detail)
@@ -4699,11 +4656,10 @@ VALUES ('".$action_type."', '".$action_content."')", $maindb);
 
     return true;
 
-	
 }
 
 function mf_add_publication_call($zone_id){
-	
+
     $zone_detail=get_zone_detail($zone_id);
     $publication_detail=get_publication_detail($zone_detail['publication_id']);
 
@@ -4736,8 +4692,7 @@ function mf_add_publication_call($zone_id){
     update_publisher_id(0, 'MOBFOX', $publication_detail['inv_id'], $zone_id, $http->result, '', '', ''); 
 
     return true;
-	
-	
+
 }
 
 function get_zone_channel($zone_id){

@@ -18,41 +18,39 @@ require_once MAD_PATH . '/www/cp/admin_functions.php';
 require_once MAD_PATH . '/www/cp/templates/header.tpl.php';
 
 if (!check_permission('configuration', $user_detail['user_id'])){
-exit;
+    exit;
 }
 
 if (isset($_GET['action'])){
-if ($_GET['action']=='install' && !empty($_GET['networkid'])){
-install_network($_GET['networkid']);
-}
+    if ($_GET['action']=='install' && !empty($_GET['networkid'])){
+        install_network($_GET['networkid']);
+    }
 
-if ($_GET['action']=='uninstall' && !empty($_GET['networkid'])){
-uninstall_network($_GET['networkid']);
-}
+    if ($_GET['action']=='uninstall' && !empty($_GET['networkid'])){
+        uninstall_network($_GET['networkid']);
+    }
 }
 
 
 ?>
-<div id="content">		
-		
+<div id="content">
+
 		<div id="contentHeader">
 			<h1>Ad Network Modules</h1>
 		</div> <!-- #contentHeader -->	
-		
+
 		<div class="container">
-        
-        
-				
+
 				<div class="grid-24">	
-                
+
                  <?php if (isset($errormessage)){ ?>
             <div class="box plain"><div class="notify notify-error"><h3>Error</h3><p><?php echo $errormessage; ?></p></div> <!-- .notify --></div>
             <?php } ?>
-            
+
              <?php if (isset($successmessage)){ ?>
             <div class="box plain"><div class="notify notify-success"><h3>Success</h3><p><?php echo $successmessage; ?></p></div> <!-- .notify --></div>
             <?php } ?>
-					
+
 					  <?php if ($user_detail['tooltip_setting']==1){ ?>
                          <div class="notify notify-info">						
 						

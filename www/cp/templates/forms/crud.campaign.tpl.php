@@ -143,14 +143,14 @@ function checkAll(theForm, cName, status) {
 								  <option <?php if (isset($editdata['campaign_type']) && $editdata['campaign_type']==1){echo 'selected="selected"'; } ?> value="1">Direct Sold</option>
 								  <option <?php if (isset($editdata['campaign_type']) && $editdata['campaign_type']==2){echo 'selected="selected"'; } ?> value="2">Promotional</option>
 								  <option <?php if (isset($editdata['campaign_type']) && $editdata['campaign_type']=='network'){echo 'selected="selected"'; } ?> value="network">Ad Network</option>
-								  
+
 							  </select>		<a style="font-size:11px;" href="#" onclick="$.modal ({title: 'Campaign Types', html: '<div style=width:500px;;><h3>Direct Sold</h3>A direct sold campaign is a fixed campaign in the system, typically with a high priority and a limited number of impressions.<br><br><h3>Promotional</h3>A promotional campaign is a campaign cross-promoting other apps or products. Cross promotional campaigns typically have a low priority to only show when an ad space cannot be filled by direct sold campaigns or ad networks.<br><br><h3>Ad Network</h3>An ad network campaign is a campaign sending traffic to a particular network. If a network is unable to fill the ad-request, the system will automatically select the next campaign with a lower priority until an ad has been found. Ad Network campaigns are usually targeted by country in order to select the best-paying partner for a particular geographic.</div>'});" title="Click for more info">Info</a>
 									<label for="campaign_type">Campaign Type</label>
 								</div>
 							</div> <!-- .field-group -->
-                            
+
                             <div id="network_select" style="display:none;" class="field-group">
-			
+
 								<div class="field">
 								<select id="campaign_networkid" name="campaign_networkid">
 <?php if (!isset($editdata['campaign_networkid'])){$editdata['campaign_networkid']='';} get_network_dropdown($editdata['campaign_networkid']); ?>							  </select>		<a class="tooltip" style="font-size:11px;" href="#" onclick="$.modal ({title: 'Network Publisher IDs', html: '<div style=width:500px;;><h3>Ad Networks</h3>In order to start sending mobile traffic to an ad network of your choice, you will have to create an account with the advertising network and then enter the Publisher IDs/Site IDs on the <a href=\'ad_networks.php\' target=\'_blank\'>Network Configuration</a> page in your mAdserve ad server. mAdserve will then automatically send all your traffic to the respective ad network. Revenue and other Reporting metrics will be reported and visible directly in your account with the ad network.</div>'});">Publisher ID Info</a>
@@ -440,7 +440,7 @@ $("input[id=country_targeting]").autoSuggest(data.items, {selectedItemProp: "nam
         <option <?php if (isset ($editdata['ios_version_max']) && $editdata['ios_version_max']=="5.0"){echo 'selected="selected"'; } ?> value="5.0">5.0</option>
          
       </select></div><div>Min: <select name="android_version_min" id="android_version_min">
-      
+
       <option <?php if (empty($editdata['android_version_min'])){echo 'selected="selected"'; } ?> value="">No Min</option>
          
        <option <?php if (isset ($editdata['android_version_min']) && $editdata['android_version_min']=="1.5"){echo 'selected="selected"'; } ?> value="1.5">1.5</option>
@@ -476,45 +476,16 @@ $("input[id=country_targeting]").autoSuggest(data.items, {selectedItemProp: "nam
         <option <?php if (isset ($editdata['android_version_max']) && $editdata['android_version_max']=="2.3"){echo 'selected="selected"'; } ?> value="2.3">2.3</option>
          
         <option <?php if (isset ($editdata['android_version_max']) && $editdata['android_version_max']=="3.0"){echo 'selected="selected"'; } ?> value="3.0">3.0</option>
-        
+
          
       </select></div><div>-</div></td>
   </tr>
 </table>
-			
-									
-						  </div>	
-                                
-                                  
-                   
-                            
+
+						  </div>
+
                             		</div> <!-- .widget-content -->
-						
+
 					</div> <!-- .widget -->
-                    
-                   
-                                                    
-                                                    
+
                                 <script src='assets/javascripts/all.js'></script>
-                                
-                               
-
-                            
-                        
-
-
-                            
-                            
-                            
-                                                        
-                           
-                             
-                             
-                            
-                          
-                            
-			
-							
-							
-						
-				

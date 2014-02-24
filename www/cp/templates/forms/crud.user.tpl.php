@@ -254,38 +254,37 @@ function country_code_to_country( $code ){
 
 ?>
 <div class="widget">
-						
+
 						<div class="widget-header">
 
 							<span class="icon-article"></span>
 							<h3>User Details</h3>
 						</div> <!-- .widget-header -->
-						
+
 						<div class="widget-content">
-						
-							<div class="field-group">			
+
+							<div class="field-group">
 						    <div class="field">
-									<input type="text" value="<?php if (isset($editdata['first_name'])){ echo $editdata['first_name']; } ?>" name="first_name" id="first_name" size="10" class="" />			
+									<input type="text" value="<?php if (isset($editdata['first_name'])){ echo $editdata['first_name']; } ?>" name="first_name" id="first_name" size="10" class="" />
 								<label for="first_name"><strong>First Name</strong></label>
 							  </div>
 						    <div class="field">
-									<input type="text" value="<?php if (isset($editdata['last_name'])){ echo $editdata['last_name']; } ?>" name="last_name" id="last_name" size="10" class="" />			
+									<input type="text" value="<?php if (isset($editdata['last_name'])){ echo $editdata['last_name']; } ?>" name="last_name" id="last_name" size="10" class="" />
 								<label for="last_name"><strong>Last Name</strong></label>
 							  </div>
 							</div> <!-- .field-group -->
-                            
+
                             <div class="field-group">
-			
+
 						    <div class="field">
-									<input type="text" value="<?php if (isset($editdata['email_address'])){ echo $editdata['email_address']; } ?>" name="email_address" id="email_address" size="28" class="" />			
+									<input type="text" value="<?php if (isset($editdata['email_address'])){ echo $editdata['email_address']; } ?>" name="email_address" id="email_address" size="28" class="" />
 								<strong>
 									<label for="email_address"><strong>E-Mail Address</strong></label>
 							    </strong></div>
 							</div> <!-- .field-group -->
-                            
-                             
+
                             <div class="field-group">
-			
+
 								<div class="field">
 								<select id="account_type" name="account_type">
                                 <option value="undefined">- No Group -</option>
@@ -294,79 +293,78 @@ function country_code_to_country( $code ){
 									<label for="account_type"><strong>Group</strong></label>
 								</div>
 							</div> <!-- .field-group -->
-                            
-                            
+
                             <div class="field-group">
-			
+
 						    <div class="field">
-									<input type="password"  name="new_password" id="new_password" size="28" class="" />			
-								
+									<input type="password"  name="new_password" id="new_password" size="28" class="" />
+
 									<label for="new_password"><strong>New Password</strong></label>
 							    </div>
 							</div> <!-- .field-group -->
-                            
+
                              <div class="field-group">
-			
+
 					        <div class="field">
-									<input type="password"  name="new_password_2" id="new_password_2" size="28" class="" />			
+									<input type="password"  name="new_password_2" id="new_password_2" size="28" class="" />
 									<label for="new_password_2"><strong>Repeat New Password</strong></label>
 								</div>
 							</div> <!-- .field-group -->
-                            
+
                              <div class="field-group">
-			
+
 								<div class="field">
-									<input type="text" value="<?php if (isset($editdata['company_name'])){echo $editdata['company_name']; } ?>" name="company_name" id="company_name" size="28" class="" />			
+									<input type="text" value="<?php if (isset($editdata['company_name'])){echo $editdata['company_name']; } ?>" name="company_name" id="company_name" size="28" class="" />
 									<label for="company_name">Company Name</label>
 								</div>
 							</div> <!-- .field-group -->
-                            
+
                             <div class="field-group">
-			
+
 								<div class="field">
-									<input type="text" value="<?php if (isset($editdata['phone_number'])){echo $editdata['phone_number']; } ?>" name="phone_number" id="phone_number" size="28" class="" />			
+									<input type="text" value="<?php if (isset($editdata['phone_number'])){echo $editdata['phone_number']; } ?>" name="phone_number" id="phone_number" size="28" class="" />
 									<label for="phone_number">Phone Number</label>
 								</div>
 							</div> <!-- .field-group -->
-                            
+
                             <div class="field-group">
-			
+
 								<div class="field">
-									<input type="text" value="<?php if (isset($editdata['fax_number'])){echo $editdata['fax_number']; } ?>" name="fax_number" id="fax_number" size="28" class="" />			
+									<input type="text" value="<?php if (isset($editdata['fax_number'])){echo $editdata['fax_number']; } ?>" name="fax_number" id="fax_number" size="28" class="" />
 									<label for="fax_number">Fax Number</label>
 								</div>
 							</div> <!-- .field-group -->
-                            
-                            <div class="field-group">			
+
+                            <div class="field-group">
 								<div class="field">
-									<input type="text" value="<?php if (isset($editdata['company_address'])){echo $editdata['company_address']; } ?>" name="company_address" id="company_address" size="20" class="" />			
+									<input type="text" value="<?php if (isset($editdata['company_address'])){echo $editdata['company_address']; } ?>" name="company_address" id="company_address" size="20" class="" />
 									<label for="company_address">Address</label>
 								</div>
 								<div class="field">
-									<input type="text" value="<?php if (isset($editdata['company_city'])){echo $editdata['company_city']; } ?>" name="company_city" id="company_city" size="10" class="" />			
+									<input type="text" value="<?php if (isset($editdata['company_city'])){echo $editdata['company_city']; } ?>" name="company_city" id="company_city" size="10" class="" />
 									<label for="company_city">City</label>
 								</div>
 							</div> <!-- .field-group -->
-                            
-                            <div class="field-group">			
+
+                            <div class="field-group">
 								<div class="field">
-									<input type="text" value="<?php if (isset($editdata['company_state'])){echo $editdata['company_state']; } ?>" name="company_state" id="company_state" size="10" class="" />			
+									<input type="text" value="<?php if (isset($editdata['company_state'])){echo $editdata['company_state']; } ?>" name="company_state" id="company_state" size="10" class="" />
 									<label for="company_state">State</label>
 								</div>
 								<div class="field">
-									<input type="text" value="<?php if (isset($editdata['company_zip'])){echo $editdata['company_zip']; } ?>" name="company_zip" id="company_zip" size="10" class="" />			
+									<input type="text" value="<?php if (isset($editdata['company_zip'])){echo $editdata['company_zip']; } ?>" name="company_zip" id="company_zip" size="10" class="" />
 									<label for="company_zip">ZIP Code</label>
 								</div>
 							</div> <!-- .field-group -->
-                            
+
                               <div class="field-group">
-			
+
 								<div class="field">
-<select name="company_country"> 
+<select name="company_country">
 <?php if (!isset ($editdata['company_country']) or empty($editdata['company_country'])){echo '<option value="" selected="selected">Select Country</option>'; } else { echo '<option value="'.$editdata['company_country'].'" selected="selected">'.country_code_to_country($editdata['company_country']).'</option>'; }?>
-<option value="United States">United States</option> 
-<option value="United Kingdom">United Kingdom</option> 
-<option value="Afghanistan">Afghanistan</option> 
+<option value="United States">United States</option>
+<option value="United Kingdom">United Kingdom</option>
+<option value="Afghanistan">Afghanistan</option>
 <option value="Albania">Albania</option> 
 <option value="Algeria">Algeria</option> 
 <option value="American Samoa">American Samoa</option> 
@@ -608,23 +606,15 @@ function country_code_to_country( $code ){
 </select>									<label for="company_country">Country</label>
 								</div>
 							</div> <!-- .field-group -->
-                            
-                            
-                            
+
                             <div class="field-group">
-			
+
 								<div class="field">
-									<input type="text" value="<?php if (isset($editdata['tax_id'])){ echo $editdata['tax_id']; } ?>" name="tax_id" id="tax_id" size="28" class="" />			
+									<input type="text" value="<?php if (isset($editdata['tax_id'])){ echo $editdata['tax_id']; } ?>" name="tax_id" id="tax_id" size="28" class="" />
 									<label for="tax_id">Tax ID</label>
 								</div>
 							</div> <!-- .field-group -->
-                            
-                            
-                           
-                         
-						
+
 						</div> <!-- .widget-content -->
-						
+
 					</div> <!-- .widget -->
-                    
-                    

@@ -9,6 +9,10 @@ function setupConstants()
     define('MAD_ANDROID_SDK_LOCATION',  'sdk/android_latest.zip');
     define('MAD_IOS_SDK_LOCATION',  'sdk/ios_latest.zip');
 
+    define('MAD_INSTALLATION_STATUS_NOTINSTALLED' ,   -1);
+    define('MAD_INSTALLATION_STATUS_UPGRADING'    ,    0);
+    define('MAD_INSTALLATION_STATUS_INSTALLED'    ,    1);
+
 	// settings
     define('MAD_PUBL_ACTIVE_CRITERIA_SECONDS', 3600);
     define('MAD_USER_SESSION_TIMEOUT', 3600);
@@ -36,15 +40,15 @@ function setupConstants()
 	// time zone settings
 	define('MAD_TIMEZONE_OVERRIDE', true); // Override Server Time Zone
 	define('MAD_DEFAULT_TIMEZONE', 'Europe/Berlin'); // Time Zone to use. e.g. 'America/Los_Angeles' / Full List of Time Zones supported: http://www.php.net/manual/en/timezones.php
-	
+
 	// advanced cache settings
     define('MAD_CACHE_CAMPAIGN_QUERIES', true);
     define('MAD_CACHE_CAMPAIGN_QUERIES_SEC', 90);
-	
+
 	// geo-ip settings
 	define('MAD_MAXMIND_TYPE', 'PHPSOURCE'); // Change to 'NATIVE' if you installed the GeoIP PHP Module (http://www.php.net/manual/en/book.geoip.php) -> Faster! - Please note that mAdserve will crash if this option is enabled but not installed.
 	define('MAD_MAXMIND_DATAFILE_LOCATION', 'data/geotargeting/GeoLiteCity.dat');
-	
+
 	// additional settings
 	define('MAD_SERVE_NOMOBILE', true); // Server Ads to non-mobile users if they are either targeted to all devices or 'Other Devices' in the Campaign Setup
 	define('MAD_INTERSTITIALS_EXACTMATCH', true); // Defines whether an Interstitial Ad Placement can only show ads that are exactly 320x480 in size. If you set this option to FALSE, an Interstitial ad space would also serve e.g. an ad with 320x50 dimenstions if that is the closest size available.
@@ -53,8 +57,8 @@ function setupConstants()
     // Maximum random number
     define('MAD_RAND',     mt_getrandmax());
     define('MAD_RAND_INV', 1 / MAD_RAND);
-	
-	 define('MAD_CREATIVE_DIR',  '/data/creative/');
+
+    define('MAD_CREATIVE_DIR',  '/data/creative/');
 
 
 

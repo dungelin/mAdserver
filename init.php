@@ -46,7 +46,7 @@ function init()
     }
 
     // CHECK IF SCRIPT IS INSTALLED; OTHERWISE REDIRECT TO INSTALLER
-    if (MAD_INSTALLATION_STATUS!=MAD_INSTALLATION_STATUS_INSTALLED && $mad_install_active!=1){
+    if (MAD_INSTALLATION_STATUS != MAD_INSTALLATION_STATUS_INSTALLED && $mad_install_active!=1){
         require_once MAD_PATH . '/functions/adminredirect.php';
         MAD_Admin_Redirect::redirect(MAD_ADSERVING_PROTOCOL . MAD_getHostName() . substr(dirname(__FILE__),strlen($_SERVER['DOCUMENT_ROOT'])) . '/www/cp/install.php');
         exit;

@@ -18,13 +18,13 @@ require_once MAD_PATH . '/www/cp/admin_functions.php';
 require_once MAD_PATH . '/www/cp/templates/header.tpl.php';
 
 if (!check_permission('inventory', $user_detail['user_id'])){
-exit;
+    exit;
 }
 
 if (check_permission_simple('modify_publications', $user_detail['user_id'])){
-if (isset ($_GET['delete']) && $_GET['delete']==1 && is_numeric($_GET['id'])){
-delete_publication($_GET['id']);
-}
+    if (isset ($_GET['delete']) && $_GET['delete']==1 && is_numeric($_GET['id'])){
+        delete_publication($_GET['id']);
+    }
 }
 
 ?>
@@ -73,25 +73,12 @@ delete_publication($_GET['id']);
 					<div class="actions">						
 								<button onclick="window.location='add_publication.php';" class="btn btn-quaternary"><span class="icon-plus"></span>Create New Publication</button>
 								</div> <!-- .actions -->
-                            
-								
-					
-				
-				
-				
-				
-				
-				
-				
+
 			</div> <!-- .grid -->
-			
-			
-				
-			
-			
+
 		</div> <!-- .container -->
-		
-	</div> <!-- #content -->	
+
+	</div> <!-- #content -->
  <?php global $jsload; $jsload=1; print_deletionjs('publications'); ?>
 <?php
 require_once MAD_PATH . '/www/cp/templates/footer.tpl.php';

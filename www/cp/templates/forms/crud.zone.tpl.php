@@ -1,8 +1,8 @@
-<script language="JavaScript">  
+<script language="JavaScript">
 
-function showadiv(id) {  
+function showadiv(id) {
 //safe function to show an element with a specified id
-		  
+
 	if (document.getElementById) { // DOM3 = IE5, NS6
 		document.getElementById(id).style.visibility = 'visible';
 	}
@@ -86,10 +86,9 @@ if (document.forms['crudpublication'].elements['zone_size'].value=='10'){showadi
 										<input type="radio" <?php if (isset($editdata['zone_type']) && $editdata['zone_type']=='interstitial'){echo'checked="checked"'; }?> onclick="hideadiv('zonesize'); checkdivs();" name="zone_type" id="zone_type_interstitial" value="interstitial" />
 										<label for="zone_type_interstitial">Full Page Interstitial</label>
 									</div>
-			
-									
-								</div>	
-                                
+
+								</div>
+
                                 <div id="zonesize" class="field-group">
 			                    <?php if ($current_action=='create'){?>
 								<div class="field">
@@ -103,66 +102,53 @@ if (document.forms['crudpublication'].elements['zone_size'].value=='10'){showadi
 								  <option value="4">160x600 Skyscraper</option>
 								  <option value="1">320x50 Tablet Banner</option>
                                   <option value="10">Custom Size:</option>
-								</select>					
+								</select>
 									<label for="zone_size">Ad Unit Size</label>
 								</div>
                                 <?php } ?>
                                 <div id="widthzonediv" class="field">
-									<input type="text" value="<?php  if (isset($editdata['zone_width'])){ echo $editdata['zone_width']; } ?>" name="custom_zone_width" id="custom_zone_width" size="3" class="" />		x	
+									<input type="text" value="<?php  if (isset($editdata['zone_width'])){ echo $editdata['zone_width']; } ?>" name="custom_zone_width" id="custom_zone_width" size="3" class="" />		x
 									<label for="last_name">Width</label>
 								</div>
-                               
+
                                 <div id="heightzonediv" class="field">
-									<input type="text" value="<?php if (isset($editdata['zone_height'])){ echo $editdata['zone_height']; } ?>" name="custom_zone_height" id="custom_zone_height" size="3" class="" />			
+									<input type="text" value="<?php if (isset($editdata['zone_height'])){ echo $editdata['zone_height']; } ?>" name="custom_zone_height" id="custom_zone_height" size="3" class="" />
 									<label for="last_name">Height</label>
 								</div>
 							</div> <!-- .field-group -->
-                            
+
                             <div class="field-group">
-			
+
 								<div class="field">
 									<select id="zone_channel" name="zone_channel">
 								  <option>- Use publication default channel  -</option>
 	 <?php if (!isset($editdata['zone_channel'])){$editdata['zone_channel']=''; } get_channel_dropdown($editdata['zone_channel']); ?>
-								</select>					
+								</select>
 									<label for="zone_channel">Channel Override</label>
 								</div>
 							</div> <!-- .field-group -->
-                            
+
                             <div class="field-group">
-			
+
 								<div class="field">
 									<input type="text" value="<?php if (isset ($editdata['zone_refresh']) && !empty($editdata['zone_refresh'])){ echo $editdata['zone_refresh']; } else { echo '30'; } ?>"  name="zone_refresh" id="zone_refresh" size="1" class="" /> seconds	
 									<label for="zone_refresh">Refresh Interval (enter 0 for no refresh)</label>
 								</div>
 							</div> <!-- .field-group -->
-                            
-			
-								
-                            
-                           
-                             
-                             
-                            
-                          
-                            
-			
-							
-							
-						
+
 						</div> <!-- .widget-content -->
-						
+
 					</div> <!-- .widget -->
-                    
-                    <div class="notify">			
-                        <h3>Monetization Settings</h3>			
-						
+
+                    <div class="notify">
+                        <h3>Monetization Settings</h3>
+
 						<p><input <?php if (!isset($editdata['mobfox_backfill_active']) or $editdata['mobfox_backfill_active']==1){echo'checked="checked"'; }?> name="mobfox_backfill_active" id="mobfox_backfill_active" type="checkbox" value="1" /><label for="mobfox_backfill_active"><strong>BackFill - </strong>Attempt to show an ad from the MobFox:Connect network before an ad space remains unfilled. (recommended)</label></p><p><input id="mobfox_min_cpc_active" <?php if (isset($editdata['mobfox_min_cpc_active']) && $editdata['mobfox_min_cpc_active']==1){echo'checked="checked"'; }?> name="mobfox_min_cpc_active" type="checkbox" value="1" /><label for="mobfox_min_cpc_active">Only back-fill through MobFox:Connect when the ad pays at least a CPC of $<input type="text" value="<?php if (!empty($editdata['min_cpc'])){ echo $editdata['min_cpc']; } else { echo '0.10'; } ?>"  name="min_cpc" id="min_cpc" size="2" class="" /> (max. $0.20) or a CPM of $<input type="text" value="<?php if (!empty($editdata['min_cpm'])){ echo $editdata['min_cpm']; } else { echo '2.50'; } ?>"  name="min_cpm" id="min_cpm" size="2" class="" /> (max. $5)</label></p>
 					</div> <!-- .notify -->
-                    
-                  <div class="notify">			
-    <h3>BackFill Settings - Alternative Networks</h3>			
-						
+
+                  <div class="notify">
+    <h3>BackFill Settings - Alternative Networks</h3>
+
 						<p><input <?php if (isset ($editdata['backfill_alt_1']) && is_numeric($editdata['backfill_alt_1'])){echo'checked="checked"'; }?> id="backfill_alt_1_active" name="backfill_alt_1_active" type="checkbox" value="1" />
                         <label for="backfill_alt_1_active">
 						Alternative 1: If an ad-request can neither be filled by a direct campaign nor by MobFox:Connect, try to request an ad from 

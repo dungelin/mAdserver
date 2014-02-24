@@ -19,9 +19,8 @@ if (!check_permission('campaigns', $user_detail['user_id'])){
 }
 
 if (!check_permission_simple('create_campaigns', $user_detail['user_id'])){
-    exit;	
+    exit;
 }
-
 
 global $current_action;
 $current_action='create';
@@ -43,16 +42,13 @@ if (isset($_POST['add'])){
 
 
 require_once MAD_PATH . '/www/cp/templates/header.tpl.php';
-
-
-
 ?>
 
-<script language="JavaScript">  
+<script language="JavaScript">
 
-    function showadiv(id) {  
+    function showadiv(id) {
 //safe function to show an element with a specified id
-		  
+
         if (document.getElementById) { // DOM3 = IE5, NS6
             document.getElementById(id).style.visibility = 'visible';
         }
@@ -98,27 +94,22 @@ function hideadiv(id) {
 <?php if (isset($errormessage)){ ?>
                                  <div class="box plain"><div class="notify notify-error"><h3>Error</h3><p><?php echo $errormessage; ?></p></div> <!-- .notify --></div>
 <?php } ?>
-            
-                    
+
 <form method="post" enctype="multipart/form-data" id="crudcampaign" name="crudcampaign" class="form uniformForm">
-    <input type="hidden" name="add" value="1" />				
-					
+    <input type="hidden" name="add" value="1" />
+
 <?php require_once MAD_PATH . '/www/cp/templates/forms/crud.campaign.tpl.php';  require_once MAD_PATH . '/www/cp/templates/forms/crud.adunit.tpl.php';
-				
-?>	
-                    
-                    
-    <div class="actions">						
+
+?>
+
+    <div class="actions">
     <button type="submit" class="btn btn-quaternary btn-large">Create Campaign</button>
     </div> <!-- .actions -->
-										
-					
-					
-					
+
     </form>
-					
+
     </div> <!-- .grid -->
-                
+
     <script>
     $(function () { 
 
