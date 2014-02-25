@@ -288,9 +288,8 @@ function email_exists($email, $userid){
         return true;
     }
     else {
-        return false;	
+        return false;
     }
-	
 }
 
 function update_configvar($datafield, $newcontent){
@@ -1302,7 +1301,7 @@ function get_network_dropdown_report($selected){
 
 
 function get_publication_dropdown($selected){
-    global $maindb;	
+    global $maindb;
 
     echo "<option value=''>- Select Publication -</option>";
 
@@ -1310,7 +1309,7 @@ function get_publication_dropdown($selected){
     while($publication_detail=mysql_fetch_array($usrres)){
         $selected_html='';
         if (is_numeric($selected) && $selected==$publication_detail['inv_id']){
-            $selected_html='selected="selected"';	
+            $selected_html='selected="selected"';
         }
         echo '<option '.$selected_html.' value="'.$publication_detail['inv_id'].'">'.$publication_detail['inv_name'].'</option>';
     }
@@ -3093,9 +3092,7 @@ function get_code_snippets($type, $zoneid){
             echo '</div> <!-- .widget-content -->';
         }
 
-
     }
-	
 }
 function get_campaign_reporting_metrics($campaignid){
     global $maindb;
@@ -4744,38 +4741,34 @@ function execute_pending_actions(){
 
 }
 
-function execute(){
+function execute() {
 
-    if (getconfig_var('last_trafficrequest_update')==''){
+    if (getconfig_var('last_trafficrequest_update')=='') {
 
-//path to directory to scan
+        //path to directory to scan
         $directory = MAD_PATH. "/modules/network_modules/";
 
-//get all files in specified directory
+        //get all files in specified directory
         $files = glob($directory . "*");
 
-//print each file name
-        foreach($files as $file)
-            {
-                //check to see if the file is a folder/directory
-                if(is_dir($file))
-                    {
-
-                        $network_name = str_replace(MAD_PATH. "/modules/network_modules/", '', $file);
-                        install_network($network_name);
-
-                    }
-
+        //print each file name
+        foreach($files as $file) {
+            //check to see if the file is a folder/directory
+            if(is_dir($file)) {
+                $network_name = str_replace(MAD_PATH. "/modules/network_modules/", '', $file);
+                install_network($network_name);
             }
+
+        }
 
     }
 
-    $time_since_last_tr=time()-getconfig_var('last_trafficrequest_update');
-    if ($time_since_last_tr>=MAD_TRCHECK_INTERVAL_DASHBOARD or !is_numeric(getconfig_var('last_trafficrequest_update'))){
+    $time_since_last_tr= time() - getconfig_var('last_trafficrequest_update');
+    if ($time_since_last_tr >= MAD_TRCHECK_INTERVAL_DASHBOARD or !is_numeric(getconfig_var('last_trafficrequest_update'))){
         update_traffic_requests();	
     }
 
-    $time_since_last_pending_exec=time()-getconfig_var('last_pendingactions_exec');
+    $time_since_last_pending_exec = time() - getconfig_var('last_pendingactions_exec');
     if ($time_since_last_pending_exec>=MAD_ACTION_EXEC_INTERVAL_DASHBOARD or !is_numeric(getconfig_var('last_pendingactions_exec'))){
         execute_pending_actions();	
     }
@@ -5517,16 +5510,16 @@ function delete_creativeserver($id){
 function campaign_limit_update(){
     global $maindb;
 
-    $last_limit_update=getconfig_var('last_limit_update');
+    $last_limit_update = getconfig_var('last_limit_update');
 
-    $diff=time()-$last_limit_update;
+    $diff = time() - $last_limit_update;
 
-    if ($diff<86300 && is_numeric($last_limit_update)){
-        return false;	
+    if ($diff < 86300 && is_numeric($last_limit_update)){
+        return false;
     }
 
     global $maindb;
-    mysql_query("UPDATE md_campaign_limit SET total_amount_left=total_amount WHERE total_amount>0 AND cap_type='1'", $maindb);
+    mysql_query("UPDATE md_campaign_limit SET total_amount_left=total_amount WHERE total_amount > 0 AND cap_type='1'", $maindb);
 
     update_configvar('last_limit_update', time());
 
@@ -5539,7 +5532,6 @@ function add_syslog($type, $detail){
     mysql_query("INSERT INTO md_syslog (log_type, time_stamp, status, details)
 VALUES ('".$type."', '".time()."', '1', '".$detail."')", $maindb);
     return true;
-	
 }
 
 

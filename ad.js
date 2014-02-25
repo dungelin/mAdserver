@@ -52,7 +52,7 @@
                 }
             }
             nodes[nodes.length] = [document.createElement("script"),false];
-            
+
             for( var attr in pass ) {
                 nodes[nodes.length-1][0][attr] = pass[attr];
             }
@@ -81,14 +81,14 @@
     }
 
     var create = function() {
-        
+
         var adcount = 0;
 
         return function(madservevariables) {
 
             adcount++;
             var id = 'global_ad_id' + adcount;
-            
+
             if( !madservevariables.s ) return;
 
             var src = madservevariables.requesturl;
@@ -124,7 +124,6 @@
             varscall.type = "text/javascript";
             var varsloaded = function() {
 
-                
                 if( isie ) {
                     container = document.getElementById(id);
                 }
@@ -191,7 +190,7 @@
                         link.href = madservevariables.prependclickcontent + original;
                     }
                 }
-             
+
                 if( madservevariables.trackingpixelurl ) {
                     var cachebust = Math.random(),
                         join = (madservevariables.trackingpixelurl.indexOf('?') ? '&' : '?'),

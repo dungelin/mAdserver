@@ -1,7 +1,7 @@
 <?php
 require_once MAD_PATH . '/www/cp/admin_functions.php';
 
-function run_cron(){
+function run_cron() {
 
     campaign_limit_update();
 

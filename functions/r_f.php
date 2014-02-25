@@ -39,9 +39,9 @@ function ad_request($data){
         $request_settings['sdk']='banner';
     }
     else {
-        $request_settings['sdk']=$data['sdk'];	
+        $request_settings['sdk']=$data['sdk'];
     }
-	
+
 /*Identify Response Type*/
     switch ($data['rt']){
     case 'javascript':
@@ -93,7 +93,6 @@ function ad_request($data){
         $request_settings['response_type']='html';
         $request_settings['ip_origin']='request';
         break;
-
     }
 
     if (MAD_MAINTENANCE){
@@ -352,7 +351,7 @@ function print_ad(){
 
         if ($display_ad['type']=='interstitial' or $display_ad['type']=='video-interstitial' or $display_ad['type']=='interstitial-video'){
             if ($display_ad['interstitial-type']=='markup'){$interstitial_urlcontent=''; } else {$interstitial_urlcontent='url="'.htmlspecialchars($display_ad['interstitial-content']).'"';}
-	
+
             echo '<interstitial preload="'.$display_ad['interstitial-preload'].'" autoclose="'.$display_ad['interstitial-autoclose'].'" type="'.$display_ad['interstitial-type'].'" '.$interstitial_urlcontent.' orientation="'.$display_ad['interstitial-orientation'].'">';
             if ($display_ad['interstitial-type']=='markup'){
                 echo '<markup><![CDATA['.$display_ad['interstitial-content'].']]></markup>';
@@ -429,7 +428,7 @@ function prepare_ctr(){
 }
 
 function get_destination_url(){
-    global $display_ad;	
+    global $display_ad;
     if (isset($display_ad['click_url'])){
         return $display_ad['click_url'];
     } else {
@@ -496,11 +495,11 @@ function prepare_ad(){
 }
 
 function force(){
-    global $display_ad;	
+    global $display_ad;
     global $request_settings;
 
     if (isset($request_settings['u_wv_available']) && ($request_settings['active_campaign_type']=='network' or $request_settings['active_campaign_type']=='backfill')){
-        $display_ad['clicktype']='inapp';	
+        $display_ad['clicktype']='inapp';
     }
 
     if ($display_ad['main_type']=='interstitial'){
@@ -509,7 +508,7 @@ function force(){
 }
 
 function get_network_info($network_id){
-	
+
     $query="select network_identifier, banner_support, interstitial_support from md_networks where entry_id='".$network_id."'";
 
     if ($network_detail=simple_query_maindb($query, true, 500)){
@@ -519,9 +518,8 @@ function get_network_info($network_id){
     }
 
     else {
-        return false;	
+        return false;
     }
-	
 }
 
 function get_network_ids($network_identifier){
@@ -549,7 +547,7 @@ function network_ad_request($network_id, $backfill){
     }
 
     if (!$network_ids=get_network_ids($network_detail['network_identifier'])){
-        return false;	
+        return false;
     }
 
     require_once('modules/network_modules/network_connector.php');
@@ -558,9 +556,8 @@ function network_ad_request($network_id, $backfill){
         if (build_ad(2, $returndata)){ return true;  } else { return false; }
     }
     else {
-        return false; // Ad Not Loaded	
+        return false; // Ad Not Loaded
     }
-	
     return false;
 }
 
@@ -601,7 +598,7 @@ function select_adunit_query($campaign_id){
         array_push($adarray, $add);
     }
 
-    if ($total_ads_inarray=count($adarray)<1){
+    if ($total_ads_inarray = count($adarray) < 1) {
         return false;	
     }
 
@@ -900,14 +897,14 @@ function process_campaignquery_result($result){
 //break;
 
         if ($campaign_detail['type']=='network'){
-            reporting_db_update($zone_detail['publication_id'], $zone_detail['entry_id'], $campaign_detail['campaign_id'], '', $campaign_detail['network_id'], 0, 1, 0, 0); 
+            reporting_db_update($zone_detail['publication_id'], $zone_detail['entry_id'], $campaign_detail['campaign_id'], '', $campaign_detail['network_id'], 0, 1, 0, 0);
             if (network_ad_request($campaign_detail['network_id'], 0)){
                 global $request_settings;
                 $request_settings['active_campaign_type']='network';
                 $request_settings['active_campaign']=$campaign_detail['campaign_id'];
                 $request_settings['network_id']=$campaign_detail['network_id'];
                 return true;
-                break;	
+                break;
             }
         }
         else {
@@ -919,7 +916,7 @@ function process_campaignquery_result($result){
                 break;
             }
         }
-    } 
+    }
 	return false;
 }
 
@@ -993,7 +990,7 @@ function try_alternative($id){
 }
 
 function launch_campaign_query($q){
-		
+
     if (MAD_CACHE_CAMPAIGN_QUERIES){
         $cache_result=get_cache($q);
 
@@ -1001,7 +998,7 @@ function launch_campaign_query($q){
             return $cache_result;
         }
     }
-	
+
     global $maindb;
 
 
@@ -1013,7 +1010,7 @@ function launch_campaign_query($q){
         array_push($campaignarray, $add);
     }
 
-    if (count($campaignarray)<1){
+    if (count($campaignarray) < 1){
         return false;
     }
 
@@ -1024,8 +1021,8 @@ function launch_campaign_query($q){
         $network_id[$key] = $row['network_id'];
     }
 
-// Sort the data with volume descending, edition ascending
-// Add $data as the last parameter, to sort by the common key
+    // Sort the data with volume descending, edition ascending
+    // Add $data as the last parameter, to sort by the common key
     array_multisort($priority, SORT_DESC, $campaignarray);
 
     $highest_priority=$campaignarray[0]['priority'];
@@ -1145,7 +1142,7 @@ function build_query(){
         }
         break;
     }
-/*Debug
+/*Debug WangXiaoGuang
   $query_part['limit']="AND (md_campaign_limit.total_amount_left='' OR md_campaign_limit.total_amount_left>=1)";
 
   if (MAD_IGNORE_DAILYLIMIT_NOCRON && !check_cron_active()){
@@ -1159,7 +1156,7 @@ function build_query(){
 }
 
 function check_cron_active(){
-	
+
     $last_exec=get_last_cron_exec();
 
     $d=time()-$last_exec;
@@ -1193,12 +1190,11 @@ function get_last_cron_exec(){
         return $config_detail['var_value'];
     }
     else {
-        return 0;	
+        return 0;
     }
-	
 }
 
-function set_geo($ip_address){
+function set_geo($ip_address) {
     global $request_settings;
 
     $key='GEODATA_'.$ip_address.'';
@@ -1394,21 +1390,19 @@ function get_publication_channel($publication_id){
     else {
         return $publication_detail['inv_defaultchannel'];
     }
-
-	
 }
 
 function update_last_request(){
     global $zone_detail;
 
-    $lastreq_dif=0;
-    $timestamp=time();
+    $lastreq_dif = 0;
+    $timestamp = time();
 
-    if ($zone_detail['zone_lastrequest']>0){
-        $lastreq_dif=$timestamp-$zone_detail['zone_lastrequest'];
+    if ($zone_detail['zone_lastrequest'] > 0) {
+        $lastreq_dif = $timestamp - $zone_detail['zone_lastrequest'];
     }
 
-    if ($lastreq_dif>=600 or $zone_detail['zone_lastrequest']<1){
+    if ($lastreq_dif >= 600 or $zone_detail['zone_lastrequest'] < 1) {
         global $maindb;
         mysql_query("UPDATE md_zones set zone_lastrequest='".$timestamp."' where entry_id='".$zone_detail['entry_id']."'", $maindb);
         mysql_query("UPDATE md_publications set md_lastrequest='".$timestamp."' where inv_id='".$zone_detail['publication_id']."'", $maindb);
@@ -1417,13 +1411,11 @@ function update_last_request(){
 }
 
 function php_cache_compatibility_check(){
-	
     if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
         return true;
     }
 
     return false;
-	
 }
 
 
@@ -1527,7 +1519,7 @@ function print_error($type, $message, $sdk_type, $e){
     global $request_settings;
 
     switch ($request_settings['response_type']){
-	
+
     case 'html':
 
         if ($type==0){
@@ -1553,14 +1545,11 @@ function print_error($type, $message, $sdk_type, $e){
     case 'json':
 // Do Nothing - Return Blank Page
         break;
-	
-	
     }
 
     if ($e==1){
         exit;
     }
-	
 }
 
 function validate_md5($hash){
@@ -1572,7 +1561,7 @@ function validate_md5($hash){
     }
 }
 
-function check_input($data){
+function check_input($data) {
     global $request_settings;
     global $errormessage;
 
@@ -1636,8 +1625,6 @@ function prepare_ua($data){
     else if (isset($data['u']) && !empty($data['u'])){
         $request_settings['user_agent']=urldecode($data['u']);
     }
-	
-	
 }
 
 function is_valid_ip($ip, $include_priv_res = true)
