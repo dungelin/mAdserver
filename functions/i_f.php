@@ -306,7 +306,7 @@ function finalize_install($data){
   `creativeserver_id` varchar(100) NOT NULL,
   PRIMARY KEY  (`adv_id`),
   KEY `campaign_id` (`campaign_id`,`adv_status`,`adv_height`,`adv_width`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;", $maindb);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;", $maindb);
 
     mysql_query("CREATE TABLE IF NOT EXISTS `md_campaigns` (
   `campaign_id` int(11) NOT NULL auto_increment,

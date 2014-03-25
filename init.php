@@ -82,4 +82,5 @@ function init()
 
 // Run the init() function
 init();
+require_once MAD_PATH . DIRECTORY_SEPARATOR . 'functions'. DIRECTORY_SEPARATOR .'core.functions.php';
 ?>

@@ -69,9 +69,6 @@ function setupConstants()
         if (!defined('MAD_PATH')) {
             define('MAD_PATH', dirname(__FILE__));
         }
-        if (!defined('MAD_PATH')) {
-            define('MAD_PATH', dirname(__FILE__));
-        }
         // Ensure that the DIRECTORY_SEPARATOR and PATH_SEPARATOR
         // constants are correctly defined
         if (!defined('DIRECTORY_SEPARATOR')) {
