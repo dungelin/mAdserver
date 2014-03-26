@@ -1,43 +1,37 @@
 <?php
-header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-header("Cache-Control: no-store, no-cache, must-revalidate");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+    header("Cache-Control: no-store, no-cache, must-revalidate");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
 ?>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-
-	<title><?php echo getconfig_var('adserver_name'); ?> - Control Panel</title>
-
-	<meta charset="utf-8" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="assets/images/favicon.ico" />
-
-	<link rel="stylesheet" href="assets/stylesheets/all.css" type="text/css" />
+    <head>
+	    <title><?php echo getconfig_var('adserver_name'); ?> - <?php echo __('DHD_CTL_PANEL');?></title>
+    	<meta charset="utf-8" />
+	    <meta name="description" content="" />
+    	<meta name="author" content="" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    	<link rel="stylesheet" href="assets/stylesheets/all.css" type="text/css" />
 
 	<!--[if gte IE 9]>
-	<link rel="stylesheet" href="assets/stylesheets/ie9.css" type="text/css" />
+	    <link rel="stylesheet" href="assets/stylesheets/ie9.css" type="text/css" />
 	<![endif]-->
 
 	<!--[if gte IE 8]>
-	<link rel="stylesheet" href="assets/stylesheets/ie8.css" type="text/css" />
+	   <link rel="stylesheet" href="assets/stylesheets/ie8.css" type="text/css" />
 	<![endif]-->
-
 </head>
 
 <body>
 
 <div id="wrapper">
-
 	<div id="header">
 		<h1><a href="dashboard.php"><?php echo getconfig_var('adserver_name'); ?></a></h1>
-
 		<a href="javascript:;" id="reveal-nav">
 			<span class="reveal-bar"></span>
 			<span class="reveal-bar"></span>
@@ -52,48 +46,45 @@ header("Pragma: no-cache");
 	</div> <!-- #search -->
 
 	<div id="sidebar">
-
 		<ul id="mainNav">
 			<li id="navDashboard" class="nav<?php if ($current_section=="dashboard"){echo " active"; } ?>">
 				<span class="icon-home"></span>
-				<a href="dashboard.php">Dashboard</a>
+                <a href="dashboard.php"><?php echo __('DASHBOARD');?></a>
 			</li>
 
-              <?php if ($user_detail['account_type']==1 or  ($user_right['view_own_campaigns']==1 or $user_right['view_all_campaigns']==1 or $user_right['create_campaigns']==1)){?>
+            <?php if ($user_detail['account_type']==1 or  ($user_right['view_own_campaigns']==1 or $user_right['view_all_campaigns']==1 or $user_right['create_campaigns']==1)):?>
 			<li id="navPages" class="nav<?php if ($current_section=="campaigns"){echo " active"; } ?>">
 				<span class="icon-document-alt-stroke"></span>
-				<a href="#">Campaigns</a>
-
+                <a href="#"><?php echo __('CAMPAIGN');?></a>
 				<ul class="subNav">
-					<?php if ($user_detail['account_type']==1 or  ($user_right['view_own_campaigns']==1 or $user_right['view_all_campaigns']==1)){?><li><a href="view_campaigns.php">View Campaigns</a></li><?php } ?>
-					<?php if ($user_detail['account_type']==1 or  ($user_right['create_campaigns']==1)){?><li><a href="create_campaign.php">+ Create Campaign</a></li><?php } ?>
+                    <?php if ($user_detail['account_type']==1 or  ($user_right['view_own_campaigns']==1 or $user_right['view_all_campaigns']==1)){?><li><a href="view_campaigns.php"><?php echo __('CAMPAIGN_VIEW');?></a></li><?php } ?>
+                    <?php if ($user_detail['account_type']==1 or  ($user_right['create_campaigns']==1)){?><li><a href="create_campaign.php">+ <?php echo __('CAMPAIGN_CREATE');?></a></li><?php } ?>
 				</ul>
-
 			</li>
-            <?php } ?>
-			<?php if ($user_detail['account_type']==1 or  ($user_right['view_publications']==1 or $user_right['modify_publications']==1)){?>
+            <?php endif; ?>
+
+            <?php if ($user_detail['account_type']==1 or  ($user_right['view_publications']==1 or $user_right['modify_publications']==1)):?>
 			<li id="navForms" class="nav<?php if ($current_section=="inventory"){echo " active"; } ?>">
 				<span class="icon-iphone"></span>
-				<a href="#">Inventory</a>
+                <a href="#"><?php echo __('INVENTORY');?></a>
 
 				<ul class="subNav">
-					 <?php if ($user_detail['account_type']==1 or  ($user_right['view_publications']==1)){?><li><a href="view_publications.php">View Publications</a></li><?php } ?>
-					<?php if ($user_detail['account_type']==1 or  ($user_right['modify_publications']==1)){?><li><a href="add_publication.php">+ Add Publication</a></li>	<?php } ?>
-					<?php if ($user_detail['account_type']==1 or  ($user_right['modify_publications']==1)){?><li><a href="add_placement.php">+ Add Placement</a></li><?php } ?>
-					 <?php if ($user_detail['account_type']==1 or  ($user_right['view_publications']==1)){?><li><a href="integration.php">Integration</a></li><?php } ?>
-
+                    <?php if ($user_detail['account_type']==1 or  ($user_right['view_publications']==1)){?><li><a href="view_publications.php"><?php echo __('PUBLICATION_VIEW');?></a></li><?php } ?>
+					<?php if ($user_detail['account_type']==1 or  ($user_right['modify_publications']==1)){?><li><a href="add_publication.php">+ <?php echo __('PUBLICATION_CREATE');?></a></li>	<?php } ?>
+					<?php if ($user_detail['account_type']==1 or  ($user_right['modify_publications']==1)){?><li><a href="add_placement.php">+ <?php echo __('PLACEMENT_CREATE');?></a></li><?php } ?>
+					 <?php if ($user_detail['account_type']==1 or  ($user_right['view_publications']==1)){?><li><a href="integration.php"><?php echo __('INTEGRATION');?></a></li><?php } ?>
 				</ul>
-
 			</li>
-            <?php } ?>
-            <?php if ($user_detail['account_type']==1 or  ($user_right['view_advertisers']==1 or $user_right['modify_advertisers']==1)){?>
+            <?php endif; ?>
+
+            <?php if ($user_detail['account_type']==1 or  ($user_right['view_advertisers']==1 or $user_right['modify_advertisers']==1)):?>
             <li id="navGrid" class="nav<?php if ($current_section=="advertisers"){echo " active"; } ?>">
 				<span class="icon-layers"></span>
-				<a href="view_advertisers.php">Advertisers</a>
+				<a href="view_advertisers.php"><?php echo __('ADVERTISERS');?></a>
 			</li>
-            <?php } ?>
+            <?php endif; ?>
 
-		<!--	<li id="navType" class="nav">
+		    <!--<li id="navType" class="nav">
 				<span class="icon-info"></span>
 				<a href="./typography.html">Typography</a>
 			</li>
@@ -107,44 +98,44 @@ header("Pragma: no-cache");
 				<span class="icon-list"></span>
 				<a href="./tables.html">Tables</a>
 			</li>-->
-			<?php if ($user_detail['account_type']==1 or  ($user_right['ad_networks']==1)){?>
-			<li id="navButtons" class="nav<?php if ($current_section=="adnetworks"){echo " active"; } ?>">
+
+            <?php if ($user_detail['account_type']==1 or  ($user_right['ad_networks']==1)):?>
+			<!--<li id="navButtons" class="nav<?php if ($current_section=="adnetworks"){echo " active"; } ?>">
 				<span class="icon-bolt"></span>
 				<a href="ad_networks.php">Ad Networks</a>
-			</li>
-            <?php } ?>
+			</li>-->
+            <?php endif; ?>
 
-			 <?php if ($user_detail['account_type']==1 or  ($user_right['campaign_reporting']==1 or $user_right['own_campaign_reporting']==1 or $user_right['publication_reporting']==1 or $user_right['network_reporting']==1)){?>
+            <?php if ($user_detail['account_type']==1 or  ($user_right['campaign_reporting']==1 or $user_right['own_campaign_reporting']==1 or $user_right['publication_reporting']==1 or $user_right['network_reporting']==1)):?>
 			<li id="navCharts" class="nav<?php if ($current_section=="reporting"){echo " active"; } ?>">
 				<span class="icon-chart"></span>
-				<a href="#">Reporting</a>
+				<a href="#"><?php echo __('REPORTING');?></a>
                 <ul class="subNav">
-					<?php if ($user_detail['account_type']==1 or  ($user_right['campaign_reporting']==1 or $user_right['own_campaign_reporting']==1)){?><li><a href="reporting.php?type=campaign">Campaign Reporting</a></li><?php } ?>
-					<?php if ($user_detail['account_type']==1 or  ($user_right['publication_reporting']==1)){?><li><a href="reporting.php?type=publication">Publication Reporting</a></li>	<?php } ?>
-					<?php if ($user_detail['account_type']==1 or  ($user_right['network_reporting']==1)){?><li><a href="reporting.php?type=network">Network Reporting</a></li><?php } ?>
+					<?php if ($user_detail['account_type']==1 or  ($user_right['campaign_reporting']==1 or $user_right['own_campaign_reporting']==1)){?><li><a href="reporting.php?type=campaign"><?php echo __('CAMPAIGN_REPORTING');?></a></li><?php } ?>
+					<?php if ($user_detail['account_type']==1 or  ($user_right['publication_reporting']==1)){?><li><a href="reporting.php?type=publication"><?php echo __('PUBLICATION_REPORTING');?></a></li>	<?php } ?>
+					<?php if ($user_detail['account_type']==1 or  ($user_right['network_reporting']==1)){?><!--<li><a href="reporting.php?type=network">Network Reporting</a></li>--><?php } ?>
 				</ul>
 			</li>
-            <?php } ?>
+            <?php endif; ?>
 
-            <?php if ($user_detail['account_type']==1 or  ($user_right['configuration']==1)){?>
+            <?php if ($user_detail['account_type']==1 or  ($user_right['configuration']==1)):?>
 			<li id="navInterface" class="nav<?php if ($current_section=="configuration"){echo " active"; } ?>">
 				<span class="icon-cog-alt"></span>
-				<a href="settings_general.php">Configuration</a>
-                                <ul class="subNav">
-					<li><a href="settings_general.php">General</a></li>
-					<li><a href="settings_mfconnect.php">MobFox:Connect</a></li>
-					<li><a href="settings_database.php">Database Settings</a></li>
-					<li><a href="settings_update.php">Update Settings</a></li>
-					<li><a href="user_management.php">User Management</a></li>
-					<li><a href="user_group_management.php">User Group Management</a></li>
-                    <li><a href="channel_management.php">Channel Management</a></li>
-                    <li><a href="creative_servers.php">Creative Servers</a></li>
-					<li><a href="network_modules.php">Network Modules</a></li>
-					<li><a href="system_log.php">System Log</a></li>
+				<a href="settings_general.php"><?php echo __('CONFIGURATION');?></a>
+                <ul class="subNav">
+					<li><a href="settings_general.php"><?php echo __('GENERAL');?></a></li>
+					<!--<li><a href="settings_mfconnect.php">MobFox:Connect</a></li>-->
+					<!--<li><a href="settings_database.php">Database Settings</a></li>-->
+					<!--<li><a href="settings_update.php">Update Settings</a></li>-->
+					<li><a href="user_management.php"><?php echo __('USER_MANAGEMENT');?></a></li>
+					<li><a href="user_group_management.php"><?php echo __('USER_GROUP_MANAGEMENT');?></a></li>
+                    <!--<li><a href="channel_management.php">Channel Management</a></li>-->
+                    <!--<li><a href="creative_servers.php">Creative Servers</a></li>
+					<li><a href="network_modules.php">Network Modules</a></li>-->
+					<li><a href="system_log.php"><?php echo __('SYSTEM_LOG');?></a></li>
 				</ul>
-
 			</li>
-            <?php } ?>
+           <?php endif; ?>
 			<!--
 			<li id="navMaps" class="nav">
 				<span class="icon-map-pin-fill"></span>
