@@ -80,38 +80,29 @@ function hideadiv(id) {
 
 </script>
 
-<div id="content">		
-		
+<div id="content">
     <div id="contentHeader">
-    <h1>Create Campaign</h1>
-    </div> <!-- #contentHeader -->	
-		
+        <h1><?php echo __('CAMPAIGN_CREATE');?></h1>
+    </div> <!-- #contentHeader -->
+
     <div class="container">
-			
-				
-    <div class="grid-24">
-			
-<?php if (isset($errormessage)){ ?>
-                                 <div class="box plain"><div class="notify notify-error"><h3>Error</h3><p><?php echo $errormessage; ?></p></div> <!-- .notify --></div>
-<?php } ?>
+        <div class="grid-24">
+            <?php if (isset($errormessage)): ?>
+            <div class="box plain"><div class="notify notify-error"><h3>Error</h3><p><?php echo $errormessage; ?></p></div> <!-- .notify --></div>
+            <?php endif; ?>
 
-<form method="post" enctype="multipart/form-data" id="crudcampaign" name="crudcampaign" class="form uniformForm">
-    <input type="hidden" name="add" value="1" />
+        <form method="post" enctype="multipart/form-data" id="crudcampaign" name="crudcampaign" class="form uniformForm">
+            <input type="hidden" name="add" value="1" />
+            <?php require_once MAD_PATH . '/www/cp/templates/forms/crud.campaign.tpl.php';  require_once MAD_PATH . '/www/cp/templates/forms/crud.adunit.tpl.php';?>
 
-<?php require_once MAD_PATH . '/www/cp/templates/forms/crud.campaign.tpl.php';  require_once MAD_PATH . '/www/cp/templates/forms/crud.adunit.tpl.php';
-
-?>
-
-    <div class="actions">
-    <button type="submit" class="btn btn-quaternary btn-large">Create Campaign</button>
-    </div> <!-- .actions -->
-
-    </form>
-
+            <div class="actions">
+                <button type="submit" class="btn btn-quaternary btn-large">Create Campaign</button>
+            </div> <!-- .actions -->
+       </form>
     </div> <!-- .grid -->
 
     <script>
-    $(function () { 
+    $(function () {
 
     $( "#datepicker" ).datepicker();
 	$( "#startdatepicker" ).datepicker({
@@ -151,9 +142,10 @@ function hideadiv(id) {
 
 </script>
 <script>
-<?php if (isset($editdata['creative_type']) && $editdata['creative_type']==2){ 
-echo "creative_type('external');";
-} else if (isset($editdata['creative_type']) && $editdata['creative_type']==3){ 
+<?php
+if (isset($editdata['creative_type']) && $editdata['creative_type']==2){
+    echo "creative_type('external');";
+} else if (isset($editdata['creative_type']) && $editdata['creative_type']==3){
     echo "creative_type('html');";
 } else {
     echo "creative_type('upload');";
@@ -213,11 +205,6 @@ else {
 ?>
 if (document.forms["crudcampaign"].elements["creative_format"].value!='10'){hideadiv('widthzonediv'); hideadiv('heightzonediv');} else {showadiv('widthzonediv'); showadiv('heightzonediv');}
 </script>
-			
-			
 </div> <!-- .container -->
-		
-	</div> <!-- #content -->
-<?php
-    global $jsload; $jsload=1; require_once MAD_PATH . '/www/cp/templates/footer.tpl.php';
-?>
+</div> <!-- #content -->
+<? global $jsload; $jsload=1; require_once MAD_PATH . '/www/cp/templates/footer.tpl.php';?>

@@ -31,7 +31,7 @@ if (check_permission_simple('modify_publications', $user_detail['user_id'])){
 <div id="content">		
 		
 		<div id="contentHeader">
-			<h1>Inventory</h1>
+			<h1><?php echo __('INVENTORY');?></h1>
 		</div> <!-- #contentHeader -->	
 		
 		<div class="container">
@@ -45,7 +45,7 @@ if (check_permission_simple('modify_publications', $user_detail['user_id'])){
 					
 						<div class="widget-header">
 							<span class="icon-list"></span>
-							<h3 class="icon chart">Publication List</h3>		
+							<h3 class="icon chart"><?php echo __('PUBLICATION_VIEW');?></h3>		
 						</div>
 					
 						<div class="widget-content">
@@ -53,12 +53,12 @@ if (check_permission_simple('modify_publications', $user_detail['user_id'])){
 							<table id="syslog" class="table table-bordered table-striped data-table">
 						<thead>
 							<tr>
-								<th>Publication Name</th>
-								<th>Type</th>
-								<th>Default Channel</th>
-								<th>Status</th>
-								<th>Placements</th>
-								<th>Actions</th>
+								<th><?php echo __('PUBLICATION_NAME');?></th>
+								<th><?php echo __('PUBLICATION_TYPE');?></th>
+								<th><?php echo __('PUBLICATION_CHANNEL');?></th>
+								<th><?php echo __('PUBLICATION_STATUS');?></th>
+								<th><?php echo __('PUBLICATION_PLACEMENT_COUNTS');?></th>
+								<th><?php echo __('ACTION');?></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -71,7 +71,7 @@ if (check_permission_simple('modify_publications', $user_detail['user_id'])){
 				</div> <!-- .widget -->
 					
 					<div class="actions">						
-								<button onclick="window.location='add_publication.php';" class="btn btn-quaternary"><span class="icon-plus"></span>Create New Publication</button>
+								<button onclick="window.location='add_publication.php';" class="btn btn-quaternary"><span class="icon-plus"></span><?php echo __('PUBLICATION_CREATE');?></button>
 								</div> <!-- .actions -->
 
 			</div> <!-- .grid -->

@@ -43,7 +43,7 @@ require_once MAD_PATH . '/www/cp/templates/header.tpl.php';
 <div id="content">
 
     <div id="contentHeader">
-    <h1>Create New Publication</h1>
+    <h1><?php echo __('PUBLICATION_CREATE');?></h1>
     </div> <!-- #contentHeader -->
 
     <div class="container">
@@ -63,7 +63,7 @@ require_once MAD_PATH . '/www/cp/templates/header.tpl.php';
 ?>
 
     <div class="actions">
-    <button type="submit" class="btn btn-quaternary btn-large">Create Publication</button>
+    <button type="submit" class="btn btn-quaternary btn-large"><?php echo __('PUBLICATION_CREARE');?></button>
     </div> <!-- .actions -->
 
     </form>

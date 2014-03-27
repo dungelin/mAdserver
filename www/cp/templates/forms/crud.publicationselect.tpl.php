@@ -2,7 +2,7 @@
 						
 						<div class="widget-header">
 							<span class="icon-article"></span>
-							<h3>Publication Select</h3>
+							<h3><?php echo __('PUBLICATION_SELECT');?></h3>
 						</div> <!-- .widget-header -->
 						
 						<div class="widget-content">
@@ -20,7 +20,7 @@
 								<select id="publication_id" name="publication_id">
 								  <?php if (!isset($selector_pubid)){$selector_pubid='';} get_publication_dropdown($selector_pubid); ?>
 								</select>		
-									<label for="inv_type">Select Publication</label>
+									<label for="inv_type"><?php echo __('PUBLICATION_SELECT');?></label>
 								</div>
 							</div> <!-- .field-group -->
 
