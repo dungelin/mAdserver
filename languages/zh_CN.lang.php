@@ -16,6 +16,7 @@ return $GLOBALS['language']['zh_CN'] = array(
     'OPTIONAL' => '可选',
     'WIDTH' => '宽',
     'HEIGHT' => '高',
+    'SELECT_PUBLICATION_AND_PLACEMENT' => '选择媒体和版位',
     //Dashboard
     'DHD_CTL_PANEL' => '控制面板',
     'DASHBOARD' => '控制面板',
@@ -62,6 +63,9 @@ return $GLOBALS['language']['zh_CN'] = array(
     'CAMPAIGN_NO_END_DATE' => '不设置结束时间',
     'CAMPAIGN_CUSTOM_END_DATE' => '自定义结束时间',
     'CAMPAIGN_END_DATE' => '结束时间',
+    'CAMPAIGN_TARGETING' => '目标',
+    'CAMPAIGN_EDIT' => '活动编辑',
+
 
     //Creative
     'AD_CREATE' => '创建创意',
@@ -76,17 +80,22 @@ return $GLOBALS['language']['zh_CN'] = array(
     'AD_DELETE' => '删除',
     'AD_STATUS' => '状态',
     'AD_VIEW' => '查看创意',
+    'AD_UPLOAD' => '内部创意',
+    'AD_EXTERNAL' => '外部创意',
+    'AD_UPLOAD_FILE' => '上传创意',
+    'AD_CREATIVE_IMAGE_URL' => '创意链接',
 
     //Publication
     'PUBLICATION_NAME' => '媒体名称',
     'PUBLICATION_TYPE' => '媒体类型',
     'PUBLICATION_CHANNEL' => '频道',
-    'PUBLICATION_STAUTS' => '状态',
+    'PUBLICATION_STATUS' => '状态',
     'PUBLICATION_PLACEMENT_COUNTS' => '版位数量',
     'PUBLICATION_DETAILS' => '媒体详情',
     'PUBLICATION_URL' => '媒体链接',
     'PUBLICATION_NOTES' => '描述',
     'PUBLICATION_SELECT' => '选择媒体',
+    'PUBLICATION_ALL' => '所有媒体',
 
     //Placement
     'PLACEMENT_DETAILS' => '版位详情',
@@ -101,6 +110,7 @@ return $GLOBALS['language']['zh_CN'] = array(
     'PLACEMENT_CHANNEL' => '版位频道',
     'PLACEMENT_STATUS' => '状态',
     'PLACEMENT_SELECT' => '版位选择',
+    'PUBLICATION_TARGETING' => '目标',
     //Intergration
     'INTEGTATION_SELECT' => '选择媒体和版位生成代码',
 
@@ -111,5 +121,9 @@ return $GLOBALS['language']['zh_CN'] = array(
     'ADVER_GROUP' => '用户组',
     'ADVER_STATUS' => '状态',
     'ADVER_CREATE' => '创建广告主',
+
+    //Tips
+    'CAMPAIGN_PRIORITY_TIPS' => '优先级高的先显示，如果相同的活动在同一版位的优先级相同会随机显示',
+    'CAMPAIGN_IMP_CAP' => '该选项用来设置每天或者总的投放频次',
 
 );

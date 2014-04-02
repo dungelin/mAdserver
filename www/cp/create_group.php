@@ -15,23 +15,23 @@ require_once MAD_PATH . '/www/cp/admin_functions.php';
 
 
 if (!check_permission('configuration', $user_detail['user_id'])){
-exit;
+    exit;
 }
 
 global $current_action;
 $current_action='create';
 
 if (isset($_POST['add'])){
-if (do_create('group', $_POST, '')){
-global $added;
-$added=1;
-MAD_Admin_Redirect::redirect('user_group_management.php?added=1');	
-}
-else
-{
-global $added;
-$added=2;
-}
+    if (do_create('group', $_POST, '')){
+        global $added;
+        $added=1;
+        MAD_Admin_Redirect::redirect('user_group_management.php?added=1');	
+    }
+    else
+        {
+            global $added;
+            $added=2;
+        }
 }
 
 require_once MAD_PATH . '/www/cp/templates/header.tpl.php';

@@ -76,18 +76,18 @@ document.getElementById('creative_upload_div').style.display='none'; document.ge
       <div class="field-group control-group inline">
           <div class="field">
 		      <input type="radio"   onclick="document.getElementById('creative_url_div').style.display='none'; document.getElementById('html_div').style.display='none'; document.getElementById('creative_upload_div').style.display='block'; document.getElementById('creative_upload_div').style.display='block'; document.getElementById('click_url_div').style.display='block';" name="creative_type" id="creative_type_upload" value="1" />
-			  <label for="creative_type_upload">Creative Upload</label>
+              <label for="creative_type_upload"><?php echo __('AD_UPLOAD');?></label>
 		  </div>
 
           <div class="field">
 		      <input type="radio"  onclick="document.getElementById('creative_upload_div').style.display='none'; document.getElementById('html_div').style.display='none'; document.getElementById('creative_url_div').style.display='block'; document.getElementById('creative_upload_div').style.display='block'; document.getElementById('creative_upload_div').style.display='none'; document.getElementById('click_url_div').style.display='block';" name="creative_type" id="creative_type_url" value="2" />
-			  <label for="creative_type_url">External Image URL</label>
+              <label for="creative_type_url"><?php echo __('AD_EXTERNAL');?></label>
          </div>
 
-         <div class="field">
+         <!--<div class="field">
 		     <input type="radio"  onclick="document.getElementById('creative_upload_div').style.display='none'; document.getElementById('creative_url_div').style.display='none';  document.getElementById('click_url_div').style.display='none'; document.getElementById('html_div').style.display='block';" name="creative_type" id="creative_type_html" value="3" />
 			 <label for="creative_type_html">HTML (MRAID supported)</label>
-		 </div>
+		 </div>-->
 
          <div style="color:#999; font-size:11px;"><?php echo __('AD_TYPE');?></div>
      </div>
@@ -99,17 +99,17 @@ document.getElementById('creative_upload_div').style.display='none'; document.ge
 		 </div>
 	</div> <!-- .field-group -->
 
-    <div id="tracking_pixel_div" class="field-group">
+    <!--<div id="tracking_pixel_div" class="field-group">
         <div class="field">
             <input type="text" value="<?php if ( isset($editdata['tracking_pixel'])){ echo $editdata['tracking_pixel']; } ?>"  name="tracking_pixel" id="tracking_pixel" size="28" class="" />
 			<label for="tracking_pixel">Tracking Pixel URL</label>
 		</div>
-   </div> <!-- .field-group -->
+   </div>--> <!-- .field-group -->
 
    <div id="creative_url_div" class="field-group">
        <div class="field">
            <input type="text" value="<?php if (isset($editdata['creative_url'])){echo $editdata['creative_url']; } ?>"  name="creative_url" id="creative_url" size="28" class="" />
-		   <label for="creative_url">Creative Image URL</label>
+           <label for="creative_url"><?php echo __('AD_CREATIVE_IMAGE_URL');?></label>
 	   </div>
   </div> <!-- .field-group -->
 
@@ -123,7 +123,7 @@ document.getElementById('creative_upload_div').style.display='none'; document.ge
   </div> <!-- .field-group -->
 
   <div id="creative_upload_div" class="field-group inlineField">
-      <label for="creative_file">Creative Upload: <?php if ($current_action=='edit'){?>(Updates current creative)<?php } ?></label>
+      <label for="creative_file"><?php echo __('AD_UPLOAD_FILE');?>: <?php if ($current_action=='edit'){?>(Updates current creative)<?php } ?></label>
 	      <div class="field">
 		      <input type="file" name="creative_file" id="creative_file" />
 		  </div>

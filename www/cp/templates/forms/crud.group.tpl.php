@@ -15,14 +15,7 @@
 									<label for="channel_name">Group Name</label>
 								</div>
 							</div> <!-- .field-group -->
-                            
-                           
-                        
-                            
-			
-							
-							
-						
+
 						</div> <!-- .widget-content -->
 						
 					</div> <!-- .widget -->

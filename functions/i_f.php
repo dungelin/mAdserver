@@ -5008,7 +5008,7 @@ function finalize_install($data){
     mysql_query("CREATE TABLE IF NOT EXISTS `md_user_groups` (
   `entry_id` int(11) NOT NULL auto_increment,
   `group_name` varchar(100) NOT NULL,
-  `group_description` longtext NOT NULL,
+  `group_description` longtext  NULL,
   `group_status` char(1) NOT NULL,
   PRIMARY KEY  (`entry_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;", $maindb);

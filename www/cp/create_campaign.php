@@ -93,10 +93,13 @@ function hideadiv(id) {
 
         <form method="post" enctype="multipart/form-data" id="crudcampaign" name="crudcampaign" class="form uniformForm">
             <input type="hidden" name="add" value="1" />
-            <?php require_once MAD_PATH . '/www/cp/templates/forms/crud.campaign.tpl.php';  require_once MAD_PATH . '/www/cp/templates/forms/crud.adunit.tpl.php';?>
+            <?php
+                  require_once MAD_PATH . '/www/cp/templates/forms/crud.campaign.tpl.php';
+                  //require_once MAD_PATH . '/www/cp/templates/forms/crud.adunit.tpl.php';
+            ?>
 
             <div class="actions">
-                <button type="submit" class="btn btn-quaternary btn-large">Create Campaign</button>
+                <button type="submit" class="btn btn-quaternary btn-large"><?php echo __('CAMPAIGN_CREATE');?></button>
             </div> <!-- .actions -->
        </form>
     </div> <!-- .grid -->
@@ -143,6 +146,7 @@ function hideadiv(id) {
 </script>
 <script>
 <?php
+/*不在创建活动的时候创建创意
 if (isset($editdata['creative_type']) && $editdata['creative_type']==2){
     echo "creative_type('external');";
 } else if (isset($editdata['creative_type']) && $editdata['creative_type']==3){
@@ -150,6 +154,7 @@ if (isset($editdata['creative_type']) && $editdata['creative_type']==2){
 } else {
     echo "creative_type('upload');";
 }
+
 
 if (isset($editdata['campaign_type']) && $editdata['campaign_type']=='network'){
     echo "network_campaign('on');";
@@ -171,21 +176,21 @@ if (isset($editdata['device_targeting']) && $editdata['device_targeting']==2){
 else {
     echo "device_targeting('off');";
 }
-
+*/
 if (isset($editdata['publication_targeting']) && $editdata['publication_targeting']==2){
     echo "publication_targeting('on');";
 }
 else {
     echo "publication_targeting('off');";
 }
-
+/*
 if (isset($editdata['channel_targeting']) && $editdata['channel_targeting']==2){
     echo "channel_targeting('on');";
 }
 else {
     echo "channel_targeting('off');";
 }
-
+*/
 
 if (isset($editdata['start_date_type']) && $editdata['start_date_type']==2){
     echo "startdate('on');";
@@ -207,4 +212,4 @@ if (document.forms["crudcampaign"].elements["creative_format"].value!='10'){hide
 </script>
 </div> <!-- .container -->
 </div> <!-- #content -->
-<? global $jsload; $jsload=1; require_once MAD_PATH . '/www/cp/templates/footer.tpl.php';?>
+<?php global $jsload; $jsload=1; require_once MAD_PATH . '/www/cp/templates/footer.tpl.php';?>

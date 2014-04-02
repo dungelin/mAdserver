@@ -1773,10 +1773,10 @@ function do_edit($type, $data, $detail){
         $data['ios_version_max']=sanitize($data['ios_version_max']);
         $data['android_version_min']=sanitize($data['android_version_min']);
         $data['android_version_max']=sanitize($data['android_version_max']);
-        $data['geo_targeting']=sanitize($data['geo_targeting']);
-        $data['publication_targeting']=sanitize($data['publication_targeting']);
-        $data['channel_targeting']=sanitize($data['channel_targeting']);
-        $data['device_targeting']=sanitize($data['device_targeting']);
+        $data['geo_targeting']=sanitize($data['geo_targeting']) ? sanitize($data['geo_targeting']) : 1;
+        $data['publication_targeting']=sanitize($data['publication_targeting']) ? sanitize($data['publication_targeting']) : 1;
+        $data['channel_targeting']=sanitize($data['channel_targeting']) ? sanitize($data['channel_targeting']) : 1;
+        $data['device_targeting']=sanitize($data['device_targeting']) ? sanitize($data['device_targeting']) : 1;
 
 
         global $maindb;
@@ -2212,7 +2212,7 @@ VALUES ('$data[email_address]', '$data[password_md5]', '1', '$data[account_type]
     }
 
     if ($type=='group'){
-	
+
         if (empty($data['group_name'])){
             global $errormessage;
             $errormessage='Please enter a group name.';
@@ -2562,9 +2562,8 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
             $editdata=$data;
             return false;
         }
-
+/*
         if ($data['campaign_type'] != 'network'){
-
             if (empty($data['adv_name']) or ($data['creative_format']==10 && (!is_numeric($data['custom_creative_width']) or !is_numeric($data['custom_creative_height'])))){
                 global $errormessage;
                 $errormessage='Please fill out all required fields.';
@@ -2624,7 +2623,7 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
                 }
 
             }
-
+*/
             if ($data['start_date_type'] == 2 && empty($data['startdate_value'])){
                 global $errormessage;
                 $errormessage='Please choose a start date for your campaign.';
@@ -2664,7 +2663,7 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
                 $editdata=$data;
                 return false;
             }
-
+/*
 // Define Image Sizes
             if ($data['creative_format']==1){$data['custom_creative_width']=320; $data['custom_creative_height']=50;}
             if ($data['creative_format']==2){$data['custom_creative_width']=300; $data['custom_creative_height']=250;}
@@ -2783,7 +2782,7 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
 
 // END CREATIVE UPLOAD
         }
-
+*/
         $creation_timestamp = time();
 
 /* Date Stuff */
@@ -2849,10 +2848,10 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
         $data['ios_version_max']=sanitize($data['ios_version_max']);
         $data['android_version_min']=sanitize($data['android_version_min']);
         $data['android_version_max']=sanitize($data['android_version_max']);
-        $data['geo_targeting']=sanitize($data['geo_targeting']);
-        $data['publication_targeting']=sanitize($data['publication_targeting']);
-        $data['channel_targeting']=sanitize($data['channel_targeting']);
-        $data['device_targeting']=sanitize($data['device_targeting']);
+        $data['geo_targeting']=sanitize($data['geo_targeting']) ? sanitize($data['geo_targeting']) : 1;
+        $data['publication_targeting']=sanitize($data['publication_targeting']) ? sanitize($data['publication_targeting']) : 1;
+        $data['channel_targeting']=sanitize($data['channel_targeting']) ? sanitize($data['channel_targeting']) : 1;
+        $data['device_targeting']=sanitize($data['device_targeting']) ? sanitize($data['device_targeting']) : 1;
 
 // Insert Campaign into DB
         mysql_query("INSERT INTO md_campaigns (campaign_owner, campaign_status, campaign_type,
@@ -2866,12 +2865,12 @@ VALUES ('$data[campaign_id]', '$creative_hash', '$data[creative_type]', '1', '$d
                            '$data[enddate_value]', '$creation_timestamp', '$data[campaign_networkid]',
                            '$data[campaign_priority]', '$data[target_iphone]', '$data[target_ipod]', '$data[target_ipad]', '$data[target_android]',
                            '$data[target_other]', '$data[ios_version_min]', '$data[ios_version_max]', '$data[android_version_min]',
-                           '$data[android_version_max]', '$data[geo_targeting]', '$data[publication_targeting]', $data[channel_targeting], '$data[device_targeting]')", $maindb);
+                           '$data[android_version_max]', '$data[geo_targeting]', '$data[publication_targeting]', '$data[channel_targeting]', '$data[device_targeting]')", $maindb);
 
         global $created_campaign_id;
         $created_campaign_id=mysql_insert_id($maindb);
 // END: Insert Campaign into DB
-
+/*
         if ($data['campaign_type']!='network'){
             if ($data['creative_type']==1){
                 $creative_server=getconfig_var('default_creative_server');	
@@ -2898,7 +2897,7 @@ VALUES ('$created_campaign_id', '$creative_hash', '$data[creative_type]', '1', '
             $created_adunit_id=mysql_insert_id($maindb);
 // END: Insert Ad Unit into DB
         }
-
+*/
 // Extra Targeting Variables
 
 // Country
