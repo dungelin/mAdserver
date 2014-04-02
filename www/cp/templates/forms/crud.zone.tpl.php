@@ -63,7 +63,7 @@ if (document.forms['crudpublication'].elements['zone_size'].value=='10'){showadi
                             <div class="field-group">
 			
 								<div class="field">
-									<input type="text" value="<?php if (isset($editdata['zone_name']) && !empty($editdata['zone_name'])){ echo $editdata['zone_name']; } else { echo 'Main Placement'; } ?>"  name="zone_name" id="zone_name" size="28" class="" />			
+									<input type="text" value="<?php if (isset($editdata['zone_name']) && !empty($editdata['zone_name'])){ echo $editdata['zone_name']; } ?>"  name="zone_name" id="zone_name" size="28" class="" />			
 									<label for="zone_name"><?php echo __('PLACEMENT_NAME');?></label>
 								</div>
 							</div> <!-- .field-group -->
@@ -140,11 +140,11 @@ if (document.forms['crudpublication'].elements['zone_size'].value=='10'){showadi
 
 					</div> <!-- .widget -->
 
-                    <div class="notify">
+                    <!--不显示该部分功能<div class="notify">
                         <h3>Monetization Settings</h3>
 
 						<p><input <?php if (!isset($editdata['mobfox_backfill_active']) or $editdata['mobfox_backfill_active']==1){echo'checked="checked"'; }?> name="mobfox_backfill_active" id="mobfox_backfill_active" type="checkbox" value="1" /><label for="mobfox_backfill_active"><strong>BackFill - </strong>Attempt to show an ad from the MobFox:Connect network before an ad space remains unfilled. (recommended)</label></p><p><input id="mobfox_min_cpc_active" <?php if (isset($editdata['mobfox_min_cpc_active']) && $editdata['mobfox_min_cpc_active']==1){echo'checked="checked"'; }?> name="mobfox_min_cpc_active" type="checkbox" value="1" /><label for="mobfox_min_cpc_active">Only back-fill through MobFox:Connect when the ad pays at least a CPC of $<input type="text" value="<?php if (!empty($editdata['min_cpc'])){ echo $editdata['min_cpc']; } else { echo '0.10'; } ?>"  name="min_cpc" id="min_cpc" size="2" class="" /> (max. $0.20) or a CPM of $<input type="text" value="<?php if (!empty($editdata['min_cpm'])){ echo $editdata['min_cpm']; } else { echo '2.50'; } ?>"  name="min_cpm" id="min_cpm" size="2" class="" /> (max. $5)</label></p>
-					</div> <!-- .notify -->
+					</div> <!-- .notify --
 
                   <div class="notify">
     <h3>BackFill Settings - Alternative Networks</h3>
@@ -172,7 +172,7 @@ Alternative 3: If an ad-request can not be filled by Alternative 2, try to reque
  <?php if (!isset($editdata['backfill_alt_3'])){$editdata['backfill_alt_3']=''; }  get_network_dropdown($editdata['backfill_alt_3']); ?>				      </select>
 				    </p>
 
-</div> 
+</div>--> 
                          <!-- .notify -->
                     <script language="javascript">if (document.forms["crudpublication"].elements["zone_size"].value!='10'){hideadiv('widthzonediv'); hideadiv('heightzonediv');} else {showadiv('widthzonediv'); showadiv('heightzonediv');} if (document.forms["crudpublication"].elements["inv_type"].value=='3'){hideadiv('interstitialoptiobutton');} else {showadiv('interstitialoptiobutton');}
 </script><?php if (isset ($editdata['zone_type']) && $editdata['zone_type']=='interstitial'){?><script language="javascript">hideadiv('zonesize'); checkdivs();</script><?php } ?>

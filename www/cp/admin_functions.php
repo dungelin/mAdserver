@@ -1247,7 +1247,7 @@ function get_group_dropdown($selected){
 function get_pubtype_dropdown($selected){
     global $maindb;	
 
-    echo "<option value=''>- Select Publication Type -</option>";
+    echo "<option value=''>- ". __('PUBLICATION_SELECT_TYPE') ." -</option>";
 
     $usrres=mysql_query("select * from md_publication_types ORDER BY entry_id ASC", $maindb);
     while($pubtype_detail=mysql_fetch_array($usrres)){
@@ -2001,8 +2001,8 @@ function do_edit($type, $data, $detail){
         $data['zone_description']=sanitize($data['zone_description']);
         $data['mobfox_backfill_active']=sanitize($data['mobfox_backfill_active']);
         $data['mobfox_min_cpc_active']=sanitize($data['mobfox_min_cpc_active']);
-        $data['min_cpc']=sanitize($data['min_cpc']);
-        $data['min_cpm']=sanitize($data['min_cpm']);
+        $data['min_cpc']=sanitize($data['min_cpc']) ? sanitize($data['min_cpc']) : 0.1;
+        $data['min_cpm']=sanitize($data['min_cpm']) ? sanitize($data['min_cpm']) : 2.5;
         $data['backfill_alt_1']=sanitize($data['backfill_alt_1']);
         $data['backfill_alt_2']=sanitize($data['backfill_alt_2']);
         $data['backfill_alt_3']=sanitize($data['backfill_alt_3']);
@@ -3002,8 +3002,8 @@ VALUES ('$created_campaign_id', '$data[cap_type]', '$data[total_amount]', '$data
         $data['zone_description']=sanitize($data['zone_description']);
         $data['mobfox_backfill_active']=sanitize($data['mobfox_backfill_active']);
         $data['mobfox_min_cpc_active']=sanitize($data['mobfox_min_cpc_active']);
-        $data['min_cpc']=sanitize($data['min_cpc']);
-        $data['min_cpm']=sanitize($data['min_cpm']);
+        $data['min_cpc']=sanitize($data['min_cpc']) ? sanitize($data['min_cpc']) : 0.1;
+        $data['min_cpm']=sanitize($data['min_cpm']) ? sanitize($data['min_cpm']) : 2.5;
         $data['backfill_alt_1']=sanitize($data['backfill_alt_1']);
         $data['backfill_alt_2']=sanitize($data['backfill_alt_2']);
         $data['backfill_alt_3']=sanitize($data['backfill_alt_3']);
@@ -3024,8 +3024,16 @@ VALUES ('$detail', '$new_placement_hash', '$data[zone_name]', '$data[zone_type]'
         if (!isset($data['mobfox_backfill_active'])){$data['mobfox_backfill_active']=0; }
         if (!isset($data['zone_height'])){$data['zone_height']=''; }
         if (!isset($data['zone_width'])){$data['zone_width']=''; }
-
+/*不需要新建媒体的时候直接创建版位
         if (empty($data['inv_name']) or !is_numeric($data['inv_type']) or empty($data['inv_address']) or !is_numeric($data['inv_defaultchannel']) or !is_numeric($data['zone_refresh']) or empty($data['zone_name']) or ($data['zone_size']=='10' && (!is_numeric($data['custom_zone_width']) or !is_numeric($data['custom_zone_height']))) or  empty($data['zone_type']) or ($data['zone_type']=='banner' && !is_numeric($data['zone_size']))){
+            global $errormessage;
+            $errormessage='Please fill out all required fields.';
+            global $editdata;
+            $editdata=$data;
+            return false;
+        }
+*/
+        if (empty($data['inv_name']) or !is_numeric($data['inv_type']) or empty($data['inv_address']) or !is_numeric($data['inv_defaultchannel'])) {
             global $errormessage;
             $errormessage='Please fill out all required fields.';
             global $editdata;
@@ -3058,11 +3066,12 @@ VALUES ('$detail', '$new_placement_hash', '$data[zone_name]', '$data[zone_type]'
         mysql_query("INSERT INTO md_publications (inv_status, inv_type, inv_name, inv_description, inv_address, inv_defaultchannel, creator_id)
                     VALUES (1, '$data[inv_type]', '$data[inv_name]', '$data[inv_description]', '$data[inv_address]', '$data[inv_defaultchannel]', '$user_detail[user_id]')", $maindb);
         $new_publication_id=mysql_insert_id($maindb);
-
+/*
         if (do_create('placement', $data, $new_publication_id)){
             return true;
         }
-
+*/
+        return true;
     }
 
 }

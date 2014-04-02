@@ -29,7 +29,8 @@ if (isset($_POST['add'])){
     if (do_create('publication', $_POST, '')) {
         global $added;
         $added=1;
-        MAD_Admin_Redirect::redirect('integration.php?added=1&zone='.$created_zone_id.'');	
+        //MAD_Admin_Redirect::redirect('integration.php?added=1&zone='.$created_zone_id.'');
+        MAD_Admin_Redirect::redirect('view_publications.php');
     }
     else {
         global $added;
@@ -59,11 +60,11 @@ require_once MAD_PATH . '/www/cp/templates/header.tpl.php';
 
 <?php
     require_once MAD_PATH . '/www/cp/templates/forms/crud.publication.tpl.php';
-    require_once MAD_PATH . '/www/cp/templates/forms/crud.zone.tpl.php';
+    //require_once MAD_PATH . '/www/cp/templates/forms/crud.zone.tpl.php';
 ?>
 
     <div class="actions">
-    <button type="submit" class="btn btn-quaternary btn-large"><?php echo __('PUBLICATION_CREARE');?></button>
+    <button type="submit" class="btn btn-quaternary btn-large"><?php echo __('PUBLICATION_CREATE');?></button>
     </div> <!-- .actions -->
 
     </form>

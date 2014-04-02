@@ -96,7 +96,8 @@ return $GLOBALS['language']['zh_CN'] = array(
     'PUBLICATION_NOTES' => '描述',
     'PUBLICATION_SELECT' => '选择媒体',
     'PUBLICATION_ALL' => '所有媒体',
-
+    'PUBLICATION_SELECT_TYPE' => '选择媒体类型',
+    'PUBLICATION_TARGETING' => '目标',
     //Placement
     'PLACEMENT_DETAILS' => '版位详情',
     'PLACEMENT_NAME' => '版位名称',
@@ -110,7 +111,8 @@ return $GLOBALS['language']['zh_CN'] = array(
     'PLACEMENT_CHANNEL' => '版位频道',
     'PLACEMENT_STATUS' => '状态',
     'PLACEMENT_SELECT' => '版位选择',
-    'PUBLICATION_TARGETING' => '目标',
+    'PLACEMENT_EDIT' => '版位编辑',
+
     //Intergration
     'INTEGTATION_SELECT' => '选择媒体和版位生成代码',
 
