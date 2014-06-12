@@ -16,55 +16,55 @@ require_once MAD_PATH . '/www/cp/admin_functions.php';
 
 
 if (!check_permission('inventory', $user_detail['user_id'])){
-exit;
+    exit;
 }
 
 global $current_action;
 $current_action='edit';
 
 if (isset($_POST['update'])){
-if (do_edit('campaign', $_POST, $_GET['id'])){
-$edited=1;
-MAD_Admin_Redirect::redirect('edit_campaign.php?edited=1&id='.$_GET['id'].'');	
-}
-else
-{
-global $edited;
-$edited=2;
-}
+    if (do_edit('campaign', $_POST, $_GET['id'])){
+        $edited=1;
+        MAD_Admin_Redirect::redirect('edit_campaign.php?edited=1&id='.$_GET['id'].'');	
+    }
+    else
+        {
+            global $edited;
+            $edited=2;
+        }
 }
 
 if ($edited!=2){
-$editdata=get_campaign_detail($_GET['id']);
-$editdata['geo_targeting']=$editdata['country_target'];
-$editdata['device_targeting']=$editdata['device_target'];
-$editdata['channel_targeting']=$editdata['channel_target'];
-$editdata['publication_targeting']=$editdata['publication_target'];
-$main_cap=get_campaign_cap_detail($_GET['id']);
-$editdata['total_amount']=$main_cap['total_amount'];
-$editdata['cap_type']=$main_cap['cap_type'];
-$editdata['preload_country']=1;
-$editdata['placement_select']=load_campaign_placement_array($_GET['id']);
-$editdata['channel_select']=load_campaign_channel_array($_GET['id']);
-if ($editdata['campaign_end']=='2090-12-12'){
-$editdata['end_date_type']=1;
-}
-else {
-$editdata['end_date_type']=2;
-$end_date=explode('-',$editdata['campaign_end']);
-$end_date_array['year']=$end_date[0];
-$end_date_array['day']=$end_date[2];
-$end_date_array['month']=$end_date[1];
-$editdata['enddate_value']=''.$end_date_array['month'].'/'.$end_date_array['day'].'/'.$end_date_array['year'].'';
+    $editdata=get_campaign_detail($_GET['id']);
+    $editdata['geo_targeting']=$editdata['country_target'];
+    $editdata['device_targeting']=$editdata['device_target'];
+    $editdata['channel_targeting']=$editdata['channel_target'];
+    $editdata['publication_targeting']=$editdata['publication_target'];
+    $main_cap=get_campaign_cap_detail($_GET['id']);
+    $editdata['total_amount']=$main_cap['total_amount'];
+    $editdata['cap_type']=$main_cap['cap_type'];
+    $editdata['preload_country']=1;
+    $editdata['placement_select']=load_campaign_placement_array($_GET['id']);
+    $editdata['channel_select']=load_campaign_channel_array($_GET['id']);
+    if ($editdata['campaign_end']=='2090-12-12'){
+        $editdata['end_date_type']=1;
+    }
+    else {
+        $editdata['end_date_type']=2;
+        $end_date=explode('-',$editdata['campaign_end']);
+        $end_date_array['year']=$end_date[0];
+        $end_date_array['day']=$end_date[2];
+        $end_date_array['month']=$end_date[1];
+        $editdata['enddate_value']=''.$end_date_array['month'].'/'.$end_date_array['day'].'/'.$end_date_array['year'].'';
 
-}
+    }
 
-$editdata['start_date_type']=2;
-$start_date=explode('-',$editdata['campaign_start']);
-$start_date_array['year']=$start_date[0];
-$start_date_array['day']=$start_date[2];
-$start_date_array['month']=$start_date[1];
-$editdata['startdate_value']=''.$start_date_array['month'].'/'.$start_date_array['day'].'/'.$start_date_array['year'].'';
+    $editdata['start_date_type']=2;
+    $start_date=explode('-',$editdata['campaign_start']);
+    $start_date_array['year']=$start_date[0];
+    $start_date_array['day']=$start_date[2];
+    $start_date_array['month']=$start_date[1];
+    $editdata['startdate_value']=''.$start_date_array['month'].'/'.$start_date_array['day'].'/'.$start_date_array['year'].'';
 
 
 }
@@ -116,7 +116,7 @@ function hideadiv(id) {
 <div id="content">		
 		
 		<div id="contentHeader">
-			<h1>Edit Campaign</h1>
+            <h1><?php echo __('CAMPAIGN_EDIT');?></h1>
 		</div> <!-- #contentHeader -->	
 		
 		<div class="container">
@@ -140,12 +140,9 @@ function hideadiv(id) {
                     
                     
                      <div class="actions">						
-									<button type="submit" class="btn btn-quaternary btn-large">Edit Campaign</button>
+                         <button type="submit" class="btn btn-quaternary btn-large"><?php echo __('CAMPAIGN_EDIT');?></button>
 								</div> <!-- .actions -->
-										
-					
-					
-					
+
 					</form>
 					
 				</div> <!-- .grid -->
@@ -199,15 +196,14 @@ echo "publication_targeting('on');";
 else {
 echo "publication_targeting('off');";
 }
-
+/*
 if ($editdata['channel_targeting']==2){
 echo "channel_targeting('on');";
 }
 else {
 echo "channel_targeting('off');";
 }
-
-
+*/
 if ($editdata['start_date_type']==2){
 echo "startdate('on');";
 }

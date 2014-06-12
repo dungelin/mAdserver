@@ -20,7 +20,7 @@ function MAD_connect_maindb()
         return true;
     }
     else {
-        return false;	
+        return false;
     }
 
 }
@@ -54,7 +54,7 @@ function MAD_connect_repdb()
         return true;
     }
     else {
-        return false;	
+        return false;
     }
 
 }

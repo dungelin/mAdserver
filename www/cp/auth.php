@@ -1,7 +1,4 @@
 <?php
-
-
-
 // END LOGIN CHECK
 
 function logincheck(){

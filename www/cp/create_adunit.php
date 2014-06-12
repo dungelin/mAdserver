@@ -15,7 +15,7 @@ require_once MAD_PATH . '/www/cp/admin_functions.php';
 
 
 if (!check_permission('campaigns', $user_detail['user_id'])){
-exit;
+    exit;
 }
 
 global $current_action;
@@ -26,16 +26,16 @@ $page_desc='create_adunit';
 
 if (isset($_POST['add'])){
 
-if (do_create('ad_unit', $_POST, '') && is_numeric($_GET['id'])){
-global $added;
-$added=1;
-MAD_Admin_Redirect::redirect('view_adunits.php?id='.$_GET['id'].'&added=1');	
-}
-else
-{
-global $added;
-$added=2;
-}
+    if (do_create('ad_unit', $_POST, '') && is_numeric($_GET['id'])){
+        global $added;
+        $added=1;
+        MAD_Admin_Redirect::redirect('view_adunits.php?id='.$_GET['id'].'&added=1');	
+    }
+    else
+        {
+            global $added;
+            $added=2;
+        }
 }
 
 $campaign_detail=get_campaign_detail($_GET['id']);
@@ -87,7 +87,7 @@ function hideadiv(id) {
 <div id="content">		
 		
 		<div id="contentHeader">
-			<h1>Create Ad Unit: <?php echo $campaign_detail['campaign_name']; ?></h1>
+			<h1><?php echo __('AD_CREATE');?>: <?php echo $campaign_detail['campaign_name']; ?></h1>
 		</div> <!-- #contentHeader -->	
 		
 		<div class="container">
@@ -112,7 +112,7 @@ function hideadiv(id) {
                     
                     
                      <div class="actions">						
-									<button type="submit" class="btn btn-quaternary btn-large">Create Ad Unit</button>
+									<button type="submit" class="btn btn-quaternary btn-large"><?php echo __('AD_CREATE');?></button>
 								</div> <!-- .actions -->
 										
 					

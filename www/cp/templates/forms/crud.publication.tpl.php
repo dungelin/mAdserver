@@ -2,7 +2,7 @@
 
 						<div class="widget-header">
 							<span class="icon-article"></span>
-							<h3>General Publication Details</h3>
+							<h3><?php echo __('PUBLICATION_DETAILS');?></h3>
 						</div> <!-- .widget-header -->
 
 						<div class="widget-content">
@@ -18,7 +18,7 @@
 
 								<div class="field">
 									<input type="text" value="<?php if (isset($editdata['inv_name'])){  echo $editdata['inv_name']; } ?>"  name="inv_name" id="inv_name" size="28" class="" />
-									<label for="inv_name">Publication Name</label>
+									<label for="inv_name"><?php echo __('PUBLICATION_NAME');?></label>
 								</div>
 							</div> <!-- .field-group -->
 
@@ -28,7 +28,7 @@
 								<select <?php if ($current_action=='create'){?>onchange="if (this.options[this.selectedIndex].value=='3'){hideadiv('interstitialoptiobutton');} else {showadiv('interstitialoptiobutton');}"<?php } ?> id="inv_type" name="inv_type">
 								  <?php if (!isset($editdata['inv_type'])){$editdata['inv_type']='';} get_pubtype_dropdown($editdata['inv_type']); ?>
 								</select>
-									<label for="inv_type">Publication Type</label>
+									<label for="inv_type"><?php echo __('PUBLICATION_TYPE');?></label>
 								</div>
 							</div> <!-- .field-group -->
 
@@ -36,7 +36,7 @@
 
 								<div class="field">
 									<input type="text" value="<?php if (isset($editdata['inv_address'])){ echo $editdata['inv_address']; } else { echo 'http://'; } ?>"  name="inv_address" id="inv_address" size="28" class="" />
-									<label for="inv_address">Publication URL (Web URL or App Store URL)</label>
+									<label for="inv_address"><?php echo __('PUBLICATION_URL');?> (Web URL or App Store URL)</label>
 								</div>
 							</div> <!-- .field-group -->
 
@@ -46,7 +46,7 @@
 									<select id="inv_defaultchannel" name="inv_defaultchannel">
 								  <option>- Select Channel  -</option>
 <?php  if (!isset($editdata['inv_defaultchannel'])){$editdata['inv_defaultchannel']='';} get_channel_dropdown($editdata['inv_defaultchannel']); ?>								</select>
-									<label for="inv_defaultchannel">Main Channel</label>
+									<label for="inv_defaultchannel"><?php echo __('PUBLICATION_CHANNEL');?></label>
 								</div>
 							</div> <!-- .field-group -->
 
@@ -54,7 +54,7 @@
 
 								<div class="field">
 									<textarea name="inv_description" id="inv_description" rows="5" cols="50"><?php if (isset($editdata['inv_description'])){ echo $editdata['inv_description']; } ?></textarea>	
-									<label for="inv_description">Description</label>
+									<label for="inv_description"><?php echo __('PUBLICATION_NOTES');?></label>
 								</div>
 							</div> <!-- .field-group -->
 

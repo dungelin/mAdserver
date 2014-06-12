@@ -40,7 +40,7 @@ $publ_detail=get_publication_detail($_GET['id']);
 <div id="content">		
 		
 		<div id="contentHeader">
-			<h1>Inventory</h1>
+			<h1><?php echo __('INVENTORY');?></h1>
 		</div> <!-- #contentHeader -->	
 		
 		<div class="container">
@@ -54,7 +54,7 @@ $publ_detail=get_publication_detail($_GET['id']);
 					
 						<div class="widget-header">
 							<span class="icon-list"></span>
-							<h3 class="icon chart">Placement List: <?php echo $publ_detail['inv_name']; ?></h3>		
+							<h3 class="icon chart"><?php echo __('PLACEMENT_VIEW');?>: <?php echo $publ_detail['inv_name']; ?></h3>		
 						</div>
 					
 						<div class="widget-content">
@@ -62,12 +62,12 @@ $publ_detail=get_publication_detail($_GET['id']);
 							<table id="syslog" class="table table-bordered table-striped data-table">
 						<thead>
 							<tr>
-								<th> Name</th>
-								<th>Type</th>
-								<th>Channel</th>
-								<th>Size</th>
-								<th>Status</th>
-								<th>Actions</th>
+								<th><?php echo __('PLACEMENT_NAME');?></th>
+								<th><?php echo __('PLACEMENT_TYPE');?></th>
+								<th><?php echo __('PLACEMENT_CHANNEL');?></th>
+								<th><?php echo __('PLACEMENT_SIZE');?></th>
+								<th><?php echo __('PLACEMENT_STATUS');?></th>
+								<th><?php echo __('ACTION');?></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -80,7 +80,7 @@ $publ_detail=get_publication_detail($_GET['id']);
 				</div> <!-- .widget -->
 					
 					<div class="actions">						
-								<button onclick="window.location='add_placement.php?pubid=<?php echo $_GET['id']; ?>';" class="btn btn-quaternary"><span class="icon-plus"></span>Create New Placement</button>
+								<button onclick="window.location='add_placement.php?pubid=<?php echo $_GET['id']; ?>';" class="btn btn-quaternary"><span class="icon-plus"></span><?php echo __('PLACEMENT_CREATE');?></button>
 								</div> <!-- .actions -->
                             
 								

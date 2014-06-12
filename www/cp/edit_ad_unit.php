@@ -92,7 +92,7 @@ function hideadiv(id) {
 <div id="content">		
 		
 		<div id="contentHeader">
-			<h1>Edit Ad Unit: <?php echo $editdata['adv_name']; ?></h1>
+			<h1><?php echo __('AD_EDIT');?>: <?php echo $editdata['adv_name']; ?></h1>
 		</div> <!-- #contentHeader -->	
 		
 		<div class="container">
@@ -118,7 +118,7 @@ function hideadiv(id) {
                     
                     
                      <div class="actions">						
-									<button type="submit" class="btn btn-quaternary btn-large">Edit Ad Unit</button>
+									<button type="submit" class="btn btn-quaternary btn-large"><?php echo __('AD_EDIT');?></button>
 								</div> <!-- .actions -->
 										
 					

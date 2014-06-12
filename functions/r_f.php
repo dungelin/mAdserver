@@ -765,7 +765,7 @@ function build_ad($type, $content){
             $display_ad['interstitial-preload']=0;
             $display_ad['interstitial-autoclose']=0;
             $display_ad['interstitial-type']='markup';
-            $display_ad['interstitial-skipbutton-show']=1;
+            $display_ad['interstitial-skipbutton-show']=0;
             $display_ad['interstitial-skipbutton-showafter']=0;
             $display_ad['interstitial-navigation-show']=0;
             $display_ad['interstitial-navigation-topbar-show']=0;

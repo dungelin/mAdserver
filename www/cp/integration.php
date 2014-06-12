@@ -47,7 +47,7 @@ require_once MAD_PATH . '/www/cp/templates/header.tpl.php';
 <div id="content">
 
 		<div id="contentHeader">
-			<h1>SDK / Code Snippet Integration</h1>
+			<h1><?php echo __('INTEGRATION');?></h1>
 		</div> <!-- #contentHeader -->	
 
 		<div class="container">

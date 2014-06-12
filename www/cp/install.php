@@ -29,7 +29,7 @@ if (!isset($mad_install['step']) or !is_numeric($mad_install['step']) or $mad_in
 step_check($mad_install['step']);
 
 if ($mad_install['step']==3){
-	
+
     if (!verify_main_config($_POST)){
         global $errormessage;	
         global $editdata;

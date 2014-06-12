@@ -34,7 +34,7 @@ if (check_permission_simple('modify_advertisers', $user_detail['user_id'])) {
 <div id="content">
 
 		<div id="contentHeader">
-			<h1>Advertisers</h1>
+			<h1><?php echo __('ADVERTISERS');?></h1>
 		</div> <!-- #contentHeader -->
 
 		<div class="container">
@@ -49,7 +49,7 @@ if (check_permission_simple('modify_advertisers', $user_detail['user_id'])) {
 
 						<div class="widget-header">
 							<span class="icon-list"></span>
-							<h3 class="icon chart">Advertiser List</h3>
+							<h3 class="icon chart"><?php echo __('ADVER_VIEW');?></h3>
 						</div>
 
 						<div class="widget-content">
@@ -57,12 +57,12 @@ if (check_permission_simple('modify_advertisers', $user_detail['user_id'])) {
 							<table id="syslog" class="table table-bordered table-striped data-table">
 						<thead>
 							<tr>
-								<th>User ID</th>
-								<th>Name</th>
+								<th><?php echo __('ADVER_USER_ID');?></th>
+								<th><?php echo __('ADVER_NAME');?></th>
 								<th>E-Mail</th>
-								<th>Group</th>
-								<th>Status</th>
-								<th>Actions</th>
+								<th><?php echo __('ADVER_GROUP');?></th>
+								<th><?php echo __('ADVER_STATUS');?></th>
+								<th><?php echo __('ACTION');?></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -75,7 +75,7 @@ if (check_permission_simple('modify_advertisers', $user_detail['user_id'])) {
 				</div> <!-- .widget -->
 
 					<div class="actions">
-								<button onclick="window.location='create_user.php?group=2';" class="btn btn-quaternary"><span class="icon-plus"></span>Create New Advertiser</button>
+								<button onclick="window.location='create_user.php?group=2';" class="btn btn-quaternary"><span class="icon-plus"></span><?php echo __('ADVER_CREATE');?></button>
 								</div> <!-- .actions -->
 
 			</div> <!-- .grid -->

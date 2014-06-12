@@ -6,7 +6,7 @@ if (!isset($integration_active)){$integration_active='';}
 
 						<div class="widget-header">
 							<span class="icon-article"></span>
-							<h3>Publication & Placement Select</h3>
+							<h3><?php echo __('INTEGTATION_SELECT');?></h3>
 						</div> <!-- .widget-header -->
 
 						<div class="widget-content">
@@ -17,7 +17,7 @@ if (!isset($integration_active)){$integration_active='';}
 								<select onchange="this.form.submit();" id="publication_id" name="publication">
 								  <?php get_publication_dropdown($_GET['publication']); ?>
 								</select>
-									<label for="inv_type">Select Publication</label>
+									<label for="inv_type"><?php echo __('PUBLICATION_SELECT');?></label>
 								</div>
 							</div> <!-- .field-group -->
 
@@ -27,7 +27,7 @@ if (!isset($integration_active)){$integration_active='';}
 								<select onchange="this.form.submit();"  id="publication_id" name="zone">
 								  <?php get_placement_integration_dropdown($_GET['zone'], $_GET['publication']); ?>
 								</select>
-									<label for="inv_type">Select Placement</label>
+									<label for="inv_type"><?php echo __('PLACEMENT_SELECT');?></label>
 								</div>
 							</div> <!-- .field-group -->
 

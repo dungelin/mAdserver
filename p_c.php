@@ -137,7 +137,7 @@ function MAD_checkSystemInitialRequirements(&$aErrors){
             }
         }
     }
-    
+
     // Check magic_quotes_runtime and try to unset it
     $GLOBALS['original_get_magic_quotes_runtime'] = MAD_getMagicQuotesRuntime();
     if ($GLOBALS['original_get_magic_quotes_runtime']) {
